@@ -1,0 +1,26 @@
+@use "./scss/variables";
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  height: 200vh;
+  min-width: 100vw;
+  overflow-x: hidden;
+  color: variables.$dark-text-color;
+  background-color: variables.$background-color;
+}

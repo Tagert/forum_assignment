@@ -1,0 +1,56 @@
+.outerContainer {
+  display: flex;
+  gap: 2rem;
+}
+@media screen and (max-width: 500px) {
+  .outerContainer {
+    gap: 0.5rem;
+    flex-direction: column-reverse;
+  }
+}
+.outerContainer .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+.outerContainer .container a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #26283b;
+}
+.outerContainer .container a:nth-child(4) {
+  padding: 0.38rem 1.65rem;
+  border-radius: 0.4rem;
+  border: 0.15rem solid #26283b;
+}
+.outerContainer .container a:nth-child(4):hover {
+  color: #e7eaf4;
+  background-color: #26283b;
+}
+@media screen and (max-width: 950px) {
+  .outerContainer .container a {
+    display: none;
+  }
+}
+.outerContainer .container button {
+  all: unset;
+  display: none;
+}
+@media screen and (max-width: 950px) {
+  .outerContainer .container button {
+    display: inline-block;
+  }
+}
+.outerContainer .container button svg {
+  cursor: pointer;
+}
+.outerContainer .linkHolder {
+  width: 1.8rem;
+}
+.outerContainer .linkHolder svg {
+  height: 100%;
+  width: 100%;
+  color: #26283b;
+}/*# sourceMappingURL=NavList.module.css.map */

@@ -1,5 +1,6 @@
-import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import Head from "next/head";
+import { Header } from "../components/organisms/Header/Header";
 
 const App = () => {
   return (
@@ -11,9 +12,7 @@ const App = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.container}>
-        <p>TESTING</p>
-      </header>
+      <Header />
     </>
   );
 };
