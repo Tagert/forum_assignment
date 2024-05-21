@@ -1,8 +1,139 @@
-import styles from "@/styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 import Head from "next/head";
+import axios from "axios";
+import cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { UserType } from "../types/user.type";
+import { AnswerType } from "../types/answer.type";
+import { QuestionType } from "../types/question.type";
+import { Spinner } from "../components/atoms/Spinner/Spinner";
+import { Button } from "../components/atoms/Button/Button";
+import { InsertModal } from "../components/molecules/InsertModal/InsertModal";
 import { Header } from "../components/organisms/Header/Header";
+import { QuestionCard } from "../components/molecules/QuestionCard/QuestionCard";
 
 const App = () => {
+  const router = useRouter();
+
+  const [questions, setQuestions] = useState<QuestionType[] | null>(null);
+  const [answers, setAnswers] = useState<AnswerType[] | null>(null);
+  const [users, setUsers] = useState<UserType[] | null>(null);
+
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [category, setCategory] = useState("");
+
+  const [isInsertQuestion, setInsertQuestion] = useState(false);
+
+  const fetchQuestions = async () => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/questions`, {
+        headers,
+      });
+
+      setQuestions(res.data.sortedQuestions);
+
+      console.log("response:", res.data.sortedQuestions);
+    } catch (err) {
+      console.log("err:", err);
+      // @ts-expect-error this is correct way to catch error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const insertQuestion = async () => {
+    try {
+      const newQuestion = {
+        title: title,
+        text: text,
+        category: category,
+      };
+
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.post(
+        `${process.env.SERVER_URL}/questions`,
+        newQuestion,
+        {
+          headers,
+        }
+      );
+
+      console.log(res.status);
+
+      if (res.status === 201) {
+        fetchQuestions();
+        setInsertQuestion(false);
+      }
+
+      setTitle("");
+      setText("");
+      setCategory("");
+
+      console.log("response:", res);
+    } catch (err) {
+      console.log("err:", err);
+      // @ts-expect-error this is correct way to catch error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const fetchAnswers = async () => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/answers`, {
+        headers,
+      });
+
+      setAnswers(res.data.sortedAnswers);
+      console.log("response:", res.data.sortedAnswers);
+    } catch (err) {
+      console.log("err:", err);
+      // @ts-expect-error this is correct way to catch error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/users`, {
+        headers,
+      });
+
+      setUsers(res.data.users);
+
+      console.log("response:", res.data.users);
+    } catch (err) {
+      console.log("err:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+    fetchAnswers();
+    fetchUsers();
+  }, []);
+
   return (
     <>
       <Head>
@@ -13,6 +144,90 @@ const App = () => {
       </Head>
 
       <Header />
+
+      <section className={styles.dataContainer}>
+        <h3>
+          Collaborate with a community of creators who are building the future
+          of online conversations
+        </h3>
+
+        <div className={styles.statistic}>
+          <p>
+            <span>{questions && questions.length}</span> Questions
+          </p>
+
+          <p>
+            <span>{answers && answers.length}</span> Answers
+          </p>
+
+          <p>
+            <span>{users && users.length}</span>Users
+          </p>
+        </div>
+      </section>
+
+      <section className={styles.categoriesContainer}>
+        <h4>Categories</h4>
+
+        <div className={styles.categoryWrapper}>
+          <div className={styles.category}></div>
+          <div className={styles.category}></div>
+          <div className={styles.category}></div>
+          <div className={styles.category}></div>
+        </div>
+      </section>
+
+      <section className={styles.questionWrapper}>
+        <div className={styles.questionHolder}>
+          <div className={styles.insertQuestion}>
+            <h4>Popular Questions:</h4>
+            <Button
+              isLoading={false}
+              onClick={() => setInsertQuestion(true)}
+              title="Ask a Question"
+              className={styles.insertBtn}
+            />
+
+            {isInsertQuestion && (
+              <InsertModal
+                message="Ask a question, start a discussion or share an idea."
+                onCancel={() => setInsertQuestion(false)}
+                onConfirm={insertQuestion}
+                title={title}
+                setTitle={setTitle}
+                text={text}
+                setText={setText}
+                category={category}
+                setCategory={setCategory}
+              />
+            )}
+          </div>
+
+          {questions ? (
+            questions.map((question) => {
+              const user = users?.find(
+                (user) => user.user_id === question.user_id
+              );
+              const userName = user ? user.name : "Unknown";
+
+              return (
+                <QuestionCard
+                  key={question.question_id}
+                  question_id={question.question_id}
+                  date={question.date}
+                  user_id={userName}
+                  title={question.title}
+                  category={question.category}
+                  question_answers={question.question_answers}
+                  question_votes={question.question_votes}
+                />
+              );
+            })
+          ) : (
+            <Spinner />
+          )}
+        </div>
+      </section>
     </>
   );
 };

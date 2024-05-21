@@ -1,7 +1,5 @@
-const descendingOrder = (questions) => {
-  const sortedQuestions = questions.sort(
-    (a, b) => b.question_votes - a.question_votes
-  );
+const descendingOrder = (items, attribute) => {
+  const sortedQuestions = items.sort((a, b) => b[attribute] - a[attribute]);
 
   return sortedQuestions;
 };

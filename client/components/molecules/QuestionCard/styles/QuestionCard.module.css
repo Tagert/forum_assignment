@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5.2rem;
+  width: 59.625rem;
+  padding: 1rem;
+  border-radius: 0.6rem;
+  background-color: #fdfdfe;
+  cursor: pointer;
+}
+.container .questionDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 34rem;
+}
+.container .questionDescription h2 {
+  font-size: 1rem;
+}
+.container .votes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+.container .votes span {
+  font-weight: 700;
+}
+.container .answerCounter {
+  display: flex;
+  gap: 0.5rem;
+}
+.container .answerCounter svg {
+  width: 1.2rem;
+}
+.container .timeUser {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 7.5rem;
+}
+.container .timeUser p {
+  text-align: end;
+}
+.container .timeUser p:nth-of-type(2) {
+  display: flex;
+  gap: 0.4rem;
+}
+.container .timeUser p:nth-of-type(2) span {
+  text-align: left;
+  font-size: 0.84rem;
+  font-style: italic;
+}
+.container p {
+  font-size: 0.9rem;
+}
+.container .category {
+  font-size: 0.8rem;
+}/*# sourceMappingURL=QuestionCard.module.css.map */

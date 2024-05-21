@@ -1,3 +1,4 @@
+import { descendingOrder } from "../utils/helpers/votes_desc_sorting.js";
 import { QuestionModel } from "../models/question.model.js";
 import { AnswerModel } from "../models/answer.model.js";
 
@@ -80,28 +81,35 @@ const GET_QUESTION_ALL_ANSWERS = async (req, res) => {
 
 const DELETE_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
   try {
-    const questionId = req.params.id;
-    const answerId = req.params.answerId;
+    const answerId = req.params.id;
 
-    const checkQuestion = await QuestionModel.findOne({
+    const answer = await AnswerModel.findOne({
+      answer_id: answerId,
+    });
+
+    if (!answer) {
+      return res.status(404).json({
+        message: `Answer with this ID (${answerId}) does not exist`,
+      });
+    }
+
+    const questionId = answer.question_id;
+
+    console.log(questionId);
+
+    const question = await QuestionModel.findOne({
       question_id: questionId,
     });
 
-    if (!checkQuestion) {
+    if (!question) {
       return res.status(404).json({
         message: `Question with this ID (${questionId}) does not exist`,
       });
     }
 
-    const checkAnswer = await AnswerModel.findOne({
+    const deletedAnswer = await AnswerModel.findOneAndDelete({
       answer_id: answerId,
     });
-
-    if (!checkAnswer) {
-      return res.status(404).json({
-        message: `Answer with this ID (${answerId}) does not exist`,
-      });
-    }
 
     const updatedQuestionAnswers = await QuestionModel.findOneAndUpdate(
       { question_id: questionId },
@@ -109,16 +117,33 @@ const DELETE_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
       { new: true }
     );
 
-    if (!updatedQuestionAnswers) {
+    if (!deletedAnswer || !updatedQuestionAnswers) {
       return res.status(404).json({
-        message: `Answer with ID (${answerId}) not found`,
+        message: `Answer with such ID (${answerId}) not found`,
       });
     }
 
     return res.json({
-      message: `The answer with ID (${answerId}) delete was successfully`,
+      message: `The answer with this ID (${answerId}) was successfully deleted`,
       updatedQuestionAnswers,
     });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+const GET_ALL_ANSWERS = async (req, res) => {
+  try {
+    const answers = await AnswerModel.find();
+
+    if (!answers.length) {
+      return res.status(404).json({ message: "Data not exist" });
+    }
+
+    const sortedAnswers = descendingOrder(answers, "answer_votes");
+
+    return res.json({ sortedAnswers });
   } catch (err) {
     console.log("HANDLED ERROR:", err);
     return res.status(500).json({ error: "Something went wrong" });
@@ -129,4 +154,5 @@ export {
   INSERT_ANSWER_TO_QUESTION,
   GET_QUESTION_ALL_ANSWERS,
   DELETE_ANSWER_FROM_QUESTION_BY_ID,
+  GET_ALL_ANSWERS,
 };

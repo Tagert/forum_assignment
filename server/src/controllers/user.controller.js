@@ -26,7 +26,7 @@ const SIGN_UP = async (req, res) => {
     }
 
     if (passwordValidation !== true) {
-      return res.status(400).json({ error: passwordValidation });
+      return res.status(400).json({ message: passwordValidation });
     }
 
     const userExist = await UserModel.findOne({ email: req.body.email });
@@ -140,4 +140,19 @@ const REFRESH_TOKEN = async (req, res) => {
   }
 };
 
-export { SIGN_UP, LOG_IN, REFRESH_TOKEN };
+const GET_ALL_USERS = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+
+    if (!users.length) {
+      return res.status(404).json({ message: "Data not exist" });
+    }
+
+    return res.json({ users });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export { SIGN_UP, LOG_IN, REFRESH_TOKEN, GET_ALL_USERS };

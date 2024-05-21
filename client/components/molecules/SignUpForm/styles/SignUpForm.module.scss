@@ -1,0 +1,104 @@
+@use "../../../../styles/scss/variables";
+
+.login_card {
+  position: relative;
+  top: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  transition: all 0.5s linear;
+  z-index: 1;
+
+  .login_modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 24rem;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    box-shadow: variables.$primary-shadow;
+    background-color: variables.$light-text-color;
+
+    .active_login {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+
+      h4 {
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+        letter-spacing: 0.1rem;
+      }
+
+      .input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 12rem;
+
+        input {
+          max-width: 12rem;
+          padding: 0.3rem;
+          border: 0.1rem solid variables.$background-color;
+          border-radius: 0.4rem;
+          box-shadow: variables.$additional-shadow;
+          outline: none;
+
+          &::placeholder {
+            padding-left: 0.2rem;
+            color: variables.$dark-text-color;
+            opacity: 0.5;
+          }
+
+          &[type="email"] {
+            padding-left: 0.8rem;
+          }
+
+          &[type="password"] {
+            padding-left: 0.8rem;
+          }
+        }
+
+        .username_info_error,
+        .password_info_error {
+          display: flex;
+          align-items: center;
+
+          p {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    .btn_info {
+      position: relative;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.8rem;
+
+      button {
+        margin-top: 0.5rem;
+      }
+
+      .error {
+        height: 1rem;
+        font-size: 0.8rem;
+        color: brown;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.loginBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 6.5rem;
+  height: 2rem;
+  border: 0.1rem solid #26283b;
+  border-radius: 0.4rem;
+  margin-top: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.75) 1.95px 1.95px 2.6px;
+  outline: none;
+  color: #26283b;
+  background: linear-gradient(270deg, rgb(227, 225, 217) 0%, rgb(242, 239, 229) 100%);
+  cursor: pointer;
+}
+.loginBtn:hover {
+  color: #e7eaf4;
+  background: #26283b;
+}
+
+.warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 6.5rem;
+  height: 2rem;
+  border: 0.1rem solid #26283b;
+  border-radius: 0.4rem;
+  margin-top: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.75) 1.95px 1.95px 2.6px;
+  outline: none;
+  color: #26283b;
+  background: linear-gradient(270deg, rgb(227, 225, 217) 0%, rgb(242, 239, 229) 100%);
+  cursor: pointer;
+}
+.warning:hover {
+  color: #26283b;
+  background: #e94a23;
+}/*# sourceMappingURL=Button.module.css.map */

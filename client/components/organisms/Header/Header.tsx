@@ -6,7 +6,7 @@ const Header = () => {
     <header className={styles.container}>
       <Navbar />
 
-      <section className={styles.searchContainer}>
+      <div className={styles.searchContainer}>
         <h2>Welcome to our community</h2>
         <p>
           We&apos;re happy to have you here. If you need help, please search
@@ -21,7 +21,7 @@ const Header = () => {
           autoCapitalize="off"
           data-track-type="click keydown"
         />
-      </section>
+      </div>
     </header>
   );
 };

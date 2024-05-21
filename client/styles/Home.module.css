@@ -1,1 +1,73 @@
-/*# sourceMappingURL=Home.module.css.map */
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 40vh;
+}
+.dataContainer h3 {
+  max-width: 40rem;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.dataContainer .statistic {
+  display: flex;
+  gap: 1.5rem;
+}
+.dataContainer .statistic p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.1rem;
+}
+.dataContainer .statistic p span {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.categoriesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.categoriesContainer h4 {
+  font-size: 1.2rem;
+}
+.categoriesContainer .categoryWrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 80rem;
+}
+.categoriesContainer .categoryWrapper .category {
+  display: flex;
+  width: 18.875rem;
+  height: 6rem;
+  border-radius: 0.6rem;
+  background-color: #fdfdfe;
+}
+
+.questionWrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 6rem;
+}
+.questionWrapper .questionHolder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 80rem;
+}
+.questionWrapper .questionHolder .insertQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 59.625rem;
+}
+.questionWrapper .questionHolder .insertQuestion .insertBtn {
+  margin-top: 0;
+}/*# sourceMappingURL=Home.module.css.map */

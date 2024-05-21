@@ -1,0 +1,119 @@
+@use "../../../../styles/scss/variables";
+
+.container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  left: 50%;
+  gap: 1rem;
+  width: 22rem;
+  // height: 14rem;
+  padding: 1.5rem;
+  border: 0.1rem solid variables.$primary-color;
+  border-radius: 0.6rem;
+  box-shadow: variables.$primary-shadow;
+  background-color: variables.$background-color;
+  transform: translate(-50%, 40%);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  z-index: 10;
+  animation: appear 0.5s;
+  animation-fill-mode: forwards;
+
+  // &:hover {
+  //   scale: 1.05;
+  // }
+
+  h4 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .inputBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 0rem 1rem;
+    border-radius: 0.6rem;
+    transition: all 0.25s ease;
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+
+      span {
+        font-style: italic;
+        text-decoration: underline;
+      }
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+
+      input,
+      textarea {
+        width: 11rem;
+        padding: 0.3rem 0.3rem 0.3rem 0.8rem;
+        border: 0.1rem solid variables.$background-color;
+        border-radius: 0.6rem;
+        box-shadow: variables.$additional-shadow;
+      }
+
+      textarea {
+        resize: vertical;
+        height: 6rem;
+      }
+    }
+  }
+
+  .btnHolder {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: variables.$primary-color;
+  z-index: 2;
+  animation: backgroundAppear 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appear {
+  0% {
+    top: -10vh;
+    opacity: 0;
+  }
+
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes backgroundAppear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.85;
+  }
+}

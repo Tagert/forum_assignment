@@ -1,0 +1,101 @@
+.container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  left: 50%;
+  gap: 1rem;
+  width: 22rem;
+  padding: 1.5rem;
+  border: 0.1rem solid #3d52a0;
+  border-radius: 0.6rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background-color: #ede8f5;
+  transform: translate(-50%, 40%);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  z-index: 10;
+  animation: appear 0.5s;
+  animation-fill-mode: forwards;
+}
+.container h4 {
+  font-size: 1.1rem;
+  text-align: center;
+}
+.container .inputBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+  padding: 0rem 1rem;
+  border-radius: 0.6rem;
+  transition: all 0.25s ease;
+}
+.container .inputBox h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.container .inputBox h4 span {
+  font-style: italic;
+  text-decoration: underline;
+}
+.container .inputBox label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+.container .inputBox label input,
+.container .inputBox label textarea {
+  width: 11rem;
+  padding: 0.3rem 0.3rem 0.3rem 0.8rem;
+  border: 0.1rem solid #ede8f5;
+  border-radius: 0.6rem;
+  box-shadow: rgba(50, 50, 93, 0.75) 1.95px 1.95px 2.6px;
+}
+.container .inputBox label textarea {
+  resize: vertical;
+  height: 6rem;
+}
+.container .btnHolder {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #3d52a0;
+  z-index: 2;
+  animation: backgroundAppear 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appear {
+  0% {
+    top: -10vh;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes backgroundAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.85;
+  }
+}/*# sourceMappingURL=InsertModal.module.css.map */

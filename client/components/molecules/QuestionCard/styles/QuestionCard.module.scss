@@ -1,0 +1,74 @@
+@use "../../../../styles/scss/variables";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5.2rem;
+  width: 59.625rem;
+  padding: 1rem;
+  border-radius: 0.6rem;
+  background-color: variables.$color-white;
+  cursor: pointer;
+
+  .questionDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 34rem;
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  .votes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  .answerCounter {
+    display: flex;
+    gap: 0.5rem;
+
+    svg {
+      width: 1.2rem;
+    }
+  }
+
+  .timeUser {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 7.5rem;
+
+    p {
+      text-align: end;
+
+      &:nth-of-type(2) {
+        display: flex;
+        gap: 0.4rem;
+
+        span {
+          text-align: left;
+          font-size: 0.84rem;
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .category {
+    font-size: 0.8rem;
+  }
+}

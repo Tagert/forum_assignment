@@ -9,7 +9,7 @@ const GET_ALL_QUESTIONS = async (req, res) => {
       return res.status(404).json({ message: "Data not exist" });
     }
 
-    const sortedQuestions = descendingOrder(questions);
+    const sortedQuestions = descendingOrder(questions, "question_votes");
 
     return res.json({ sortedQuestions });
   } catch (err) {

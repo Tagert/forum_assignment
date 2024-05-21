@@ -1,0 +1,51 @@
+@use "../../../../styles/scss/variables";
+
+.loginBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 6.5rem;
+  height: 2rem;
+  border: 0.1rem solid variables.$dark-text-color;
+  border-radius: 0.4rem;
+  margin-top: 1rem;
+  box-shadow: variables.$additional-shadow;
+  outline: none;
+  color: variables.$dark-text-color;
+  background: linear-gradient(
+    270deg,
+    rgba(227, 225, 217, 1) 0%,
+    rgba(242, 239, 229, 1) 100%
+  );
+  cursor: pointer;
+
+  &:hover {
+    color: variables.$light-text-color;
+    background: variables.$dark-text-color;
+  }
+}
+
+.warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 6.5rem;
+  height: 2rem;
+  border: 0.1rem solid variables.$dark-text-color;
+  border-radius: 0.4rem;
+  margin-top: 1rem;
+  box-shadow: variables.$additional-shadow;
+  outline: none;
+  color: variables.$dark-text-color;
+  background: linear-gradient(
+    270deg,
+    rgba(227, 225, 217, 1) 0%,
+    rgba(242, 239, 229, 1) 100%
+  );
+  cursor: pointer;
+
+  &:hover {
+    color: variables.$dark-text-color;
+    background: #e94a23;
+  }
+}
