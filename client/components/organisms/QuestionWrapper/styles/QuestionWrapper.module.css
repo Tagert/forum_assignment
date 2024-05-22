@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding-top: 6rem;
+}
+.container .questionHolder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 80rem;
+}
+.container .questionHolder .insertQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 59.625rem;
+}
+.container .questionHolder .insertQuestion .insertBtn {
+  margin-top: 0;
+}/*# sourceMappingURL=QuestionWrapper.module.css.map */

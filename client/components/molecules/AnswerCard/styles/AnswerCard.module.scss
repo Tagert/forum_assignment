@@ -1,0 +1,21 @@
+@use "../../../../styles/scss/variables";
+
+.container {
+  display: flex;
+
+  .answersHolder {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 59.625rem;
+    padding: 1.5rem;
+    border-radius: 0.6rem;
+    box-shadow: variables.$primary-shadow;
+    background-color: variables.$color-white;
+
+    .counterBox {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}

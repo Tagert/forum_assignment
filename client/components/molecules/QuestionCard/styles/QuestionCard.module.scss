@@ -1,5 +1,9 @@
 @use "../../../../styles/scss/variables";
 
+.linkHolder {
+  all: unset;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -8,6 +12,7 @@
   width: 59.625rem;
   padding: 1rem;
   border-radius: 0.6rem;
+  box-shadow: variables.$primary-shadow;
   background-color: variables.$color-white;
   cursor: pointer;
 

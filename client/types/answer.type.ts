@@ -4,5 +4,5 @@ export type AnswerType = {
   user_id: string;
   text: string;
   question_id: string;
-  question_votes: number;
+  answer_votes: number;
 };

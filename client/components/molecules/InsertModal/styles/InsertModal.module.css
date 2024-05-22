@@ -10,7 +10,7 @@
   padding: 1.5rem;
   border: 0.1rem solid #3d52a0;
   border-radius: 0.6rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(61, 82, 160, 0.05) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   background-color: #ede8f5;
   transform: translate(-50%, 40%);
   transition: all 0.25s ease;
@@ -57,7 +57,7 @@
   padding: 0.3rem 0.3rem 0.3rem 0.8rem;
   border: 0.1rem solid #ede8f5;
   border-radius: 0.6rem;
-  box-shadow: rgba(50, 50, 93, 0.75) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(61, 82, 160, 0.25) 1.95px 1.95px 2.6px;
 }
 .container .inputBox label textarea {
   resize: vertical;

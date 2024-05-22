@@ -1,0 +1,14 @@
+.container {
+  position: relative;
+  display: flex;
+  top: 6rem;
+  width: 80rem;
+  min-height: 10rem;
+
+  .questionHolder {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+}

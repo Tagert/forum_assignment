@@ -14,6 +14,7 @@ const questionSchema = mongoose.Schema({
   category: { type: String, required: true },
   question_answers: { type: Array, required: false },
   question_votes: { type: Number, required: false, default: 0 },
+  question_views: { type: Number, required: false, default: 0 },
   votes: { type: [voteSchema], required: false },
 });
 

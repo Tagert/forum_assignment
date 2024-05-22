@@ -1,4 +1,6 @@
 import express from "express";
+import auth from "../middlewares/authorization.js";
+
 import {
   INSERT_ANSWER_TO_QUESTION,
   GET_QUESTION_ALL_ANSWERS,
@@ -10,7 +12,7 @@ const router = express.Router();
 
 router.get("/question/:id/answers", GET_QUESTION_ALL_ANSWERS);
 
-router.post("/question/:id/answers", INSERT_ANSWER_TO_QUESTION);
+router.post("/question/:id/answers", auth, INSERT_ANSWER_TO_QUESTION);
 
 router.delete("/answer/:id", DELETE_ANSWER_FROM_QUESTION_BY_ID);
 

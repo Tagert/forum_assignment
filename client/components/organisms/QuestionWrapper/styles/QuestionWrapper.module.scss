@@ -1,0 +1,25 @@
+@use "../../../../styles/scss/variables";
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding-top: 6rem;
+
+  .questionHolder {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 80rem;
+
+    .insertQuestion {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 59.625rem;
+
+      .insertBtn {
+        margin-top: 0;
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ const InsertModal = ({
 
         <div className={styles.inputBox}>
           <h4>
-            You can create a new <span>Card</span> here:
+            You can ask a new <span>Question</span> here:
           </h4>
           <label>
             Title:

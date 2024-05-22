@@ -37,8 +37,6 @@ const LoginForm = () => {
         loginBody
       );
 
-      console.log(res);
-
       if (res.status === 200) {
         setBadData(false);
         cookies.set("jwt_token", res.data.jwt_token);

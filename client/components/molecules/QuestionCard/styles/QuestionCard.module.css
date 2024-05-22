@@ -1,3 +1,7 @@
+.linkHolder {
+  all: unset;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -6,6 +10,7 @@
   width: 59.625rem;
   padding: 1rem;
   border-radius: 0.6rem;
+  box-shadow: rgba(61, 82, 160, 0.05) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   background-color: #fdfdfe;
   cursor: pointer;
 }

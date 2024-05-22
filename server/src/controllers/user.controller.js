@@ -102,6 +102,70 @@ const LOG_IN = async (req, res) => {
   }
 };
 
+const GET_USER_BY_ID = async (req, res) => {
+  try {
+    const user = await UserModel.findOne({
+      user_id: req.params.id,
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: `The entered ID (${req.params.id}) does not exist. Please try entering a different ID.`,
+      });
+    }
+
+    return res.json(user);
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+const GET_ALL_USERS = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+
+    if (!users.length) {
+      return res.status(404).json({ message: "Data not exist" });
+    }
+
+    return res.json({ users });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+const VERIFY_TOKEN = (req, res) => {
+  const jwtToken = req.body.jwt_token;
+
+  if (!jwtToken) {
+    return res.status(400).json({
+      message:
+        "Unable to find, please provide a token to perform further actions",
+    });
+  }
+
+  try {
+    jwt.verify(jwtToken, process.env.JWT_KEY, (err, decoded) => {
+      if (err) {
+        return res
+          .status(400)
+          .json({ message: "Your time has expired, you must log in again" });
+      }
+      const email = decoded.email;
+
+      return res.status(200).json({
+        message: `${email} you already logged in`,
+      });
+    });
+  } catch (error) {
+    res
+      .status(401)
+      .json({ message: "Your token has expired, you must log in again" });
+  }
+};
+
 const REFRESH_TOKEN = async (req, res) => {
   try {
     const jwtRefreshToken = req.body.jwt_refresh_token;
@@ -140,19 +204,11 @@ const REFRESH_TOKEN = async (req, res) => {
   }
 };
 
-const GET_ALL_USERS = async (req, res) => {
-  try {
-    const users = await UserModel.find();
-
-    if (!users.length) {
-      return res.status(404).json({ message: "Data not exist" });
-    }
-
-    return res.json({ users });
-  } catch (err) {
-    console.log("HANDLED ERROR:", err);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
+export {
+  SIGN_UP,
+  LOG_IN,
+  GET_USER_BY_ID,
+  GET_ALL_USERS,
+  VERIFY_TOKEN,
+  REFRESH_TOKEN,
 };
-
-export { SIGN_UP, LOG_IN, REFRESH_TOKEN, GET_ALL_USERS };

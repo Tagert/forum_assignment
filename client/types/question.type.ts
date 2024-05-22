@@ -8,5 +8,6 @@ export type QuestionType = {
   text: string;
   category: string;
   question_answers: AnswerType[];
+  question_views: number;
   question_votes: number;
 };

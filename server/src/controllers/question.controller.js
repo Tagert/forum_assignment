@@ -56,6 +56,10 @@ const GET_QUESTION_BY_ID = async (req, res) => {
       });
     }
 
+    question.question_views = (question.question_views || 0) + 1;
+
+    await question.save();
+
     return res.json(question);
   } catch (err) {
     console.log("HANDLED ERROR:", err);

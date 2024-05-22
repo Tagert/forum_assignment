@@ -12,7 +12,7 @@
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
-  color: #212a31;
+  color: #26283b;
   animation: animeLoader 1s linear infinite alternate;
 }
 @keyframes animeLoader {

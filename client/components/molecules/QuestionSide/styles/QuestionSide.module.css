@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 59.625rem;
+  padding: 1.5rem;
+  border-radius: 0.6rem;
+  box-shadow: rgba(61, 82, 160, 0.05) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background-color: #fdfdfe;
+}
+.container .questionTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.container .questionTitle .counterBox {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+.container .questionTitle .counterBox p {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  letter-spacing: 0.05rem;
+}
+.container .questionTitle .counterBox .border::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 2.188rem;
+  height: 0.1rem;
+  border-bottom: 0.1rem solid #ede8f5;
+}
+.container .questionText {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.container .questionText .voteHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 2rem;
+}
+.container .questionText .voteHolder .upVoteBox,
+.container .questionText .voteHolder .downVoteBox {
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(231, 234, 244, 0.4);
+}
+.container .questionText .voteHolder .upVoteBox button,
+.container .questionText .voteHolder .downVoteBox button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.container .questionText .voteHolder .upVoteBox button:hover,
+.container .questionText .voteHolder .downVoteBox button:hover {
+  background-color: #e7eaf4;
+}
+.container .questionText .voteHolder .upVoteBox button svg,
+.container .questionText .voteHolder .downVoteBox button svg {
+  height: 1.2rem;
+  color: #7091e6;
+}
+.container .questionText .voteHolder .upVoteBox {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.container .questionText .voteHolder .upVoteBox button svg:hover {
+  color: green;
+}
+.container .questionText .voteHolder .downVoteBox {
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.container .questionText .voteHolder .downVoteBox button svg:hover {
+  color: brown;
+}
+.container .questionText .voteHolder .middleVoteBox {
+  background-color: rgba(231, 234, 244, 0.4);
+}
+.container .questionText .voteHolder .middleVoteBox p {
+  font-weight: 600;
+  padding: 0.4rem 0rem;
+  text-align: center;
+}
+.container .questionText .textBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.84rem;
+  flex: 1;
+}
+.container .questionText .textBox h5 {
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+}
+.container .questionText .textBox h5 span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.05rem;
+}
+.container .questionText .textBox p {
+  text-align: justify;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.05rem;
+  padding-right: 3.5rem;
+}/*# sourceMappingURL=QuestionSide.module.css.map */
