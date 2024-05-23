@@ -13,6 +13,24 @@
   flex-direction: column;
   gap: 1rem;
 }
+.container .questionTitle .title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.container .questionTitle .title h2 {
+  justify-self: center;
+  max-width: 4.2rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.4rem;
+  color: #fdfdfe;
+  background-color: #8697c4;
+}
+.container .questionTitle .title h3 {
+  font-size: 1.5rem;
+}
 .container .questionTitle .counterBox {
   position: relative;
   display: flex;

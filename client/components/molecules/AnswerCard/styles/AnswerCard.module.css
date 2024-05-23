@@ -1,17 +1,111 @@
 .container {
   display: flex;
 }
-.container .answersHolder {
+.container .answersContainer {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   max-width: 59.625rem;
   padding: 1.5rem;
   border-radius: 0.6rem;
   box-shadow: rgba(61, 82, 160, 0.05) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   background-color: #fdfdfe;
 }
-.container .answersHolder .counterBox {
+.container .answersContainer .counterBox {
+  position: relative;
   display: flex;
-  gap: 1rem;
+}
+.container .answersContainer .counterBox p {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  letter-spacing: 0.05rem;
+}
+.container .answersContainer .counterBox .border::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 2.188rem;
+  height: 0.1rem;
+  border-bottom: 0.1rem solid #ede8f5;
+}
+.container .answersContainer .answerText {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.container .answersContainer .answerText .voteHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 2rem;
+}
+.container .answersContainer .answerText .voteHolder .upVoteBox,
+.container .answersContainer .answerText .voteHolder .downVoteBox {
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(231, 234, 244, 0.4);
+}
+.container .answersContainer .answerText .voteHolder .upVoteBox button,
+.container .answersContainer .answerText .voteHolder .downVoteBox button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.container .answersContainer .answerText .voteHolder .upVoteBox button:hover,
+.container .answersContainer .answerText .voteHolder .downVoteBox button:hover {
+  background-color: #e7eaf4;
+}
+.container .answersContainer .answerText .voteHolder .upVoteBox button svg,
+.container .answersContainer .answerText .voteHolder .downVoteBox button svg {
+  height: 1.2rem;
+  color: #7091e6;
+}
+.container .answersContainer .answerText .voteHolder .upVoteBox {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.container .answersContainer .answerText .voteHolder .upVoteBox button svg:hover {
+  color: green;
+}
+.container .answersContainer .answerText .voteHolder .downVoteBox {
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.container .answersContainer .answerText .voteHolder .downVoteBox button svg:hover {
+  color: brown;
+}
+.container .answersContainer .answerText .voteHolder .middleVoteBox {
+  background-color: rgba(231, 234, 244, 0.4);
+}
+.container .answersContainer .answerText .voteHolder .middleVoteBox p {
+  font-weight: 600;
+  padding: 0.4rem 0rem;
+  text-align: center;
+}
+.container .answersContainer .answerText .textBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.84rem;
+  flex: 1;
+}
+.container .answersContainer .answerText .textBox h5 {
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+}
+.container .answersContainer .answerText .textBox h5 span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.05rem;
+}
+.container .answersContainer .answerText .textBox p {
+  text-align: justify;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.05rem;
+  padding-right: 3.5rem;
 }/*# sourceMappingURL=AnswerCard.module.css.map */

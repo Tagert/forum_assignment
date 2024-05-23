@@ -25,7 +25,11 @@ const QuestionSide = ({
   return (
     <div className={styles.container}>
       <div className={styles.questionTitle}>
-        <h2>{title}</h2>
+        <div className={styles.title}>
+          <h2>Question</h2>
+          <h3>{title}</h3>
+        </div>
+
         <div className={styles.counterBox}>
           <p>{timeAgo}</p>
           <p>{answersCount} answers</p>

@@ -3,10 +3,10 @@
 .container {
   display: flex;
 
-  .answersHolder {
+  .answersContainer {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     max-width: 59.625rem;
     padding: 1.5rem;
     border-radius: 0.6rem;
@@ -14,8 +14,127 @@
     background-color: variables.$color-white;
 
     .counterBox {
+      position: relative;
       display: flex;
-      gap: 1rem;
+
+      p {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        letter-spacing: 0.05rem;
+      }
+
+      .border {
+        &::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 2.188rem;
+          height: 0.1rem;
+          border-bottom: 0.1rem solid variables.$background-color;
+        }
+      }
+    }
+
+    .answerText {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      .voteHolder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 2rem;
+
+        .upVoteBox,
+        .downVoteBox {
+          width: 2rem;
+          height: 2rem;
+          background-color: variables.$button-color;
+
+          button {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+
+            &:hover {
+              background-color: variables.$light-text-color;
+            }
+
+            svg {
+              height: 1.2rem;
+              color: variables.$secondary-color;
+            }
+          }
+        }
+
+        .upVoteBox {
+          border-top-left-radius: 50%;
+          border-top-right-radius: 50%;
+
+          button {
+            svg {
+              &:hover {
+                color: green;
+              }
+            }
+          }
+        }
+
+        .downVoteBox {
+          border-bottom-left-radius: 50%;
+          border-bottom-right-radius: 50%;
+
+          button {
+            svg {
+              &:hover {
+                color: brown;
+              }
+            }
+          }
+        }
+
+        .middleVoteBox {
+          background-color: variables.$button-color;
+
+          p {
+            font-weight: 600;
+            padding: 0.4rem 0rem;
+            text-align: center;
+          }
+        }
+      }
+
+      .textBox {
+        display: flex;
+        flex-direction: column;
+        gap: 0.84rem;
+        flex: 1;
+
+        h5 {
+          font-weight: 400;
+          letter-spacing: 0.05rem;
+
+          span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-style: italic;
+            letter-spacing: 0.05rem;
+          }
+        }
+
+        p {
+          text-align: justify;
+          font-weight: 300;
+          line-height: 1.6;
+          letter-spacing: 0.05rem;
+          padding-right: 3.5rem;
+        }
+      }
     }
   }
 }

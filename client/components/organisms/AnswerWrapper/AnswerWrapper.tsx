@@ -15,37 +15,47 @@ type AnswersWrapperProps = {
 const AnswerWrapper = ({ question, answers, user }: AnswersWrapperProps) => {
   return (
     <section className={styles.container}>
-      <section className={styles.questionHolder}>
-        {question ? (
-          <QuestionSide
-            title={question.title}
-            text={question.text}
-            date={question.date}
-            vote={question.question_votes}
-            answersCount={question.question_answers.length}
-            viewsCount={question.question_views}
-            userName={user ? user.name : "Unknown"}
-          />
-        ) : (
-          <Spinner />
-        )}
+      <section className={styles.communicationWrapper}>
+        <div className={styles.questionHolder}>
+          {question ? (
+            <QuestionSide
+              title={question.title}
+              text={question.text}
+              date={question.date}
+              vote={question.question_votes}
+              answersCount={question.question_answers.length}
+              viewsCount={question.question_views}
+              userName={user ? user.name : "Unknown"}
+            />
+          ) : (
+            <Spinner />
+          )}
+        </div>
 
-        {answers ? (
-          answers.map((answer) => {
-            return (
-              <AnswerCard
-                key={answer.answer_id}
-                answer_id={answer.answer_id}
-                text={answer.text}
-                date={answer.date}
-                answer_votes={answer.answer_votes}
-                userName={user ? user.name : "Unknown"}
-              />
-            );
-          })
-        ) : (
-          <Spinner />
-        )}
+        <div className={styles.answersHolder}>
+          <h4>Answers</h4>
+
+          {answers ? (
+            answers.map((answer) => {
+              return (
+                <AnswerCard
+                  key={answer.answer_id}
+                  answer_id={answer.answer_id}
+                  text={answer.text}
+                  date={answer.date}
+                  vote={answer.answer_votes}
+                  userName={user ? user.name : "Unknown"}
+                />
+              );
+            })
+          ) : (
+            <Spinner />
+          )}
+        </div>
+
+        <div className={styles.replyHolder}>
+          <div>Reply</div>
+        </div>
       </section>
     </section>
   );
