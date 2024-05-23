@@ -50,9 +50,13 @@ const SIGN_UP = async (req, res) => {
 
     const response = await user.save();
 
-    const jwt_token = generateJwToken(user.user_id, user.email);
+    const jwt_token = generateJwToken(user.user_id, user.email, user.name);
 
-    const jwt_refresh_token = generateRefreshToken(user.user_id, user.email);
+    const jwt_refresh_token = generateRefreshToken(
+      user.user_id,
+      user.email,
+      user.name
+    );
 
     return res.status(201).json({
       response: response,
@@ -87,9 +91,13 @@ const LOG_IN = async (req, res) => {
         .json({ message: "Unrecognized username or password" });
     }
 
-    const jwt_token = generateJwToken(user.user_id, user.email);
+    const jwt_token = generateJwToken(user.user_id, user.email, user.name);
 
-    const jwt_refresh_token = generateRefreshToken(user.user_id, user.email);
+    const jwt_refresh_token = generateRefreshToken(
+      user.user_id,
+      user.email,
+      user.name
+    );
 
     return res.status(200).json({
       status: `User (${user.email}) have been logged in successfully`,
@@ -165,6 +173,40 @@ const VERIFY_TOKEN = (req, res) => {
       .json({ message: "Your token has expired, you must log in again" });
   }
 };
+
+// const AUTHENTICATE_TOKEN = (req, res, next) => {
+//   const token = req.headers.authorization;
+
+//   if (!token) {
+//     return res.status(401).json({
+//       message:
+//         "Unable to find, please provide a token to perform further actions",
+//     });
+//   }
+
+//   jwt.verify(token, process.env.JWT_KEY, async (err, decoded) => {
+//     if (err)
+//       return res.status(403).json({
+//         message: "Data not exist",
+//       });
+
+//     try {
+//       const user = await UserModel.findById(decoded.userId);
+
+//       if (!user)
+//         return res.status(404).json({
+//           message: "Unable to find user",
+//         });
+
+//       req.user = user; // Attach user to request
+
+//       next();
+//     } catch (err) {
+//       console.error("Error fetching user:", err);
+//       return res.status(500).json({ err: "Something went wrong" });
+//     }
+//   });
+// };
 
 const REFRESH_TOKEN = async (req, res) => {
   try {

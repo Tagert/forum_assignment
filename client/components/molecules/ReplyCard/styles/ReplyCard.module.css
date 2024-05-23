@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 50.625rem;
+  padding: 1.5rem;
+  border-radius: 0.6rem;
+  box-shadow: rgba(61, 82, 160, 0.05) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background-color: #fdfdfe;
+}
+.container .replyContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.container .replyContainer textarea {
+  width: 30rem;
+  height: 15rem;
+  border-radius: 0.6rem;
+  padding: 1rem;
+  resize: none;
+}
+.container .replyContainer .replyBtn {
+  width: 6rem;
+}/*# sourceMappingURL=ReplyCard.module.css.map */

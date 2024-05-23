@@ -1,0 +1,32 @@
+@use "../../../../styles/scss/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 50.625rem;
+  padding: 1.5rem;
+  border-radius: 0.6rem;
+  box-shadow: variables.$primary-shadow;
+  background-color: variables.$color-white;
+
+  .replyContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    textarea {
+      width: 30rem;
+      height: 15rem;
+      border-radius: 0.6rem;
+      padding: 1rem;
+      resize: none;
+    }
+
+    .replyBtn {
+      width: 6rem;
+    }
+  }
+}

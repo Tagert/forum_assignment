@@ -20,6 +20,7 @@ const INSERT_ANSWER_TO_QUESTION = async (req, res) => {
     const answer = new AnswerModel({
       date: dateTime,
       user_id: req.body.user_id,
+      createdByUser: req.body.createdByUser,
       text: req.body.text,
       question_id: questionId,
       answer_votes: 0,
@@ -93,9 +94,13 @@ const DELETE_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
       });
     }
 
-    const questionId = answer.question_id;
+    if (answer.user_id !== req.body.user_id) {
+      return res.status(403).json({
+        message: "You are not authorized to take any actions on this data.",
+      });
+    }
 
-    console.log(questionId);
+    const questionId = answer.question_id;
 
     const question = await QuestionModel.findOne({
       question_id: questionId,

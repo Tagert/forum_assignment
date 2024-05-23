@@ -15,6 +15,7 @@ const authUser = (req, res, next) => {
     }
 
     req.body.user_id = decoded.userId;
+    req.body.createdByUser = decoded.name;
 
     return next();
   });

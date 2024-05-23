@@ -8,8 +8,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5.2rem;
-  width: 59.625rem;
+  height: 6rem;
+  width: 50.625rem;
   padding: 1rem;
   border-radius: 0.6rem;
   box-shadow: variables.$primary-shadow;
@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 34rem;
+    width: 30rem;
 
     h2 {
       font-size: 1rem;
@@ -32,8 +32,14 @@
     flex-direction: column;
     align-items: center;
     gap: 0.1rem;
+    font-size: 0.85rem;
+
+    svg {
+      width: 1.4rem;
+    }
 
     span {
+      font-size: 0.9rem;
       font-weight: 700;
     }
   }

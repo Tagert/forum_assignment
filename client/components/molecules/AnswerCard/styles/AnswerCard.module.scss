@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    max-width: 59.625rem;
+    width: 45.625rem;
     padding: 1.5rem;
     border-radius: 0.6rem;
     box-shadow: variables.$primary-shadow;
@@ -16,6 +16,32 @@
     .counterBox {
       position: relative;
       display: flex;
+      justify-content: space-between;
+      width: 100%;
+      .removeBox {
+        display: flex;
+        gap: 0.6rem;
+
+        .type {
+          justify-self: center;
+          font-size: 0.8rem;
+          font-weight: 400;
+          padding: 0.1rem 0.4rem;
+          border-radius: 0.4rem;
+          color: variables.$color-white;
+          background-color: variables.$secondary-color;
+        }
+
+        button {
+          all: unset;
+          cursor: pointer;
+
+          svg {
+            width: 1.1rem;
+            height: 1.5rem;
+          }
+        }
+      }
 
       p {
         font-size: 0.85rem;
@@ -116,6 +142,7 @@
         flex: 1;
 
         h5 {
+          text-align: right;
           font-weight: 400;
           letter-spacing: 0.05rem;
 
@@ -132,7 +159,6 @@
           font-weight: 300;
           line-height: 1.6;
           letter-spacing: 0.05rem;
-          padding-right: 3.5rem;
         }
       }
     }

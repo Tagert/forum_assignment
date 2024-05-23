@@ -1,18 +1,90 @@
 import styles from "./styles/AnswerWrapper.module.css";
+import axios from "axios";
+import cookies from "js-cookie";
+import { useRouter } from "next/router";
 import { UserType } from "../../../types/user.type";
 import { AnswerType } from "../../../types/answer.type";
 import { QuestionType } from "../../../types/question.type";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { QuestionSide } from "../../molecules/QuestionSide/QuestionSide";
 import { AnswerCard } from "../../molecules/AnswerCard/AnswerCard";
+import { ReplyCard } from "../../molecules/ReplyCard/ReplyCard";
 
 type AnswersWrapperProps = {
+  loggedUser: UserType | null;
   question: QuestionType | null;
-  user: UserType | null;
   answers: AnswerType[] | null;
+  setAnswers: (answers: AnswerType[]) => void;
+  answerText: string;
+  setAnswerText: (text: string) => void;
+  handleInsertAnswer: () => void;
 };
 
-const AnswerWrapper = ({ question, answers, user }: AnswersWrapperProps) => {
+const AnswerWrapper = ({
+  question,
+  loggedUser,
+  answers,
+  setAnswers,
+  answerText,
+  setAnswerText,
+  handleInsertAnswer,
+}: AnswersWrapperProps) => {
+  const router = useRouter();
+
+  const questionDelete = async () => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.delete(
+        `${process.env.SERVER_URL}/question/${router.query.id}`,
+        { headers }
+      );
+
+      if (res.status === 200) {
+        router.push("/");
+      }
+    } catch (err) {
+      console.error("Error deleting question:", err);
+      // @ts-expect-error
+      if (err.response.status === 403) {
+        // @ts-expect-error
+        alert(err.response.data.message);
+      }
+    }
+  };
+
+  const answerDelete = async (answer_id: string) => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.delete(
+        `${process.env.SERVER_URL}/answer/${answer_id}`,
+        { headers }
+      );
+
+      if (res.status === 200) {
+        if (answers) {
+          const updatedAnswers = answers.filter(
+            (answer) => answer.answer_id !== answer_id
+          );
+
+          setAnswers(updatedAnswers);
+        }
+      }
+    } catch (err) {
+      console.error("Error deleting question:", err);
+      // @ts-expect-error
+      if (err.response.status === 403) {
+        // @ts-expect-error
+        alert(err.response.data.message);
+      }
+    }
+  };
+
   return (
     <section className={styles.container}>
       <section className={styles.communicationWrapper}>
@@ -25,7 +97,8 @@ const AnswerWrapper = ({ question, answers, user }: AnswersWrapperProps) => {
               vote={question.question_votes}
               answersCount={question.question_answers.length}
               viewsCount={question.question_views}
-              userName={user ? user.name : "Unknown"}
+              userName={question ? question.createdByUser : "Unknown"}
+              questionDelete={questionDelete}
             />
           ) : (
             <Spinner />
@@ -33,18 +106,24 @@ const AnswerWrapper = ({ question, answers, user }: AnswersWrapperProps) => {
         </div>
 
         <div className={styles.answersHolder}>
-          <h4>Answers</h4>
+          {question &&
+            (question.question_answers.length !== 0 ? (
+              <h4>Answers</h4>
+            ) : (
+              <h4>There is no Answers be first to Reply!</h4>
+            ))}
 
           {answers ? (
-            answers.map((answer) => {
+            answers.map((answer, index) => {
               return (
                 <AnswerCard
-                  key={answer.answer_id}
+                  key={`${answer.answer_id}-${index}`}
                   answer_id={answer.answer_id}
                   text={answer.text}
                   date={answer.date}
                   vote={answer.answer_votes}
-                  userName={user ? user.name : "Unknown"}
+                  userName={answer ? answer.createdByUser : "Unknown"}
+                  answerDelete={answerDelete}
                 />
               );
             })
@@ -54,7 +133,13 @@ const AnswerWrapper = ({ question, answers, user }: AnswersWrapperProps) => {
         </div>
 
         <div className={styles.replyHolder}>
-          <div>Reply</div>
+          <h4>Reply</h4>
+
+          <ReplyCard
+            answerText={answerText}
+            setAnswerText={setAnswerText}
+            onClick={handleInsertAnswer}
+          />
         </div>
       </section>
     </section>

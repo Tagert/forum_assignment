@@ -4,6 +4,7 @@ export type QuestionType = {
   question_id: string;
   date: Date;
   user_id: string;
+  createdByUser: string;
   title: string;
   text: string;
   category: string;

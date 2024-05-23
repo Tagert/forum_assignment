@@ -7,13 +7,13 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 80rem;
+  width: 70rem;
 }
 .questionWrapper .questionHolder .insertQuestion {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 59.625rem;
+  width: 50.625rem;
 }
 .questionWrapper .questionHolder .insertQuestion .insertBtn {
   margin-top: 0;

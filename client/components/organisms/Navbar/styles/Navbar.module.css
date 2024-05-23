@@ -13,7 +13,7 @@
 .container .navbar {
   display: flex;
   justify-content: space-between;
-  width: 80rem;
+  width: 70rem;
 }
 .container .navbar .linkHolder {
   display: flex;

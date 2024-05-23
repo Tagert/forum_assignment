@@ -1,20 +1,28 @@
 .container {
   display: flex;
   justify-content: center;
-  padding-top: 6rem;
+  padding: 6rem 1rem 2rem 1rem;
 }
 .container .questionHolder {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 80rem;
+  width: 70rem;
 }
 .container .questionHolder .insertQuestion {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 59.625rem;
+  width: 50.625rem;
 }
-.container .questionHolder .insertQuestion .insertBtn {
+.container .questionHolder .insertQuestion .actionBox {
+  display: flex;
+  gap: 1rem;
+}
+.container .questionHolder .insertQuestion .actionBox select {
+  border-radius: 0.6rem;
+  padding: 0.3rem;
+}
+.container .questionHolder .insertQuestion .actionBox .insertBtn {
   margin-top: 0;
 }/*# sourceMappingURL=QuestionWrapper.module.css.map */

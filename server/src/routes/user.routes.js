@@ -19,4 +19,6 @@ router.get("/user/:id", GET_USER_BY_ID);
 
 router.post("/verify_token", VERIFY_TOKEN);
 
+// router.get("/auth", auth, AUTHENTICATE_TOKEN);
+
 export default router;

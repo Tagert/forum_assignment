@@ -11,6 +11,7 @@ const questionSchema = mongoose.Schema({
   user_id: { type: String, required: true },
   title: { type: String, required: true, min: 3 },
   text: { type: String, required: true, min: 3 },
+  createdByUser: { type: String, required: false },
   category: { type: String, required: true },
   question_answers: { type: Array, required: false },
   question_votes: { type: Number, required: false, default: 0 },

@@ -1,6 +1,7 @@
 import styles from "./styles/QuestionWrapper.module.css";
 import axios from "axios";
 import cookies from "js-cookie";
+import React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { UserType } from "../../../types/user.type";
@@ -23,11 +24,36 @@ const QuestionWrapper = ({
 }: QuestionWrapperProps) => {
   const router = useRouter();
 
+  const [sortBy, setSortBy] = useState<string>("vote");
+
   const [isModalUp, setModalUp] = useState(false);
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [category, setCategory] = useState("");
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(event.target.value);
+  };
+
+  const sortQuestions = (questions: QuestionType[], sortBy: string) => {
+    switch (sortBy) {
+      case "vote":
+        return questions.sort((a, b) => b.question_votes - a.question_votes);
+      case "answered":
+        return questions.sort(
+          (a, b) => b.question_answers.length - a.question_answers.length
+        );
+      case "unanswered":
+        return questions.sort(
+          (a, b) => a.question_answers.length - b.question_answers.length
+        );
+      default:
+        return questions;
+    }
+  };
+
+  const sortedQuestions = sortQuestions(questions || [], sortBy);
 
   const insertQuestion = async () => {
     try {
@@ -102,12 +128,20 @@ const QuestionWrapper = ({
       <div className={styles.questionHolder}>
         <div className={styles.insertQuestion}>
           <h4>Popular Questions:</h4>
-          <Button
-            isLoading={false}
-            onClick={handleAskQuestion}
-            title="Ask a Question"
-            className={styles.insertBtn}
-          />
+          <div className={styles.actionBox}>
+            <select name="sort" value={sortBy} onChange={handleSortChange}>
+              <option value="vote">Vote</option>
+              <option value="answered">Answered</option>
+              <option value="unanswered">Unanswered</option>
+            </select>
+
+            <Button
+              isLoading={false}
+              onClick={handleAskQuestion}
+              title="Ask a Question"
+              className={styles.insertBtn}
+            />
+          </div>
 
           {isModalUp && (
             <InsertModal
@@ -125,7 +159,7 @@ const QuestionWrapper = ({
         </div>
 
         {questions ? (
-          questions.map((question) => {
+          sortedQuestions.map((question) => {
             const user = users?.find(
               (user) => user.user_id === question.user_id
             );

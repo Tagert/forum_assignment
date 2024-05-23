@@ -1,6 +1,7 @@
 import styles from "./styles/QuestionPage.module.css";
 import axios from "axios";
 import cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { UserType } from "../../types/user.type";
@@ -15,11 +16,34 @@ const QuestionPage = () => {
 
   const [question, setQuestion] = useState<QuestionType | null>(null);
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
-  const [user, setUser] = useState<UserType | null>(null);
+  const [answerText, setAnswerText] = useState("");
+  const [loggedUser, setLoggedUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const fetchQuestionAndUserById = async () => {
-    console.log("fetchQuestion");
+  const fetchLoggedInUser = async (userId: string) => {
+    console.log("fetchLoggedInUser");
+
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/user/${userId}`, {
+        headers,
+      });
+
+      setLoggedUser(res.data);
+    } catch (err) {
+      console.error("Error fetching logged-in user:", err);
+      // @ts-expect-error
+      if (err.response?.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const fetchQuestionById = async () => {
+    console.log("fetchQuestionById");
 
     try {
       const headers = {
@@ -34,19 +58,9 @@ const QuestionPage = () => {
       );
 
       setQuestion(questionRes.data);
-
-      const userRes = await axios.get(
-        `${process.env.SERVER_URL}/user/${questionRes.data.user_id}`,
-        {
-          headers,
-        }
-      );
-
-      setUser(userRes.data);
-      setLoading(true);
     } catch (err) {
       console.error("Error fetching question:", err);
-      setLoading(false);
+
       // @ts-expect-error
       if (err.response?.status === 401) {
         router.push("/login");
@@ -55,21 +69,58 @@ const QuestionPage = () => {
   };
 
   const fetchAnswers = async () => {
-    console.log("fetchAnswers");
+    console.log("fetchAnswerById");
 
     try {
       const headers = {
         authorization: cookies.get("jwt_token"),
       };
 
-      const res = await axios.get(
+      const answerRes = await axios.get(
         `${process.env.SERVER_URL}/question/${router.query.id}/answers`,
         {
           headers,
         }
       );
 
-      setAnswers(res.data.answers);
+      setAnswers(answerRes.data.answers);
+    } catch (err) {
+      console.error("Error fetching answers:", err);
+
+      // @ts-expect-error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const insertAnswer = async (answerText: string) => {
+    console.log("InsertAnswer");
+
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.post(
+        `${process.env.SERVER_URL}/question/${router.query.id}/answers`,
+        { text: answerText },
+        {
+          headers,
+        }
+      );
+
+      // setAnswers(res.data.answers);
+
+      if (res.status === 201) {
+        setAnswers((prevAnswers) =>
+          prevAnswers ? [...prevAnswers, res.data] : [res.data]
+        );
+        // fetchQuestionById();
+        fetchAnswers();
+      }
+
+      setAnswerText("");
     } catch (err) {
       console.error("Error fetching answers:", err);
       // @ts-expect-error
@@ -79,19 +130,47 @@ const QuestionPage = () => {
     }
   };
 
+  const handleInsertAnswer = () => {
+    insertAnswer(answerText);
+    setAnswerText("");
+  };
+
   useEffect(() => {
     if (router.query.id) {
-      fetchQuestionAndUserById();
+      fetchQuestionById();
       fetchAnswers();
+
+      const token = cookies.get("jwt_token");
+      if (token) {
+        const decodedToken: { userId: string } = jwtDecode(token);
+        fetchLoggedInUser(decodedToken.userId);
+      } else {
+        router.push("/login");
+      }
     }
   }, [router.query.id]);
+
+  useEffect(() => {
+    if (question && answers) {
+      setLoading(true);
+    }
+  }, [question, answers]);
 
   return (
     <main className={styles.container}>
       <Navbar />
 
       {isLoading ? (
-        <AnswerWrapper question={question} user={user} answers={answers} />
+        <AnswerWrapper
+          key={answers ? answers.length : 0}
+          question={question}
+          loggedUser={loggedUser}
+          answers={answers}
+          setAnswers={setAnswers}
+          answerText={answerText}
+          setAnswerText={setAnswerText}
+          handleInsertAnswer={handleInsertAnswer}
+        />
       ) : (
         <Spinner />
       )}

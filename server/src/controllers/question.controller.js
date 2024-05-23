@@ -26,6 +26,7 @@ const INSERT_QUESTION = async (req, res) => {
       date: dateTime,
       title: req.body.title,
       user_id: req.body.user_id,
+      createdByUser: req.body.createdByUser,
       text: req.body.text,
       category: req.body.category,
       question_answers: [],

@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
 
-const generateJwToken = (userId, email) => {
+const generateJwToken = (userId, email, name) => {
   const jwt_token = jwt.sign(
     {
       userId: userId,
       email: email,
+      name: name,
     },
     process.env.JWT_KEY,
     { expiresIn: "2h" }
@@ -13,11 +14,12 @@ const generateJwToken = (userId, email) => {
   return jwt_token;
 };
 
-const generateRefreshToken = (userId, email) => {
+const generateRefreshToken = (userId, email, name) => {
   const refresh_token = jwt.sign(
     {
       userId: userId,
       email: email,
+      name: name,
     },
     process.env.REFRESH_JWT_KEY,
     { expiresIn: "24h" }
