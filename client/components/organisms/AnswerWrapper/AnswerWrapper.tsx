@@ -18,6 +18,8 @@ type AnswersWrapperProps = {
   answerText: string;
   setAnswerText: (text: string) => void;
   handleInsertAnswer: () => void;
+  handleQuestionVote: (voteType: "upvote" | "downvote") => void;
+  handleAnswerVote: (answerId: string, voteType: "upvote" | "downvote") => void;
 };
 
 const AnswerWrapper = ({
@@ -28,6 +30,8 @@ const AnswerWrapper = ({
   answerText,
   setAnswerText,
   handleInsertAnswer,
+  handleQuestionVote,
+  handleAnswerVote,
 }: AnswersWrapperProps) => {
   const router = useRouter();
 
@@ -94,11 +98,14 @@ const AnswerWrapper = ({
               title={question.title}
               text={question.text}
               date={question.date}
-              vote={question.question_votes}
+              vote={question.votesCounter}
               answersCount={question.question_answers.length}
               viewsCount={question.question_views}
               userName={question ? question.createdByUser : "Unknown"}
+              user_id={question.user_id}
+              loggedUser={loggedUser}
               questionDelete={questionDelete}
+              handleQuestionVote={handleQuestionVote}
             />
           ) : (
             <Spinner />
@@ -121,9 +128,12 @@ const AnswerWrapper = ({
                   answer_id={answer.answer_id}
                   text={answer.text}
                   date={answer.date}
-                  vote={answer.answer_votes}
+                  vote={answer.votesCounter}
                   userName={answer ? answer.createdByUser : "Unknown"}
+                  user_id={answer.user_id}
+                  loggedUser={loggedUser}
                   answerDelete={answerDelete}
+                  handleAnswerVote={handleAnswerVote}
                 />
               );
             })
@@ -139,6 +149,7 @@ const AnswerWrapper = ({
             answerText={answerText}
             setAnswerText={setAnswerText}
             onClick={handleInsertAnswer}
+            loggedUser={loggedUser}
           />
         </div>
       </section>

@@ -1,1 +1,42 @@
-/*# sourceMappingURL=Login.module.css.map */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.container .userBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+.container .userBox .userManagement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+.container .userBox .manageBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .userBox .manageBackground .toggleButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+  height: 3rem;
+  padding: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  border: none;
+  border-radius: 0.4rem;
+  color: #26283b;
+  background-color: transparent;
+  cursor: pointer;
+}
+.container .userBox .manageBackground .toggleButton:hover {
+  text-decoration: underline;
+  line-height: 1.6;
+}/*# sourceMappingURL=Login.module.css.map */

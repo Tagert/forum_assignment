@@ -1,7 +1,31 @@
 .container {
   display: flex;
+  align-items: center;
+  gap: 1rem;
   width: 15.875rem;
   height: 6rem;
+  padding: 1rem;
   border-radius: 0.6rem;
   background-color: #fdfdfe;
+  cursor: pointer;
+}
+.container img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.ask {
+  border-left: 0.75rem solid #0088cc;
+}
+
+.marketplace {
+  border-left: 0.75rem solid #eb3d82;
+}
+
+.off_topic {
+  border-left: 0.75rem solid #754c29;
+}
+
+.suggestion {
+  border-left: 0.75rem solid #39b24a;
 }/*# sourceMappingURL=CategoryCard.module.css.map */

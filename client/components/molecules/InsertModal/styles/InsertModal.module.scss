@@ -62,7 +62,8 @@
       letter-spacing: 0.05rem;
 
       input,
-      textarea {
+      textarea,
+      select {
         width: 11rem;
         padding: 0.3rem 0.3rem 0.3rem 0.8rem;
         border: 0.1rem solid variables.$background-color;

@@ -1,15 +1,21 @@
 import styles from "./styles/QuestionCard.module.css";
 import Link from "next/link";
-// import { QuestionType } from "../../../types/question.type";
+import axios from "axios";
+import cookies from "js-cookie";
 import { AnswerType } from "../../../types/answer.type";
 import { calcTimeDifference } from "../../../utils/calc_time_difference";
+import { getTypeClass } from "../../..//utils/get_type_class";
 
 type QuestionProps = {
   question_id: string;
   date: Date;
   user_id: string;
   title: string;
-  category: string;
+  category:
+    | "Ask the Community"
+    | "MarketPlace"
+    | "Off-Topic"
+    | "Suggestion Box";
   question_answers: AnswerType[];
   question_votes: number;
 };
@@ -24,6 +30,7 @@ const QuestionCard = ({
   question_votes,
 }: QuestionProps) => {
   const timeAgo = calcTimeDifference(date);
+  const typeClass = getTypeClass(category);
 
   return (
     <Link href={`/question/${question_id}`} className={styles.linkHolder}>
@@ -49,7 +56,12 @@ const QuestionCard = ({
 
         <div className={styles.questionDescription}>
           <h2 className={styles.title}>{title}</h2>
-          <p className={styles.category}>Category: {category}</p>
+          <div className={styles.category}>
+            <span
+              className={`${styles.categoryBackground} ${typeClass}`}
+            ></span>
+            <p>{category}</p>
+          </div>
         </div>
 
         <div className={styles.answerCounter}>

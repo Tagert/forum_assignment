@@ -1,4 +1,5 @@
 import { AnswerType } from "./answer.type";
+import { VoteType } from "./vote.type";
 
 export type QuestionType = {
   question_id: string;
@@ -7,8 +8,13 @@ export type QuestionType = {
   createdByUser: string;
   title: string;
   text: string;
-  category: string;
+  category:
+    | "Ask the Community"
+    | "MarketPlace"
+    | "Off-Topic"
+    | "Suggestion Box";
   question_answers: AnswerType[];
   question_views: number;
-  question_votes: number;
+  question_votes: VoteType[];
+  votesCounter: number;
 };

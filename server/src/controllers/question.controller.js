@@ -102,7 +102,7 @@ const DELETE_QUESTION_BY_ID = async (req, res) => {
 
 const UPVOTE_QUESTION = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.body.user_id;
     const questionId = req.params.id;
 
     const question = await QuestionModel.findOne({ question_id: questionId });
@@ -110,7 +110,9 @@ const UPVOTE_QUESTION = async (req, res) => {
       return res.status(404).json({ message: "Question not found" });
     }
 
-    const existingVote = question.votes.find((vote) => vote.user_id === userId);
+    const existingVote = question.question_votes.find(
+      (vote) => vote.user_id === userId
+    );
     if (existingVote) {
       if (existingVote.vote === 1) {
         return res
@@ -118,11 +120,11 @@ const UPVOTE_QUESTION = async (req, res) => {
           .json({ message: "User has already UP voted this question" });
       } else {
         existingVote.vote = 1;
-        question.question_votes += 2;
+        question.votesCounter += 2;
       }
     } else {
-      question.votes.push({ user_id: userId, vote: 1 });
-      question.question_votes += 1;
+      question.question_votes.push({ user_id: userId, vote: 1 });
+      question.votesCounter += 1;
     }
 
     await question.save();
@@ -139,7 +141,7 @@ const UPVOTE_QUESTION = async (req, res) => {
 
 const DOWNVOTE_QUESTION = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.body.user_id;
     const questionId = req.params.id;
 
     const question = await QuestionModel.findOne({ question_id: questionId });
@@ -147,7 +149,9 @@ const DOWNVOTE_QUESTION = async (req, res) => {
       return res.status(404).json({ message: "Question not found" });
     }
 
-    const existingVote = question.votes.find((vote) => vote.user_id === userId);
+    const existingVote = question.question_votes.find(
+      (vote) => vote.user_id === userId
+    );
     if (existingVote) {
       if (existingVote.vote === -1) {
         return res
@@ -155,11 +159,11 @@ const DOWNVOTE_QUESTION = async (req, res) => {
           .json({ message: "User has already downvoted this question" });
       } else {
         existingVote.vote = -1;
-        question.question_votes -= 2;
+        question.votesCounter -= 2;
       }
     } else {
-      question.votes.push({ user_id: userId, vote: -1 });
-      question.question_votes -= 1;
+      question.question_votes.push({ user_id: userId, vote: -1 });
+      question.votesCounter -= 1;
     }
 
     await question.save();

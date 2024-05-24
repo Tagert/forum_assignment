@@ -39,10 +39,25 @@ const Statistics = ({
         <h4>Categories</h4>
 
         <div className={styles.categoryWrapper}>
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
+          <CategoryCard
+            type={"Ask the Community"}
+            imgSrc={"https://cdn.coda.io/icons/svg/color/ask-question.svg"}
+          />
+
+          <CategoryCard
+            type={"MarketPlace"}
+            imgSrc={"https://cdn.coda.io/icons/svg/color/small-business.svg"}
+          />
+
+          <CategoryCard
+            type={"Suggestion Box"}
+            imgSrc={"https://cdn.coda.io/icons/svg/color/checked-checkbox.svg"}
+          />
+
+          <CategoryCard
+            type={"Off-Topic"}
+            imgSrc={"https://cdn.coda.io/icons/svg/color/sms.svg"}
+          />
         </div>
       </section>
     </>

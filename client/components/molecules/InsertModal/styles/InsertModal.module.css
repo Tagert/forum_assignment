@@ -52,7 +52,8 @@
   letter-spacing: 0.05rem;
 }
 .container .inputBox label input,
-.container .inputBox label textarea {
+.container .inputBox label textarea,
+.container .inputBox label select {
   width: 11rem;
   padding: 0.3rem 0.3rem 0.3rem 0.8rem;
   border: 0.1rem solid #ede8f5;

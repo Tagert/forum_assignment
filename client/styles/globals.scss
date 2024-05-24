@@ -18,8 +18,8 @@ svg {
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
-  height: 200vh;
-  // min-width: 100vw;
+  min-height: 100vh;
+
   overflow-x: hidden;
   color: variables.$dark-text-color;
   background-color: variables.$background-color;

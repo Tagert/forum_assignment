@@ -19,8 +19,8 @@ router.post("/questions", auth, INSERT_QUESTION);
 
 router.delete("/question/:id", auth, DELETE_QUESTION_BY_ID);
 
-router.post("question/:id/upvote", UPVOTE_QUESTION);
+router.post("/question/:id/upvote", auth, UPVOTE_QUESTION);
 
-router.post("/question/:id/downvote", DOWNVOTE_QUESTION);
+router.post("/question/:id/downvote", auth, DOWNVOTE_QUESTION);
 
 export default router;

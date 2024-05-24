@@ -80,6 +80,17 @@
   }
 
   .category {
-    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .categoryBackground {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
   }
 }

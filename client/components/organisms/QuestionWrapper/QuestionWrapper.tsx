@@ -30,7 +30,9 @@ const QuestionWrapper = ({
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<
+    "Ask the Community" | "MarketPlace" | "Off-Topic" | "Suggestion Box" | ""
+  >("");
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(event.target.value);
@@ -39,7 +41,7 @@ const QuestionWrapper = ({
   const sortQuestions = (questions: QuestionType[], sortBy: string) => {
     switch (sortBy) {
       case "vote":
-        return questions.sort((a, b) => b.question_votes - a.question_votes);
+        return questions.sort((a, b) => b.votesCounter - a.votesCounter);
       case "answered":
         return questions.sort(
           (a, b) => b.question_answers.length - a.question_answers.length
@@ -174,7 +176,7 @@ const QuestionWrapper = ({
                 title={question.title}
                 category={question.category}
                 question_answers={question.question_answers}
-                question_votes={question.question_votes}
+                question_votes={question.votesCounter}
               />
             );
           })

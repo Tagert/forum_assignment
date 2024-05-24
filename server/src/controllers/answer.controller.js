@@ -23,7 +23,6 @@ const INSERT_ANSWER_TO_QUESTION = async (req, res) => {
       createdByUser: req.body.createdByUser,
       text: req.body.text,
       question_id: questionId,
-      answer_votes: 0,
     });
     answer.answer_id = answer._id.toString();
 
@@ -155,9 +154,89 @@ const GET_ALL_ANSWERS = async (req, res) => {
   }
 };
 
+const UPVOTE_ANSWER = async (req, res) => {
+  try {
+    const userId = req.body.user_id;
+    const answerId = req.params.id;
+
+    const answer = await AnswerModel.findOne({ answer_id: answerId });
+    if (!answer) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    const existingVote = answer.answer_votes.find(
+      (vote) => vote.user_id === userId
+    );
+    if (existingVote) {
+      if (existingVote.vote === 1) {
+        return res
+          .status(400)
+          .json({ message: "User has already UP voted this answer" });
+      } else {
+        existingVote.vote = 1;
+        answer.votesCounter += 2;
+      }
+    } else {
+      answer.answer_votes.push({ user_id: userId, vote: 1 });
+      answer.votesCounter += 1;
+    }
+
+    await answer.save();
+
+    return res.json({
+      message: `Answer with ID (${answerId}) successfully UP voted`,
+      answer,
+    });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+const DOWNVOTE_ANSWER = async (req, res) => {
+  try {
+    const userId = req.body.user_id;
+    const answerId = req.params.id;
+
+    const answer = await AnswerModel.findOne({ answer_id: answerId });
+    if (!answer) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    const existingVote = answer.answer_votes.find(
+      (vote) => vote.user_id === userId
+    );
+    if (existingVote) {
+      if (existingVote.vote === -1) {
+        return res
+          .status(400)
+          .json({ message: "User has already downvoted this answer" });
+      } else {
+        existingVote.vote = -1;
+        answer.votesCounter -= 2;
+      }
+    } else {
+      answer.answer_votes.push({ user_id: userId, vote: -1 });
+      answer.votesCounter -= 1;
+    }
+
+    await answer.save();
+
+    return res.json({
+      message: `Answer with ID (${answerId}) suscefully DOWN voted`,
+      answer,
+    });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 export {
   INSERT_ANSWER_TO_QUESTION,
   GET_QUESTION_ALL_ANSWERS,
   DELETE_ANSWER_FROM_QUESTION_BY_ID,
   GET_ALL_ANSWERS,
+  UPVOTE_ANSWER,
+  DOWNVOTE_ANSWER,
 };

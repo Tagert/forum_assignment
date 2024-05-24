@@ -16,7 +16,7 @@ svg {
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
-  height: 200vh;
+  min-height: 100vh;
   overflow-x: hidden;
   color: #26283b;
   background-color: #ede8f5;

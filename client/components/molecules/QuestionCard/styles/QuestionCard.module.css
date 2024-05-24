@@ -66,5 +66,14 @@
   font-size: 0.9rem;
 }
 .container .category {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.container .category .categoryBackground {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+.container .category p {
   font-size: 0.8rem;
 }/*# sourceMappingURL=QuestionCard.module.css.map */

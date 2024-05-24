@@ -1,3 +1,5 @@
+import { VoteType } from "./vote.type";
+
 export type AnswerType = {
   answer_id: string;
   date: Date;
@@ -5,5 +7,6 @@ export type AnswerType = {
   createdByUser: string;
   text: string;
   question_id: string;
-  answer_votes: number;
+  answer_votes: VoteType[];
+  votesCounter: number;
 };

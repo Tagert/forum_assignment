@@ -116,7 +116,7 @@ const QuestionPage = () => {
         setAnswers((prevAnswers) =>
           prevAnswers ? [...prevAnswers, res.data] : [res.data]
         );
-        // fetchQuestionById();
+        fetchQuestionById();
         fetchAnswers();
       }
 
@@ -135,18 +135,70 @@ const QuestionPage = () => {
     setAnswerText("");
   };
 
+  const handleQuestionVote = async (voteType: "upvote" | "downvote") => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      await axios.post(
+        `${process.env.SERVER_URL}/question/${router.query.id}/${voteType}`,
+        {},
+        {
+          headers,
+        }
+      );
+
+      fetchQuestionById();
+    } catch (err) {
+      console.error(`Error ${voteType}ing question:`, err);
+      // @ts-expect-error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const handleAnswerVote = async (
+    answerId: string,
+    voteType: "upvote" | "downvote"
+  ) => {
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      await axios.post(
+        `${process.env.SERVER_URL}/answer/${answerId}/${voteType}`,
+        {},
+        {
+          headers,
+        }
+      );
+
+      fetchAnswers();
+    } catch (err) {
+      console.error(`Error ${voteType}ing answer:`, err);
+      // @ts-expect-error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
   useEffect(() => {
     if (router.query.id) {
-      fetchQuestionById();
-      fetchAnswers();
-
       const token = cookies.get("jwt_token");
       if (token) {
         const decodedToken: { userId: string } = jwtDecode(token);
         fetchLoggedInUser(decodedToken.userId);
       } else {
-        router.push("/login");
+        // router.push("/login");
+        console.log("Not logged in");
       }
+
+      fetchQuestionById();
+      fetchAnswers();
     }
   }, [router.query.id]);
 
@@ -170,6 +222,8 @@ const QuestionPage = () => {
           answerText={answerText}
           setAnswerText={setAnswerText}
           handleInsertAnswer={handleInsertAnswer}
+          handleQuestionVote={handleQuestionVote}
+          handleAnswerVote={handleAnswerVote}
         />
       ) : (
         <Spinner />

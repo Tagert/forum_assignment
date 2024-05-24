@@ -9,8 +9,15 @@ type InsertModalProps = {
   setTitle: (value: string) => void;
   text: string;
   setText: (value: string) => void;
-  category: string;
-  setCategory: (value: string) => void;
+  category:
+    | "Ask the Community"
+    | "MarketPlace"
+    | "Off-Topic"
+    | "Suggestion Box"
+    | "";
+  setCategory: (
+    value: "Ask the Community" | "MarketPlace" | "Off-Topic" | "Suggestion Box"
+  ) => void;
 };
 
 const InsertModal = ({
@@ -56,13 +63,25 @@ const InsertModal = ({
 
           <label>
             Category:
-            <input
-              type="text"
+            <select
               name="category"
-              placeholder="Category..."
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
+              onChange={(e) =>
+                setCategory(
+                  e.target.value as
+                    | "Ask the Community"
+                    | "MarketPlace"
+                    | "Off-Topic"
+                    | "Suggestion Box"
+                )
+              }
+            >
+              <option value="">Select a category...</option>
+              <option value="Ask the Community">Ask the Community</option>
+              <option value="MarketPlace">MarketPlace</option>
+              <option value="Off-Topic">Off-Topic</option>
+              <option value="Suggestion Box">Suggestion Box</option>
+            </select>
           </label>
         </div>
 
