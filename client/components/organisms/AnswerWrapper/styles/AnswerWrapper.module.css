@@ -17,7 +17,7 @@
 .container .answersHolder {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   padding-left: 5rem;
 }
 .container .answersHolder h4 {

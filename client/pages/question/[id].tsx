@@ -16,8 +16,9 @@ const QuestionPage = () => {
 
   const [question, setQuestion] = useState<QuestionType | null>(null);
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
-  const [answerText, setAnswerText] = useState("");
+  const [answerText, setAnswerText] = useState<string>("");
   const [loggedUser, setLoggedUser] = useState<UserType | null>(null);
+  const [isJwtActive, setJwtActive] = useState(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const fetchLoggedInUser = async (userId: string) => {
@@ -35,9 +36,34 @@ const QuestionPage = () => {
       setLoggedUser(res.data);
     } catch (err) {
       console.error("Error fetching logged-in user:", err);
+
       // @ts-expect-error
       if (err.response?.status === 401) {
         router.push("/login");
+      }
+    }
+  };
+
+  const fetchVerifyToken = async () => {
+    console.log("fetchVerifyToken");
+
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/verify_token`, {
+        headers,
+      });
+
+      setJwtActive(true);
+      // setLoggedUser(res.data);
+    } catch (err) {
+      console.error("Error fetching logged-in user:", err);
+
+      // @ts-expect-error
+      if (err.response?.status === 401) {
+        setJwtActive(false);
       }
     }
   };
@@ -46,21 +72,21 @@ const QuestionPage = () => {
     console.log("fetchQuestionById");
 
     try {
-      const headers = {
-        authorization: cookies.get("jwt_token"),
-      };
+      // const headers = {
+      //   authorization: cookies.get("jwt_token"),
+      // };
+      fetchVerifyToken();
 
       const questionRes = await axios.get(
-        `${process.env.SERVER_URL}/question/${router.query.id}`,
-        {
-          headers,
-        }
+        `${process.env.SERVER_URL}/question/${router.query.id}`
+        // {
+        //   headers,
+        // }
       );
 
       setQuestion(questionRes.data);
     } catch (err) {
       console.error("Error fetching question:", err);
-
       // @ts-expect-error
       if (err.response?.status === 401) {
         router.push("/login");
@@ -69,7 +95,7 @@ const QuestionPage = () => {
   };
 
   const fetchAnswers = async () => {
-    console.log("fetchAnswerById");
+    console.log("fetchAnswers");
 
     try {
       const headers = {
@@ -119,8 +145,6 @@ const QuestionPage = () => {
         fetchQuestionById();
         fetchAnswers();
       }
-
-      setAnswerText("");
     } catch (err) {
       console.error("Error fetching answers:", err);
       // @ts-expect-error
@@ -136,6 +160,7 @@ const QuestionPage = () => {
   };
 
   const handleQuestionVote = async (voteType: "upvote" | "downvote") => {
+    console.log("handleQuestionVote");
     try {
       const headers = {
         authorization: cookies.get("jwt_token"),
@@ -163,6 +188,8 @@ const QuestionPage = () => {
     answerId: string,
     voteType: "upvote" | "downvote"
   ) => {
+    console.log("handleAnswerVote");
+
     try {
       const headers = {
         authorization: cookies.get("jwt_token"),
@@ -194,7 +221,7 @@ const QuestionPage = () => {
         fetchLoggedInUser(decodedToken.userId);
       } else {
         // router.push("/login");
-        console.log("Not logged in");
+        console.log("User not unauthenticated, please login");
       }
 
       fetchQuestionById();
@@ -210,7 +237,7 @@ const QuestionPage = () => {
 
   return (
     <main className={styles.container}>
-      <Navbar />
+      <Navbar loggedUser={loggedUser} isJwtActive={isJwtActive} />
 
       {isLoading ? (
         <AnswerWrapper

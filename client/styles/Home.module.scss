@@ -1,25 +1,15 @@
 @use "./scss/variables";
 
-.questionWrapper {
+.footer {
   display: flex;
   justify-content: center;
-  padding-top: 6rem;
+  align-items: center;
+  height: 6.25rem;
+  margin-top: 6rem;
+  background-color: variables.$primary-color;
 
-  .questionHolder {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 70rem;
-
-    .insertQuestion {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 50.625rem;
-
-      .insertBtn {
-        margin-top: 0;
-      }
-    }
+  p {
+    font-size: 0.9rem;
+    color: variables.$light-text-color;
   }
 }

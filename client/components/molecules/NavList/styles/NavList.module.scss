@@ -16,6 +16,10 @@
     justify-content: center;
     gap: 3rem;
 
+    .user {
+      color: variables.$light-text-color;
+    }
+
     a {
       text-decoration: none;
       font-size: 1.1rem;

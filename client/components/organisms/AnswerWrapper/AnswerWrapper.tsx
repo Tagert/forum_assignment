@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { UserType } from "../../../types/user.type";
 import { AnswerType } from "../../../types/answer.type";
 import { QuestionType } from "../../../types/question.type";
+import { getCardClassName } from "../../../utils/get_card_class_name";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { QuestionSide } from "../../molecules/QuestionSide/QuestionSide";
 import { AnswerCard } from "../../molecules/AnswerCard/AnswerCard";
@@ -89,6 +90,10 @@ const AnswerWrapper = ({
     }
   };
 
+  // const getCardClassName = (index: number) => {
+  //   return index % 2 === 0 ? styles.cardRightSide : styles.cardLeftSide;
+  // };
+
   return (
     <section className={styles.container}>
       <section className={styles.communicationWrapper}>
@@ -122,6 +127,8 @@ const AnswerWrapper = ({
 
           {answers ? (
             answers.map((answer, index) => {
+              const cardClassName = getCardClassName(index);
+
               return (
                 <AnswerCard
                   key={`${answer.answer_id}-${index}`}
@@ -134,6 +141,7 @@ const AnswerWrapper = ({
                   loggedUser={loggedUser}
                   answerDelete={answerDelete}
                   handleAnswerVote={handleAnswerVote}
+                  className={cardClassName}
                 />
               );
             })

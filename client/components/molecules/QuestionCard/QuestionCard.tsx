@@ -90,7 +90,8 @@ const QuestionCard = ({
         <div className={styles.timeUser}>
           <p className={styles.date}>{timeAgo}</p>
           <p className={styles.user}>
-            by: <span>{user_id}</span>
+            by:
+            <span>{user_id}</span>
           </p>
         </div>
       </div>

@@ -5,20 +5,24 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { UserType } from "../../../types/user.type";
+import { AnswerType } from "../../../types/answer.type";
 import { QuestionType } from "../../../types/question.type";
 import { Button } from "../../atoms/Button/Button";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { InsertModal } from "../../molecules/InsertModal/InsertModal";
 import { QuestionCard } from "../../molecules/QuestionCard/QuestionCard";
+import { TopUsers } from "../../molecules/TopUsers/TopUsers";
 
 type QuestionWrapperProps = {
   questions: QuestionType[] | null;
+  answers: AnswerType[] | null;
   users: UserType[] | null;
   fetchQuestions: () => void;
 };
 
 const QuestionWrapper = ({
   questions,
+  answers,
   users,
   fetchQuestions,
 }: QuestionWrapperProps) => {
@@ -126,8 +130,8 @@ const QuestionWrapper = ({
   };
 
   return (
-    <section className={styles.container}>
-      <div className={styles.questionHolder}>
+    <section id="questionWrapper" className={styles.container}>
+      <div className={styles.questionsContainer}>
         <div className={styles.insertQuestion}>
           <h4>Popular Questions:</h4>
           <div className={styles.actionBox}>
@@ -160,29 +164,35 @@ const QuestionWrapper = ({
           )}
         </div>
 
-        {questions ? (
-          sortedQuestions.map((question) => {
-            const user = users?.find(
-              (user) => user.user_id === question.user_id
-            );
-            const userName = user ? user.name : "Unknown";
+        <div className={styles.content}>
+          <div className={styles.questionsHolder}>
+            {questions ? (
+              sortedQuestions.map((question) => {
+                const user = users?.find(
+                  (user) => user.user_id === question.user_id
+                );
+                const userName = user ? user.name : "Unknown";
 
-            return (
-              <QuestionCard
-                key={question.question_id}
-                question_id={question.question_id}
-                date={question.date}
-                user_id={userName}
-                title={question.title}
-                category={question.category}
-                question_answers={question.question_answers}
-                question_votes={question.votesCounter}
-              />
-            );
-          })
-        ) : (
-          <Spinner />
-        )}
+                return (
+                  <QuestionCard
+                    key={question.question_id}
+                    question_id={question.question_id}
+                    date={question.date}
+                    user_id={userName}
+                    title={question.title}
+                    category={question.category}
+                    question_answers={question.question_answers}
+                    question_votes={question.votesCounter}
+                  />
+                );
+              })
+            ) : (
+              <Spinner />
+            )}
+          </div>
+
+          <TopUsers users={users} answers={answers} />
+        </div>
       </div>
     </section>
   );

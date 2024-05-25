@@ -2,8 +2,9 @@ import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import axios from "axios";
 import cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { UserType } from "../types/user.type";
 import { AnswerType } from "../types/answer.type";
 import { QuestionType } from "../types/question.type";
@@ -17,6 +18,55 @@ const App = () => {
   const [questions, setQuestions] = useState<QuestionType[] | null>(null);
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
+  const [loggedUser, setLoggedUser] = useState<UserType | null>(null);
+  const [isJwtActive, setJwtActive] = useState(false);
+
+  const fetchLoggedInUser = async (userId: string) => {
+    console.log("fetchLoggedInUser");
+
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/user/${userId}`, {
+        headers,
+      });
+
+      setLoggedUser(res.data);
+    } catch (err) {
+      console.error("Error fetching logged-in user:", err);
+
+      // @ts-expect-error
+      if (err.response?.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const fetchVerifyToken = async () => {
+    console.log("fetchVerifyToken");
+
+    try {
+      const headers = {
+        authorization: cookies.get("jwt_token"),
+      };
+
+      const res = await axios.get(`${process.env.SERVER_URL}/verify_token`, {
+        headers,
+      });
+
+      setJwtActive(true);
+      // setLoggedUser(res.data);
+    } catch (err) {
+      console.error("Error fetching logged-in user:", err);
+
+      // @ts-expect-error
+      if (err.response?.status === 401) {
+        setJwtActive(false);
+      }
+    }
+  };
 
   const fetchQuestions = async () => {
     console.log("fetchQuestions");
@@ -30,6 +80,7 @@ const App = () => {
       });
 
       setQuestions(res.data.sortedQuestions);
+      fetchVerifyToken();
     } catch (err) {
       console.error("Error fetching questions:", err);
       // @ts-expect-error
@@ -78,6 +129,15 @@ const App = () => {
   };
 
   useEffect(() => {
+    const token = cookies.get("jwt_token");
+    if (token) {
+      const decodedToken: { userId: string } = jwtDecode(token);
+      fetchLoggedInUser(decodedToken.userId);
+    } else {
+      // router.push("/login");
+      console.log("User not unauthenticated, please login");
+    }
+
     fetchQuestions();
     fetchAnswers();
     fetchUsers();
@@ -92,7 +152,7 @@ const App = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header loggedUser={loggedUser} isJwtActive={isJwtActive} />
 
       <Statistics
         questionCount={questions ? questions.length : 0}
@@ -102,9 +162,14 @@ const App = () => {
 
       <QuestionWrapper
         questions={questions}
+        answers={answers}
         users={users}
         fetchQuestions={fetchQuestions}
       />
+
+      <footer className={styles.footer}>
+        <p>©2024 Q-station. All rights reserved.</p>
+      </footer>
     </>
   );
 };

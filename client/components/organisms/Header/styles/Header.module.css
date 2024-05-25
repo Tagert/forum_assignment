@@ -6,7 +6,7 @@
 }
 .container .searchContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
   gap: 1rem;
@@ -26,4 +26,17 @@
   border-radius: 0.5rem;
   padding: 0.5rem 2rem;
   outline: none;
+}
+.container .searchContainer .reference {
+  display: flex;
+  height: 12rem;
+}
+.container .searchContainer .reference .scroll {
+  padding-bottom: 0.8rem;
+  align-self: flex-end;
+}
+.container .searchContainer .reference .scroll svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #26283b;
 }/*# sourceMappingURL=Header.module.css.map */

@@ -1,13 +1,22 @@
 import Link from "next/link";
 import styles from "./styles/NavList.module.css";
 import { LinksType } from "../../../types/links.type";
+import { UserType } from "../../../types/user.type";
+import { Spinner } from "../../atoms/Spinner/Spinner";
 
 type NavListProps = {
   onBurgerBtnClick: () => void;
   links: LinksType[];
+  isJwtActive: boolean;
+  loggedUser: UserType | null;
 };
 
-const NavList = ({ onBurgerBtnClick, links }: NavListProps) => {
+const NavList = ({
+  onBurgerBtnClick,
+  links,
+  isJwtActive,
+  loggedUser,
+}: NavListProps) => {
   return (
     <div className={styles.outerContainer}>
       <nav className={styles.container}>
@@ -16,6 +25,14 @@ const NavList = ({ onBurgerBtnClick, links }: NavListProps) => {
             {n.title}
           </Link>
         ))}
+
+        {isJwtActive && loggedUser ? (
+          <Link className={styles.user} href={"/login"}>
+            {loggedUser.name}
+          </Link>
+        ) : (
+          <Link href={"/login"}>Login</Link>
+        )}
 
         <button onClick={() => onBurgerBtnClick()}>
           <svg
@@ -31,7 +48,7 @@ const NavList = ({ onBurgerBtnClick, links }: NavListProps) => {
         </button>
       </nav>
 
-      <Link href={"/add"} className={styles.linkHolder}>
+      <Link href={"/"} className={styles.linkHolder}>
         <svg
           enableBackground="new 0 0 32 32"
           height="32px"

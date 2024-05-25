@@ -145,27 +145,9 @@ const GET_ALL_USERS = async (req, res) => {
 };
 
 const VERIFY_TOKEN = (req, res) => {
-  const jwtToken = req.body.jwt_token;
-
-  if (!jwtToken) {
-    return res.status(400).json({
-      message:
-        "Unable to find, please provide a token to perform further actions",
-    });
-  }
-
   try {
-    jwt.verify(jwtToken, process.env.JWT_KEY, (err, decoded) => {
-      if (err) {
-        return res
-          .status(400)
-          .json({ message: "Your time has expired, you must log in again" });
-      }
-      const email = decoded.email;
-
-      return res.status(200).json({
-        message: `${email} you already logged in`,
-      });
+    return res.status(200).json({
+      message: `You already logged in`,
     });
   } catch (error) {
     res

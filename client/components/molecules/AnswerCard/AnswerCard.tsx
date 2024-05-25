@@ -12,6 +12,7 @@ type AnswerCardProps = {
   loggedUser: UserType | null;
   answerDelete: (answer_id: string) => void;
   handleAnswerVote: (answerId: string, voteType: "upvote" | "downvote") => void;
+  className?: string;
 };
 
 const AnswerCard = ({
@@ -24,15 +25,16 @@ const AnswerCard = ({
   loggedUser,
   answerDelete,
   handleAnswerVote,
+  className,
 }: AnswerCardProps) => {
   const timeAgo = calcTimeDifference(date);
 
   const handleVote = (voteType: "upvote" | "downvote") => {
     handleAnswerVote(answer_id, voteType);
   };
-
+  console.log(className);
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className}`}>
       <div className={styles.answersContainer}>
         <div className={styles.counterBox}>
           <div className={styles.removeBox}>

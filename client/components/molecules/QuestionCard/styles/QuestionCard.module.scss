@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-between;
   height: 6rem;
-  width: 50.625rem;
+  width: 52.125rem;
   padding: 1rem;
   border-radius: 0.6rem;
   box-shadow: variables.$primary-shadow;
@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 30rem;
+    width: 28rem;
 
     h2 {
       font-size: 1rem;
@@ -57,20 +57,22 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 7.5rem;
+    width: 9rem;
 
-    p {
+    .date {
       text-align: end;
+    }
 
-      &:nth-of-type(2) {
-        display: flex;
-        gap: 0.4rem;
+    .user {
+      font-weight: 400;
+      font-size: 0.8rem;
 
-        span {
-          text-align: left;
-          font-size: 0.84rem;
-          font-style: italic;
-        }
+      span {
+        text-align: end;
+        font-weight: 500;
+        font-size: 0.85rem;
+        font-style: italic;
+        padding-left: 0.25rem;
       }
     }
   }

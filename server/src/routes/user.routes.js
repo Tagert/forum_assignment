@@ -1,4 +1,5 @@
 import express from "express";
+import auth from "../middlewares/authorization.js";
 import {
   SIGN_UP,
   LOG_IN,
@@ -17,7 +18,7 @@ router.get("/users", GET_ALL_USERS);
 
 router.get("/user/:id", GET_USER_BY_ID);
 
-router.post("/verify_token", VERIFY_TOKEN);
+router.get("/verify_token", auth, VERIFY_TOKEN);
 
 // router.get("/auth", auth, AUTHENTICATE_TOKEN);
 

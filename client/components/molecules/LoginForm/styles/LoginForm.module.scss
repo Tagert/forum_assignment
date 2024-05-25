@@ -44,10 +44,9 @@
         align-items: center;
         flex-direction: column;
         gap: 0.5rem;
-        min-width: 12rem;
+        max-width: 12rem;
 
         input {
-          max-width: 12rem;
           padding: 0.3rem;
           border: 0.1rem solid variables.$background-color;
           border-radius: 0.4rem;

@@ -14,6 +14,9 @@
   justify-content: center;
   gap: 3rem;
 }
+.outerContainer .container .user {
+  color: #e7eaf4;
+}
 .outerContainer .container a {
   text-decoration: none;
   font-size: 1.1rem;

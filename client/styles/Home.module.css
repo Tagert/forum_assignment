@@ -1,20 +1,12 @@
-.questionWrapper {
+.footer {
   display: flex;
   justify-content: center;
-  padding-top: 6rem;
-}
-.questionWrapper .questionHolder {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 70rem;
-}
-.questionWrapper .questionHolder .insertQuestion {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 50.625rem;
+  height: 6.25rem;
+  margin-top: 6rem;
+  background-color: #3d52a0;
 }
-.questionWrapper .questionHolder .insertQuestion .insertBtn {
-  margin-top: 0;
+.footer p {
+  font-size: 0.9rem;
+  color: #e7eaf4;
 }/*# sourceMappingURL=Home.module.css.map */

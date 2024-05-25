@@ -29,10 +29,11 @@ const ReplyCard = ({
 
   return (
     <div className={styles.container}>
+      <h5>Your answer</h5>
       <div className={styles.replyContainer}>
         <textarea
           name="reply"
-          placeholder="Add as many details as possible, by providing details you'll make it easier for other to reply"
+          placeholder="Post your answer here. Include enough information to make the answer self-contained. Answers are not for asking new questions, commenting or saying thanks (cast a vote instead)."
           value={answerText}
           onChange={handleTextChange}
         />

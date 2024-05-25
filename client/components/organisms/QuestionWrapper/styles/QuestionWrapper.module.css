@@ -3,26 +3,36 @@
   justify-content: center;
   padding: 6rem 1rem 2rem 1rem;
 }
-.container .questionHolder {
+.container .questionsContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   width: 70rem;
 }
-.container .questionHolder .insertQuestion {
+.container .questionsContainer .insertQuestion {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 50.625rem;
 }
-.container .questionHolder .insertQuestion .actionBox {
+.container .questionsContainer .insertQuestion .actionBox {
   display: flex;
   gap: 1rem;
 }
-.container .questionHolder .insertQuestion .actionBox select {
+.container .questionsContainer .insertQuestion .actionBox select {
   border-radius: 0.6rem;
   padding: 0.3rem;
 }
-.container .questionHolder .insertQuestion .actionBox .insertBtn {
+.container .questionsContainer .insertQuestion .actionBox .insertBtn {
   margin-top: 0;
+}
+.container .questionsContainer .content {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.container .questionsContainer .content .questionsHolder {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }/*# sourceMappingURL=QuestionWrapper.module.css.map */

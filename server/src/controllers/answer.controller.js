@@ -72,7 +72,12 @@ const GET_QUESTION_ALL_ANSWERS = async (req, res) => {
     //     .json({ message: "No answers found for this question" });
     // }
 
-    return res.json({ answers: questionAnswers[0].answers });
+    const sortedAnswers = descendingOrder(
+      questionAnswers[0].answers,
+      "votesCounter"
+    );
+
+    return res.json({ answers: sortedAnswers });
   } catch (err) {
     console.log("HANDLED ERROR:", err);
     return res.status(500).json({ error: "Something went wrong" });
@@ -145,7 +150,7 @@ const GET_ALL_ANSWERS = async (req, res) => {
       return res.status(404).json({ message: "Data not exist" });
     }
 
-    const sortedAnswers = descendingOrder(answers, "answer_votes");
+    const sortedAnswers = descendingOrder(answers, "votesCounter");
 
     return res.json({ sortedAnswers });
   } catch (err) {

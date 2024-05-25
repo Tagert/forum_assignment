@@ -21,6 +21,7 @@
 .container .questionTitle .title .type {
   display: flex;
   justify-content: space-between;
+  height: 1.5rem;
 }
 .container .questionTitle .title .type h2 {
   justify-self: center;
