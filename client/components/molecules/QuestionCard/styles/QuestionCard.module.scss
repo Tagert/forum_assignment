@@ -1,4 +1,5 @@
 @use "../../../../styles/scss/variables";
+@use "../../../../styles/scss/responsive";
 
 .linkHolder {
   all: unset;
@@ -16,14 +17,34 @@
   background-color: variables.$color-white;
   cursor: pointer;
 
+  @include responsive.ms {
+    flex-direction: column;
+    height: 20rem;
+    width: 16rem;
+  }
+
+  @include responsive.ss {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
   .questionDescription {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 28rem;
 
+    @include responsive.ms {
+      width: 100%;
+    }
+
     h2 {
       font-size: 1rem;
+    }
+
+    @include responsive.ms {
+      text-align: center;
     }
   }
 

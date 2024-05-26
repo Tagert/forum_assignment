@@ -9,6 +9,11 @@
   background-color: #fdfdfe;
   cursor: pointer;
 }
+@media screen and (max-width: 570px) {
+  .container {
+    width: 100%;
+  }
+}
 .container img {
   width: 3rem;
   height: 3rem;

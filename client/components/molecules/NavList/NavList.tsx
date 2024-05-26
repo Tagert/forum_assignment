@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./styles/NavList.module.css";
+import Link from "next/link";
 import { LinksType } from "../../../types/links.type";
 import { UserType } from "../../../types/user.type";
 import { Spinner } from "../../atoms/Spinner/Spinner";

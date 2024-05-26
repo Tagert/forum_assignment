@@ -1,5 +1,5 @@
 import styles from "./styles/ReplyCard.module.css";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "../../atoms/Button/Button";
 import { UserType } from "../../../types/user.type";
@@ -19,11 +19,21 @@ const ReplyCard = ({
 }: ReplyCardProps) => {
   const router = useRouter();
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!loggedUser) {
       router.push("/login");
     } else {
       setAnswerText(e.target.value);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (answerText.length >= 15) {
+      onClick();
+    } else {
+      setErrorMessage("Your answer must be at least 15 characters long.");
     }
   };
 
@@ -37,12 +47,19 @@ const ReplyCard = ({
           value={answerText}
           onChange={handleTextChange}
         />
-        <Button
-          isLoading={false}
-          onClick={onClick}
-          title="Send"
-          className={styles.replyBtn}
-        />
+
+        <div className={styles.submitBox}>
+          <Button
+            isLoading={false}
+            onClick={handleSubmit}
+            title="Send"
+            className={styles.replyBtn}
+          />
+
+          {errorMessage && (
+            <p className={styles.errorMessage}>{errorMessage}</p>
+          )}
+        </div>
       </div>
     </div>
   );

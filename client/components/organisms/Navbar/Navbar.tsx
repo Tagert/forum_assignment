@@ -1,6 +1,6 @@
 import styles from "./styles/Navbar.module.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { UserType } from "../../../types/user.type";
 import { links } from "../../../constants/links";
 import { NavList } from "../../molecules/NavList/NavList";
@@ -12,11 +12,33 @@ type NavbarProps = {
 };
 
 const Navbar = ({ loggedUser, isJwtActive }: NavbarProps) => {
-  const [isDisplayMobileMenu, setDisplayMobileMenu] = useState(false);
+  const [isDisplayMobileMenu, setDisplayMobileMenu] = useState<boolean>(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const onBurgerBtnClick = () => {
     setDisplayMobileMenu(!isDisplayMobileMenu);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setDisplayMobileMenu(false);
+      }
+    };
+
+    if (isDisplayMobileMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDisplayMobileMenu]);
 
   return (
     <nav className={styles.container}>
@@ -32,7 +54,15 @@ const Navbar = ({ loggedUser, isJwtActive }: NavbarProps) => {
           loggedUser={loggedUser}
         />
 
-        {isDisplayMobileMenu && <MobileMenu links={links} />}
+        {isDisplayMobileMenu && (
+          <div ref={mobileMenuRef} className={styles.mobileMenuHolder}>
+            <MobileMenu
+              links={links}
+              loggedUser={loggedUser}
+              isJwtActive={isJwtActive}
+            />
+          </div>
+        )}
       </div>
     </nav>
   );

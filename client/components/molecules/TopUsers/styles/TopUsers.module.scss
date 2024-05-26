@@ -1,4 +1,5 @@
 @use "../../../../styles/scss/variables";
+@use "../../../../styles/scss/responsive";
 
 .container {
   display: flex;
@@ -13,6 +14,15 @@
   background-color: variables.$color-white;
   cursor: pointer;
 
+  @include responsive.xl {
+    height: 100%;
+    width: 52.125rem;
+  }
+
+  @include responsive.ms {
+    width: 100%;
+  }
+
   h2 {
     text-align: center;
     font-size: 1.2rem;
@@ -22,8 +32,22 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    padding-left: 1.675rem;
+    padding-left: 1rem;
     list-style: none;
+
+    @include responsive.xl {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    @include responsive.ms {
+      gap: 2.5rem;
+    }
+
+    @include responsive.xs {
+      flex-direction: column;
+    }
 
     li {
       position: relative;
@@ -71,6 +95,10 @@
         align-items: center;
         font-size: 0.95rem;
         font-weight: 600;
+
+        @include responsive.xl {
+          font-size: 0.9rem;
+        }
 
         &::before {
           content: counter(step-counter);

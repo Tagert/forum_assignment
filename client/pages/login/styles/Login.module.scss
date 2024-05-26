@@ -1,4 +1,5 @@
 @use "../../../styles/scss/variables";
+@use "../../../styles/scss/responsive";
 
 .container {
   display: flex;
@@ -16,12 +17,20 @@
       justify-content: center;
       align-items: center;
       margin-top: 3rem;
+
+      @include responsive.sm {
+        padding-top: 6rem;
+      }
     }
 
     .manageBackground {
       display: flex;
       align-items: center;
       justify-content: center;
+
+      @include responsive.sm {
+        padding-bottom: 3rem;
+      }
 
       .toggleButton {
         display: flex;

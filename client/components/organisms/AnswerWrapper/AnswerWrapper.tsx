@@ -90,10 +90,6 @@ const AnswerWrapper = ({
     }
   };
 
-  // const getCardClassName = (index: number) => {
-  //   return index % 2 === 0 ? styles.cardRightSide : styles.cardLeftSide;
-  // };
-
   return (
     <section className={styles.container}>
       <section className={styles.communicationWrapper}>

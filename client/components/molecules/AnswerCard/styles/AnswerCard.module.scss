@@ -1,4 +1,5 @@
 @use "../../../../styles/scss/variables";
+@use "../../../../styles/scss/responsive";
 
 .container {
   display: flex;
@@ -13,11 +14,20 @@
     box-shadow: variables.$primary-shadow;
     background-color: variables.$color-white;
 
+    @include responsive.ms {
+      width: calc(100vw - 7rem);
+    }
+
+    @include responsive.ms {
+      width: calc(100vw - 3rem);
+    }
+
     .counterBox {
       position: relative;
       display: flex;
       justify-content: space-between;
       width: 100%;
+
       .removeBox {
         display: flex;
         gap: 0.6rem;

@@ -1,14 +1,19 @@
 @use "../../../../styles/scss/variables";
+@use "../../../../styles/scss/responsive";
 
 .container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 50.625rem;
+  width: 50.625rem;
   padding: 1.5rem;
   border-radius: 0.6rem;
   box-shadow: variables.$primary-shadow;
   background-color: variables.$color-white;
+
+  @include responsive.ms {
+    width: 100%;
+  }
 
   h5 {
     font-size: 0.9rem;
@@ -20,6 +25,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
+    gap: 1rem;
 
     textarea {
       // width: 40rem;
@@ -28,9 +34,20 @@
       padding: 1rem;
       resize: none;
     }
+  }
+  .submitBox {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
 
     .replyBtn {
       width: 6rem;
+      margin-top: 0;
+    }
+
+    .errorMessage {
+      font-size: 0.9rem;
+      color: brown;
     }
   }
 }

@@ -18,6 +18,7 @@ type QuestionWrapperProps = {
   answers: AnswerType[] | null;
   users: UserType[] | null;
   fetchQuestions: () => void;
+  isJwtActive: boolean;
 };
 
 const QuestionWrapper = ({
@@ -25,6 +26,7 @@ const QuestionWrapper = ({
   answers,
   users,
   fetchQuestions,
+  isJwtActive,
 }: QuestionWrapperProps) => {
   const router = useRouter();
 
@@ -97,32 +99,8 @@ const QuestionWrapper = ({
     }
   };
 
-  const isAuthenticated = async () => {
-    const token = cookies.get("jwt_token");
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      const response = await axios.post(
-        `${process.env.SERVER_URL}/verify_token`,
-        { jwt_token: token }
-      );
-
-      return response.status === 200;
-    } catch (err) {
-      console.error("Token verification failed:", err);
-      // @ts-expect-error
-      if (err.response.status === 401) {
-        router.push("/login");
-      }
-      return false;
-    }
-  };
-
   const handleAskQuestion = async () => {
-    if (await isAuthenticated()) {
+    if (isJwtActive) {
       setModalUp(true);
     } else {
       router.push("/login");

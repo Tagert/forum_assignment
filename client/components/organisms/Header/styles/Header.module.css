@@ -11,13 +11,34 @@
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+  padding: 0rem 1rem;
 }
 .container .searchContainer h2 {
   font-size: 2.3rem;
   padding-bottom: 0.5rem;
 }
+@media screen and (max-width: 870px) {
+  .container .searchContainer h2 {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 700px) {
+  .container .searchContainer h2 {
+    font-size: 1.8rem;
+  }
+}
 .container .searchContainer p {
   font-size: 1.4rem;
+}
+@media screen and (max-width: 870px) {
+  .container .searchContainer p {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 700px) {
+  .container .searchContainer p {
+    font-size: 1.1rem;
+  }
 }
 .container .searchContainer input {
   width: 38.25rem;
@@ -27,16 +48,31 @@
   padding: 0.5rem 2rem;
   outline: none;
 }
+@media screen and (max-width: 700px) {
+  .container .searchContainer input {
+    width: 100%;
+  }
+}
 .container .searchContainer .reference {
   display: flex;
   height: 12rem;
+}
+@media screen and (max-width: 700px) {
+  .container .searchContainer .reference {
+    height: 10rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .container .searchContainer .reference {
+    height: 9rem;
+  }
 }
 .container .searchContainer .reference .scroll {
   padding-bottom: 0.8rem;
   align-self: flex-end;
 }
 .container .searchContainer .reference .scroll svg {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.8rem;
+  height: 1.8rem;
   color: #26283b;
 }/*# sourceMappingURL=Header.module.css.map */

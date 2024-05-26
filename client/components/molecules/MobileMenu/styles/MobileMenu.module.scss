@@ -2,37 +2,38 @@
 @use "../../../../styles/scss/variables";
 
 .container {
-  display: none;
-  position: absolute;
+  position: relative;
   right: 0;
-  top: calc(100% + 1rem);
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 0.4rem;
+  background-color: variables.$background-color;
+  opacity: 0.95;
 
-  @include responsive.md {
+  ul {
     display: flex;
-  }
+    flex-direction: column;
+    gap: 1rem;
+    list-style-type: none;
 
-  nav {
-    position: relative;
-    right: 0;
-    z-index: 10;
-    padding: 2rem;
-    border-radius: 0.4rem;
-    background-color: variables.$background-color;
-    opacity: 0.9;
+    .linkHolder {
+      all: unset;
+      font-weight: 500;
+      cursor: pointer;
+    }
 
-    ul {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      list-style-type: none;
+    .user {
+      color: variables.$dark-text-color;
+      font-weight: 600;
+      text-decoration: underline;
+    }
 
-      li {
-        a {
-          text-decoration: none;
-          font-size: 1.1rem;
-          font-weight: 500;
-          color: variables.$dark-text-color;
-        }
+    li {
+      a {
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: variables.$dark-text-color;
       }
     }
   }

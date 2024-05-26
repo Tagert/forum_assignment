@@ -1,9 +1,14 @@
 .container {
   position: relative;
   display: flex;
-  top: 8rem;
+  padding: 8rem 1rem 1rem 1rem;
   width: 70rem;
   min-height: 10rem;
+}
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
 }
 .container .communicationWrapper {
   display: flex;
@@ -14,21 +19,48 @@
 .container .questionHolder {
   display: flex;
 }
+@media screen and (max-width: 1200px) {
+  .container .questionHolder {
+    justify-content: center;
+  }
+}
 .container .answersHolder {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding-left: 5rem;
 }
+@media screen and (max-width: 1200px) {
+  .container .answersHolder {
+    align-items: center;
+  }
+}
+@media screen and (max-width: 570px) {
+  .container .answersHolder {
+    padding-left: 1rem;
+  }
+}
 .container .answersHolder h4 {
   text-align: end;
   width: 45.625rem;
   padding-right: 1.5rem;
 }
+@media screen and (max-width: 870px) {
+  .container .answersHolder h4 {
+    width: 100%;
+  }
+}
 .container .replyHolder {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding-bottom: 4rem;
+}
+@media screen and (max-width: 1200px) {
+  .container .replyHolder {
+    width: 100%;
+    align-items: center;
+  }
 }
 .container .replyHolder h4 {
   padding-left: 1.5rem;

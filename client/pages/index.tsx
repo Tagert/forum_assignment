@@ -4,7 +4,7 @@ import axios from "axios";
 import cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserType } from "../types/user.type";
 import { AnswerType } from "../types/answer.type";
 import { QuestionType } from "../types/question.type";
@@ -20,6 +20,7 @@ const App = () => {
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [loggedUser, setLoggedUser] = useState<UserType | null>(null);
   const [isJwtActive, setJwtActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchLoggedInUser = async (userId: string) => {
     console.log("fetchLoggedInUser");
@@ -143,6 +144,26 @@ const App = () => {
     fetchUsers();
   }, []);
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredQuestions = questions?.filter(
+    (question) =>
+      question.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      question.text.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredAnswers = answers?.filter((answer) =>
+    answer.text.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredUsers = users?.filter((user) =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // console.log(filteredQuestions, filteredAnswers, filteredUsers);
+
   return (
     <>
       <Head>
@@ -152,7 +173,11 @@ const App = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header loggedUser={loggedUser} isJwtActive={isJwtActive} />
+      <Header
+        loggedUser={loggedUser}
+        isJwtActive={isJwtActive}
+        onSearchChange={handleSearchChange}
+      />
 
       <Statistics
         questionCount={questions ? questions.length : 0}
@@ -165,6 +190,7 @@ const App = () => {
         answers={answers}
         users={users}
         fetchQuestions={fetchQuestions}
+        isJwtActive={isJwtActive}
       />
 
       <footer className={styles.footer}>

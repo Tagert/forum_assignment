@@ -1,4 +1,5 @@
 @use "./scss/variables";
+@use "./scss/responsive";
 
 .footer {
   display: flex;
@@ -7,6 +8,10 @@
   height: 6.25rem;
   margin-top: 6rem;
   background-color: variables.$primary-color;
+
+  @include responsive.md {
+    margin-top: 4rem;
+  }
 
   p {
     font-size: 0.9rem;

@@ -14,14 +14,38 @@
   background-color: #fdfdfe;
   cursor: pointer;
 }
+@media screen and (max-width: 870px) {
+  .container {
+    flex-direction: column;
+    height: 20rem;
+    width: 16rem;
+  }
+}
+@media screen and (max-width: 570px) {
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
 .container .questionDescription {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   width: 28rem;
 }
+@media screen and (max-width: 870px) {
+  .container .questionDescription {
+    width: 100%;
+  }
+}
 .container .questionDescription h2 {
   font-size: 1rem;
+}
+@media screen and (max-width: 870px) {
+  .container .questionDescription {
+    text-align: center;
+  }
 }
 .container .votes {
   display: flex;

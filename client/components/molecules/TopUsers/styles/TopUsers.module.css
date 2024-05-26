@@ -12,6 +12,17 @@
   background-color: #fdfdfe;
   cursor: pointer;
 }
+@media screen and (max-width: 1200px) {
+  .container {
+    height: 100%;
+    width: 52.125rem;
+  }
+}
+@media screen and (max-width: 870px) {
+  .container {
+    width: 100%;
+  }
+}
 .container h2 {
   text-align: center;
   font-size: 1.2rem;
@@ -20,8 +31,25 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  padding-left: 1.675rem;
+  padding-left: 1rem;
   list-style: none;
+}
+@media screen and (max-width: 1200px) {
+  .container ol {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+}
+@media screen and (max-width: 870px) {
+  .container ol {
+    gap: 2.5rem;
+  }
+}
+@media screen and (max-width: 420px) {
+  .container ol {
+    flex-direction: column;
+  }
 }
 .container ol li {
   position: relative;
@@ -63,6 +91,11 @@
   align-items: center;
   font-size: 0.95rem;
   font-weight: 600;
+}
+@media screen and (max-width: 1200px) {
+  .container ol li .userName {
+    font-size: 0.9rem;
+  }
 }
 .container ol li .userName::before {
   content: counter(step-counter);

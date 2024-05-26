@@ -1,4 +1,5 @@
 import styles from "./styles/InsertModal.module.css";
+import { useState } from "react";
 import { Button } from "../../atoms/Button/Button";
 
 type InsertModalProps = {
@@ -31,6 +32,32 @@ const InsertModal = ({
   category,
   setCategory,
 }: InsertModalProps) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = () => {
+    if (title.length < 3) {
+      setErrorMessage(
+        "Your question title must be at least 3 characters long."
+      );
+      return;
+    }
+
+    if (text.length < 10) {
+      setErrorMessage(
+        "Your question text must be at least 10 characters long."
+      );
+      return;
+    }
+
+    if (category === "") {
+      setErrorMessage("Please choose a category.");
+      return;
+    }
+
+    setErrorMessage("");
+    onConfirm();
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -85,19 +112,25 @@ const InsertModal = ({
           </label>
         </div>
 
-        <div className={styles.btnHolder}>
-          <Button
-            isLoading={false}
-            onClick={() => onConfirm()}
-            title="Add a Question"
-            type="WARNING"
-          />
+        <div className={styles.submitBox}>
+          <div className={styles.btnHolder}>
+            <Button
+              isLoading={false}
+              onClick={handleSubmit}
+              title="Add a Question"
+              type="WARNING"
+            />
 
-          <Button
-            isLoading={false}
-            onClick={() => onCancel()}
-            title="Go Back"
-          />
+            <Button
+              isLoading={false}
+              onClick={() => onCancel()}
+              title="Go Back"
+            />
+          </div>
+
+          {errorMessage && (
+            <p className={styles.errorMessage}>{errorMessage}</p>
+          )}
         </div>
       </div>
 

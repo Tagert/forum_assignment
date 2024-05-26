@@ -1,9 +1,16 @@
+@use "../../../../styles/scss/variables";
+@use "../../../../styles/scss/responsive";
+
 .container {
   position: relative;
   display: flex;
-  top: 8rem;
+  padding: 8rem 1rem 1rem 1rem;
   width: 70rem;
   min-height: 10rem;
+
+  @include responsive.xl {
+    width: 100%;
+  }
 
   .communicationWrapper {
     display: flex;
@@ -14,20 +21,34 @@
 
   .questionHolder {
     display: flex;
-    // justify-content: center;
+
+    @include responsive.xl {
+      justify-content: center;
+    }
   }
 
   .answersHolder {
     display: flex;
     flex-direction: column;
-    // align-items: center;
     gap: 2rem;
     padding-left: 5rem;
+
+    @include responsive.xl {
+      align-items: center;
+    }
+
+    @include responsive.ss {
+      padding-left: 1rem;
+    }
 
     h4 {
       text-align: end;
       width: 45.625rem;
       padding-right: 1.5rem;
+
+      @include responsive.ms {
+        width: 100%;
+      }
     }
   }
 
@@ -35,6 +56,12 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding-bottom: 4rem;
+
+    @include responsive.xl {
+      width: 100%;
+      align-items: center;
+    }
 
     h4 {
       padding-left: 1.5rem;

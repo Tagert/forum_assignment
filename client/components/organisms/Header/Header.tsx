@@ -1,13 +1,15 @@
 import styles from "./styles/Header.module.css";
+import React from "react";
 import { Navbar } from "../Navbar/Navbar";
 import { UserType } from "../../../types/user.type";
 
 type HeaderProps = {
   loggedUser: UserType | null;
   isJwtActive: boolean;
+  onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Header = ({ loggedUser, isJwtActive }: HeaderProps) => {
+const Header = ({ loggedUser, isJwtActive, onSearchChange }: HeaderProps) => {
   return (
     <header className={styles.container}>
       <Navbar loggedUser={loggedUser} isJwtActive={isJwtActive} />
@@ -26,6 +28,7 @@ const Header = ({ loggedUser, isJwtActive }: HeaderProps) => {
           autoCorrect="off"
           autoCapitalize="off"
           data-track-type="click keydown"
+          onChange={onSearchChange}
         />
 
         <div className={styles.reference}>

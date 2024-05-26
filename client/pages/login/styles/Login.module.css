@@ -15,10 +15,20 @@
   align-items: center;
   margin-top: 3rem;
 }
+@media screen and (max-width: 700px) {
+  .container .userBox .userManagement {
+    padding-top: 6rem;
+  }
+}
 .container .userBox .manageBackground {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 700px) {
+  .container .userBox .manageBackground {
+    padding-bottom: 3rem;
+  }
 }
 .container .userBox .manageBackground .toggleButton {
   display: flex;
