@@ -1,0 +1,69 @@
+@use "../../../../styles/scss/variables";
+
+.voteHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 2rem;
+
+  .upVoteBox,
+  .downVoteBox {
+    width: 2rem;
+    height: 2rem;
+    background-color: variables.$button-color;
+
+    button {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+        background-color: variables.$light-text-color;
+      }
+
+      svg {
+        height: 1.2rem;
+        color: variables.$secondary-color;
+      }
+    }
+  }
+
+  .upVoteBox {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+
+    button {
+      svg {
+        &:hover {
+          color: green;
+        }
+      }
+    }
+  }
+
+  .downVoteBox {
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+
+    button {
+      svg {
+        &:hover {
+          color: brown;
+        }
+      }
+    }
+  }
+
+  .middleVoteBox {
+    background-color: variables.$button-color;
+
+    p {
+      font-weight: 600;
+      padding: 0.4rem 0rem;
+      text-align: center;
+    }
+  }
+}

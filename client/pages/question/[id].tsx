@@ -4,6 +4,7 @@ import cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { ErrorModal } from "../../components/atoms/ErrorModal/ErrorModal";
 import { UserType } from "../../types/user.type";
 import { AnswerType } from "../../types/answer.type";
 import { QuestionType } from "../../types/question.type";
@@ -20,18 +21,21 @@ const QuestionPage = () => {
   const [loggedUser, setLoggedUser] = useState<UserType | null>(null);
   const [isJwtActive, setJwtActive] = useState(false);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isShowError, setShowError] = useState(false);
 
   const fetchLoggedInUser = async (userId: string) => {
     console.log("fetchLoggedInUser");
 
     try {
-      const headers = {
-        authorization: cookies.get("jwt_token"),
-      };
+      // const headers = {
+      //   authorization: cookies.get("jwt_token"),
+      // };
 
-      const res = await axios.get(`${process.env.SERVER_URL}/user/${userId}`, {
-        headers,
-      });
+      const res = await axios.get(
+        `${process.env.SERVER_URL}/user/${userId}`
+        // {headers,}
+      );
 
       setLoggedUser(res.data);
     } catch (err) {
@@ -57,7 +61,6 @@ const QuestionPage = () => {
       });
 
       setJwtActive(true);
-      // setLoggedUser(res.data);
     } catch (err) {
       console.error("Error fetching logged-in user:", err);
 
@@ -98,15 +101,15 @@ const QuestionPage = () => {
     console.log("fetchAnswers");
 
     try {
-      const headers = {
-        authorization: cookies.get("jwt_token"),
-      };
+      // const headers = {
+      //   authorization: cookies.get("jwt_token"),
+      // };
 
       const answerRes = await axios.get(
-        `${process.env.SERVER_URL}/question/${router.query.id}/answers`,
-        {
-          headers,
-        }
+        `${process.env.SERVER_URL}/question/${router.query.id}/answers`
+        // {
+        //   headers,
+        // }
       );
 
       setAnswers(answerRes.data.answers);
@@ -136,14 +139,15 @@ const QuestionPage = () => {
         }
       );
 
-      // setAnswers(res.data.answers);
-
       if (res.status === 201) {
         setAnswers((prevAnswers) =>
-          prevAnswers ? [...prevAnswers, res.data] : [res.data]
+          prevAnswers
+            ? [...prevAnswers, res.data.response]
+            : [res.data.response]
         );
+
         fetchQuestionById();
-        fetchAnswers();
+        // fetchAnswers();
       }
     } catch (err) {
       console.error("Error fetching answers:", err);
@@ -161,6 +165,7 @@ const QuestionPage = () => {
 
   const handleQuestionVote = async (voteType: "upvote" | "downvote") => {
     console.log("handleQuestionVote");
+
     try {
       const headers = {
         authorization: cookies.get("jwt_token"),
@@ -175,11 +180,19 @@ const QuestionPage = () => {
       );
 
       fetchQuestionById();
+      setShowError(false);
     } catch (err) {
       console.error(`Error ${voteType}ing question:`, err);
       // @ts-expect-error
       if (err.response.status === 401) {
         router.push("/login");
+      }
+
+      // @ts-expect-error
+      if (err.response.status === 400) {
+        // @ts-expect-error
+        setErrorMessage(err.response.data.message);
+        setShowError(true);
       }
     }
   };
@@ -204,11 +217,19 @@ const QuestionPage = () => {
       );
 
       fetchAnswers();
+      setShowError(false);
     } catch (err) {
       console.error(`Error ${voteType}ing answer:`, err);
       // @ts-expect-error
       if (err.response.status === 401) {
         router.push("/login");
+      }
+
+      // @ts-expect-error
+      if (err.response.status === 400) {
+        // @ts-expect-error
+        setErrorMessage(err.response.data.message);
+        setShowError(true);
       }
     }
   };
@@ -254,6 +275,13 @@ const QuestionPage = () => {
         />
       ) : (
         <Spinner />
+      )}
+
+      {isShowError && (
+        <ErrorModal
+          message={errorMessage}
+          onCancel={() => setShowError(false)}
+        />
       )}
     </main>
   );

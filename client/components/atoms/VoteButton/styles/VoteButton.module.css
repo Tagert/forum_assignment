@@ -1,0 +1,52 @@
+.voteHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 2rem;
+}
+.voteHolder .upVoteBox,
+.voteHolder .downVoteBox {
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(231, 234, 244, 0.4);
+}
+.voteHolder .upVoteBox button,
+.voteHolder .downVoteBox button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.voteHolder .upVoteBox button:hover,
+.voteHolder .downVoteBox button:hover {
+  background-color: #e7eaf4;
+}
+.voteHolder .upVoteBox button svg,
+.voteHolder .downVoteBox button svg {
+  height: 1.2rem;
+  color: #7091e6;
+}
+.voteHolder .upVoteBox {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.voteHolder .upVoteBox button svg:hover {
+  color: green;
+}
+.voteHolder .downVoteBox {
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.voteHolder .downVoteBox button svg:hover {
+  color: brown;
+}
+.voteHolder .middleVoteBox {
+  background-color: rgba(231, 234, 244, 0.4);
+}
+.voteHolder .middleVoteBox p {
+  font-weight: 600;
+  padding: 0.4rem 0rem;
+  text-align: center;
+}/*# sourceMappingURL=VoteButton.module.css.map */

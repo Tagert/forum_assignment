@@ -176,7 +176,7 @@ const UPVOTE_ANSWER = async (req, res) => {
       if (existingVote.vote === 1) {
         return res
           .status(400)
-          .json({ message: "User has already UP voted this answer" });
+          .json({ message: "You have already Up voted this answer" });
       } else {
         existingVote.vote = 1;
         answer.votesCounter += 2;
@@ -215,7 +215,7 @@ const DOWNVOTE_ANSWER = async (req, res) => {
       if (existingVote.vote === -1) {
         return res
           .status(400)
-          .json({ message: "User has already downvoted this answer" });
+          .json({ message: "You have already Down voted this answer." });
       } else {
         existingVote.vote = -1;
         answer.votesCounter -= 2;

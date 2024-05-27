@@ -30,7 +30,7 @@
   .answersHolder {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     padding-left: 5rem;
 
     @include responsive.xl {
