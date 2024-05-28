@@ -14,23 +14,11 @@
   justify-content: center;
   gap: 3rem;
 }
-.outerContainer .container .user {
-  color: #e7eaf4;
-}
 .outerContainer .container a {
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
   color: #26283b;
-}
-.outerContainer .container a:nth-child(4) {
-  padding: 0.38rem 1.65rem;
-  border-radius: 0.4rem;
-  border: 0.15rem solid #26283b;
-}
-.outerContainer .container a:nth-child(4):hover {
-  color: #e7eaf4;
-  background-color: #26283b;
 }
 @media screen and (max-width: 950px) {
   .outerContainer .container a {
@@ -49,11 +37,68 @@
 .outerContainer .container button svg {
   cursor: pointer;
 }
-.outerContainer .linkHolder {
+.outerContainer .userManage {
+  display: flex;
+  gap: 1.5rem;
+}
+.outerContainer .userManage .avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 0.1rem solid #26283b;
+  border-radius: 50%;
+}
+.outerContainer .userManage .avatar .userNameBox {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 12rem;
+  top: 100%;
+  padding: 1rem;
+  border: 0.1rem solid black;
+  border-radius: 0.6rem;
+  transform: translateY(2rem);
+}
+.outerContainer .userManage .avatar .userNameBox .signOut {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.outerContainer .userManage .avatar .userNameBox .signOut p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #26283b;
+}
+.outerContainer .userManage .avatar .userNameBox .signOut svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.outerContainer .userManage .avatar .userNameBox p {
+  font-size: 0.95rem;
+  color: #26283b;
+}
+.outerContainer .userManage .linkHolder {
   width: 1.8rem;
 }
-.outerContainer .linkHolder svg {
+.outerContainer .userManage .linkHolder svg {
   height: 100%;
   width: 100%;
   color: #26283b;
+}
+.outerContainer .userManage .user {
+  color: #e7eaf4;
+}
+.outerContainer .userManage .login {
+  padding: 0.38rem 1.65rem;
+  border-radius: 0.4rem;
+  border: 0.15rem solid #26283b;
+}
+.outerContainer .userManage .login:hover {
+  color: #e7eaf4;
+  background-color: #26283b;
 }/*# sourceMappingURL=NavList.module.css.map */

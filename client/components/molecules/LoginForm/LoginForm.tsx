@@ -1,5 +1,7 @@
 import styles from "./styles/LoginForm.module.css";
-// import Link from "next/link";
+import eyeShow from "../../../public/assets/eye_see_show_icon.svg";
+import eyeInactive from "../../../public/assets/disable_eye_inactive_icon.svg";
+import Image from "next/image";
 import axios from "axios";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
@@ -14,6 +16,7 @@ const LoginForm = () => {
   const [isError, setError] = useState(false);
   const [isBadData, setBadData] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onLogin = async () => {
     setLoading(true);
@@ -91,9 +94,18 @@ const LoginForm = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Your password"
                 onKeyDown={handleKeyDown}
+              />
+
+              <Image
+                className={styles.eyeIcon}
+                src={showPassword ? eyeShow.src : eyeInactive.src}
+                alt="show/hide password"
+                width={24}
+                height={24}
+                onClick={() => setShowPassword(!showPassword)}
               />
             </div>
 
