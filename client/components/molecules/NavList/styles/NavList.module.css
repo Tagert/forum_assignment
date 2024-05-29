@@ -39,7 +39,7 @@
 }
 .outerContainer .userManage {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 .outerContainer .userManage .avatar {
   position: relative;
@@ -48,10 +48,17 @@
   align-items: center;
   height: 2.5rem;
   width: 2.5rem;
-  border: 0.1rem solid #26283b;
+  border: 0.1rem solid #e7eaf4;
   border-radius: 50%;
+  background-color: #3d52a0;
+  cursor: pointer;
 }
-.outerContainer .userManage .avatar .userNameBox {
+.outerContainer .userManage .avatar .initials {
+  font-weight: 500;
+  color: #e7eaf4;
+}
+.outerContainer .userManage .avatar .userNameBox,
+.outerContainer .userManage .avatar .userNameBoxHide {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -60,27 +67,44 @@
   width: 12rem;
   top: 100%;
   padding: 1rem;
-  border: 0.1rem solid black;
+  border: 0.1rem solid #e7eaf4;
   border-radius: 0.6rem;
+  background-color: #3d52a0;
   transform: translateY(2rem);
+  cursor: default;
 }
-.outerContainer .userManage .avatar .userNameBox .signOut {
+.outerContainer .userManage .avatar .userNameBox .signOutHolder,
+.outerContainer .userManage .avatar .userNameBoxHide .signOutHolder {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
-.outerContainer .userManage .avatar .userNameBox .signOut p {
+.outerContainer .userManage .avatar .userNameBox .signOutHolder p,
+.outerContainer .userManage .avatar .userNameBoxHide .signOutHolder p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e7eaf4;
+}
+.outerContainer .userManage .avatar .userNameBox .signOutHolder .signOut,
+.outerContainer .userManage .avatar .userNameBoxHide .signOutHolder .signOut {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+.outerContainer .userManage .avatar .userNameBox .signOutHolder .signOut p,
+.outerContainer .userManage .avatar .userNameBoxHide .signOutHolder .signOut p {
   font-size: 0.9rem;
   font-weight: 300;
-  color: #26283b;
+  color: #e7eaf4;
 }
-.outerContainer .userManage .avatar .userNameBox .signOut svg {
-  height: 1.5rem;
-  width: 1.5rem;
+.outerContainer .userManage .avatar .userNameBox .signOutHolder .signOut svg,
+.outerContainer .userManage .avatar .userNameBoxHide .signOutHolder .signOut svg {
+  height: 1.7rem;
 }
-.outerContainer .userManage .avatar .userNameBox p {
-  font-size: 0.95rem;
-  color: #26283b;
+.outerContainer .userManage .avatar .userNameBoxHide {
+  display: none;
 }
 .outerContainer .userManage .linkHolder {
   width: 1.8rem;

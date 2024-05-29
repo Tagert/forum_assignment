@@ -19,9 +19,7 @@
   cursor: pointer;
 }
 .container ul .user {
-  color: #26283b;
-  font-weight: 600;
-  text-decoration: underline;
+  display: none;
 }
 .container ul li a {
   text-decoration: none;

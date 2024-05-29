@@ -23,9 +23,7 @@ const MobileMenu = ({ links, loggedUser, isJwtActive }: MobileMenuProps) => {
           <Link
             className={`${styles.linkHolder} ${styles.user}`}
             href={"/login"}
-          >
-            {loggedUser.name}
-          </Link>
+          ></Link>
         ) : (
           <Link className={styles.linkHolder} href={"/login"}>
             Login

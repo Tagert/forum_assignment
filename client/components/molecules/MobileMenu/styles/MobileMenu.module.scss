@@ -23,9 +23,7 @@
     }
 
     .user {
-      color: variables.$dark-text-color;
-      font-weight: 600;
-      text-decoration: underline;
+      display: none;
     }
 
     li {
