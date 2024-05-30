@@ -14,20 +14,29 @@ type NavbarProps = {
 const Navbar = ({ loggedUser, isJwtActive }: NavbarProps) => {
   const [isDisplayMobileMenu, setDisplayMobileMenu] = useState<boolean>(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const hamburgerBtnRef = useRef<HTMLButtonElement>(null);
 
   const onBurgerBtnClick = () => {
-    setDisplayMobileMenu(!isDisplayMobileMenu);
+    setDisplayMobileMenu((prev: boolean) => !prev);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        hamburgerBtnRef.current &&
+        !hamburgerBtnRef.current.contains(event.target as Node)
       ) {
         setDisplayMobileMenu(false);
       }
     };
+
+    if (isDisplayMobileMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
 
     if (isDisplayMobileMenu) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -52,6 +61,7 @@ const Navbar = ({ loggedUser, isJwtActive }: NavbarProps) => {
           links={links}
           isJwtActive={isJwtActive}
           loggedUser={loggedUser}
+          hamburgerBtnRef={hamburgerBtnRef}
         />
 
         {isDisplayMobileMenu && (

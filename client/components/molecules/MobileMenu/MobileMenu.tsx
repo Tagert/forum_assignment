@@ -11,7 +11,7 @@ type MobileMenuProps = {
 
 const MobileMenu = ({ links, loggedUser, isJwtActive }: MobileMenuProps) => {
   return (
-    <nav className={styles.container}>
+    <nav className={styles.container} onClick={(e) => e.stopPropagation()}>
       <ul>
         {links.map((n) => (
           <li key={n.id}>

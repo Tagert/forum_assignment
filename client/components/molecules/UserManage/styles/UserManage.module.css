@@ -1,0 +1,89 @@
+.userManage {
+  display: flex;
+  gap: 2rem;
+}
+.userManage .avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 0.1rem solid #e7eaf4;
+  border-radius: 50%;
+  background-color: #3d52a0;
+  cursor: pointer;
+}
+.userManage .avatar .initials {
+  font-weight: 500;
+  color: #e7eaf4;
+}
+.userManage .avatar .userNameBox,
+.userManage .avatar .userNameBoxHide {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 12rem;
+  top: 100%;
+  padding: 1rem;
+  border: 0.1rem solid #e7eaf4;
+  border-radius: 0.6rem;
+  background-color: #3d52a0;
+  transform: translateY(2rem);
+  cursor: default;
+}
+.userManage .avatar .userNameBox .signOutHolder,
+.userManage .avatar .userNameBoxHide .signOutHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.userManage .avatar .userNameBox .signOutHolder p,
+.userManage .avatar .userNameBoxHide .signOutHolder p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e7eaf4;
+}
+.userManage .avatar .userNameBox .signOutHolder .signOut,
+.userManage .avatar .userNameBoxHide .signOutHolder .signOut {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+.userManage .avatar .userNameBox .signOutHolder .signOut p,
+.userManage .avatar .userNameBoxHide .signOutHolder .signOut p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #e7eaf4;
+}
+.userManage .avatar .userNameBox .signOutHolder .signOut svg,
+.userManage .avatar .userNameBoxHide .signOutHolder .signOut svg {
+  height: 1.7rem;
+}
+.userManage .avatar .userNameBoxHide {
+  display: none;
+}
+.userManage .linkHolder {
+  width: 1.8rem;
+}
+.userManage .linkHolder svg {
+  height: 100%;
+  width: 100%;
+  color: #26283b;
+}
+.userManage .user {
+  color: #e7eaf4;
+}
+.userManage .login {
+  padding: 0.38rem 1.65rem;
+  border-radius: 0.4rem;
+  border: 0.15rem solid #26283b;
+}
+.userManage .login:hover {
+  color: #e7eaf4;
+  background-color: #26283b;
+}/*# sourceMappingURL=UserManage.module.css.map */

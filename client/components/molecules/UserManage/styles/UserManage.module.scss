@@ -1,0 +1,100 @@
+@use "../../../../styles/scss/variables";
+
+.userManage {
+  display: flex;
+  gap: 2rem;
+
+  .avatar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    border: 0.1rem solid variables.$light-text-color;
+    border-radius: 50%;
+    background-color: variables.$primary-color;
+    cursor: pointer;
+
+    .initials {
+      font-weight: 500;
+      color: variables.$light-text-color;
+    }
+
+    .userNameBox,
+    .userNameBoxHide {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 12rem;
+      top: 100%;
+      padding: 1rem;
+      border: 0.1rem solid variables.$light-text-color;
+      border-radius: 0.6rem;
+      background-color: variables.$primary-color;
+      transform: translateY(2rem);
+      cursor: default;
+
+      .signOutHolder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        p {
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: variables.$light-text-color;
+        }
+
+        .signOut {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          cursor: pointer;
+
+          p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: variables.$light-text-color;
+          }
+
+          svg {
+            height: 1.7rem;
+          }
+        }
+      }
+    }
+
+    .userNameBoxHide {
+      display: none;
+    }
+  }
+
+  .linkHolder {
+    width: 1.8rem;
+
+    svg {
+      height: 100%;
+      width: 100%;
+      color: variables.$dark-text-color;
+    }
+  }
+
+  .user {
+    color: variables.$light-text-color;
+  }
+
+  .login {
+    padding: 0.38rem 1.65rem;
+    border-radius: 0.4rem;
+    border: 0.15rem solid variables.$dark-text-color;
+
+    &:hover {
+      color: variables.$light-text-color;
+      background-color: variables.$dark-text-color;
+    }
+  }
+}

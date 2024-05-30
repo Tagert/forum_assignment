@@ -1,10 +1,9 @@
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import axios from "axios";
-import cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import { UserType } from "../types/user.type";
 import { AnswerType } from "../types/answer.type";
 import { QuestionType } from "../types/question.type";
@@ -14,75 +13,19 @@ import { QuestionWrapper } from "../components/organisms/QuestionWrapper/Questio
 
 const App = () => {
   const router = useRouter();
+  const { isJwtActive, loggedUser } = useAuth();
 
   const [questions, setQuestions] = useState<QuestionType[] | null>(null);
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
-  const [loggedUser, setLoggedUser] = useState<UserType | null>(null);
-  const [isJwtActive, setJwtActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const fetchLoggedInUser = async (userId: string) => {
-    console.log("fetchLoggedInUser");
-
-    try {
-      // const headers = {
-      //   authorization: cookies.get("jwt_token"),
-      // };
-
-      const res = await axios.get(
-        `${process.env.SERVER_URL}/user/${userId}`
-        // {headers,}
-      );
-
-      setLoggedUser(res.data);
-    } catch (err) {
-      console.error("Error fetching logged-in user:", err);
-
-      // @ts-expect-error
-      if (err.response?.status === 401) {
-        router.push("/login");
-      }
-    }
-  };
-
-  const fetchVerifyToken = async () => {
-    console.log("fetchVerifyToken");
-
-    try {
-      const headers = {
-        authorization: cookies.get("jwt_token"),
-      };
-
-      const res = await axios.get(`${process.env.SERVER_URL}/verify_token`, {
-        headers,
-      });
-
-      setJwtActive(true);
-    } catch (err) {
-      console.error("Error fetching logged-in user:", err);
-
-      // @ts-expect-error
-      if (err.response?.status === 401) {
-        setJwtActive(false);
-      }
-    }
-  };
 
   const fetchQuestions = async () => {
     console.log("fetchQuestions");
     try {
-      // const headers = {
-      //   authorization: cookies.get("jwt_token"),
-      // };
-
-      const res = await axios.get(
-        `${process.env.SERVER_URL}/questions`
-        // {headers,}
-      );
+      const res = await axios.get(`${process.env.SERVER_URL}/questions`);
 
       setQuestions(res.data.sortedQuestions);
-      fetchVerifyToken();
     } catch (err) {
       console.error("Error fetching questions:", err);
       // @ts-expect-error
@@ -96,14 +39,7 @@ const App = () => {
     console.log("fetchAnswers");
 
     try {
-      // const headers = {
-      //   authorization: cookies.get("jwt_token"),
-      // };
-
-      const res = await axios.get(
-        `${process.env.SERVER_URL}/answers`
-        // {headers,}
-      );
+      const res = await axios.get(`${process.env.SERVER_URL}/answers`);
 
       setAnswers(res.data.sortedAnswers);
     } catch (err) {
@@ -119,14 +55,7 @@ const App = () => {
     console.log("fetchUsers");
 
     try {
-      // const headers = {
-      //   authorization: cookies.get("jwt_token"),
-      // };
-
-      const res = await axios.get(
-        `${process.env.SERVER_URL}/users`
-        // {headers,}
-      );
+      const res = await axios.get(`${process.env.SERVER_URL}/users`);
 
       setUsers(res.data.users);
     } catch (err) {
@@ -135,15 +64,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    const token = cookies.get("jwt_token");
-    if (token) {
-      const decodedToken: { userId: string } = jwtDecode(token);
-      fetchLoggedInUser(decodedToken.userId);
-    } else {
-      // router.push("/login");
-      console.log("User not unauthenticated, please login");
-    }
-
     fetchQuestions();
     fetchAnswers();
     fetchUsers();
