@@ -78,12 +78,17 @@
 .userManage .user {
   color: #e7eaf4;
 }
-.userManage .login {
+
+.login {
   padding: 0.38rem 1.65rem;
   border-radius: 0.4rem;
   border: 0.15rem solid #26283b;
 }
-.userManage .login:hover {
+.login:hover {
   color: #e7eaf4;
   background-color: #26283b;
+}
+
+.loginHide {
+  display: none;
 }/*# sourceMappingURL=UserManage.module.css.map */

@@ -86,15 +86,19 @@
   .user {
     color: variables.$light-text-color;
   }
+}
 
-  .login {
-    padding: 0.38rem 1.65rem;
-    border-radius: 0.4rem;
-    border: 0.15rem solid variables.$dark-text-color;
+.login {
+  padding: 0.38rem 1.65rem;
+  border-radius: 0.4rem;
+  border: 0.15rem solid variables.$dark-text-color;
 
-    &:hover {
-      color: variables.$light-text-color;
-      background-color: variables.$dark-text-color;
-    }
+  &:hover {
+    color: variables.$light-text-color;
+    background-color: variables.$dark-text-color;
   }
+}
+
+.loginHide {
+  display: none;
 }
