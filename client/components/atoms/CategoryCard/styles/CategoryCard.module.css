@@ -1,9 +1,10 @@
 .container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   width: 16.375rem;
   height: 6rem;
+  gap: 0.5rem;
   padding: 1rem;
   border-radius: 0.6rem;
   background-color: #fdfdfe;
@@ -14,9 +15,45 @@
     width: 100%;
   }
 }
-.container img {
+.container .categoryContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 12rem;
+}
+.container .categoryContent .categoryIcon {
   width: 3rem;
   height: 3rem;
+}
+.container .categoryContent p {
+  font-size: 0.9rem;
+}
+.container .checkContainer {
+  display: flex;
+  height: 100%;
+}
+.container .checkContainer .checkBoxBorder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+  border: 0.1rem solid #adbbda;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.container .checkContainer .checkBoxBorder .checkBoxBackground {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  scale: 0.75;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.container .checkContainer .checkBoxBorder .checkBoxBackground.selected {
+  background-color: #7091e6;
 }
 
 .ask {

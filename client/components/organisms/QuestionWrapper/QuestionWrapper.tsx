@@ -19,6 +19,7 @@ type QuestionWrapperProps = {
   users: UserType[] | null;
   fetchQuestions: () => void;
   isJwtActive: boolean;
+  selectedCategories: string[];
 };
 
 const QuestionWrapper = ({
@@ -27,6 +28,7 @@ const QuestionWrapper = ({
   users,
   fetchQuestions,
   isJwtActive,
+  selectedCategories,
 }: QuestionWrapperProps) => {
   const router = useRouter();
 
@@ -62,6 +64,13 @@ const QuestionWrapper = ({
   };
 
   const sortedQuestions = sortQuestions(questions || [], sortBy);
+
+  const filteredQuestions =
+    selectedCategories.length > 0
+      ? sortedQuestions.filter((question) =>
+          selectedCategories.includes(question.category)
+        )
+      : sortedQuestions;
 
   const insertQuestion = async () => {
     try {
@@ -145,7 +154,7 @@ const QuestionWrapper = ({
         <div className={styles.content}>
           <div className={styles.questionsHolder}>
             {questions ? (
-              sortedQuestions.map((question) => {
+              filteredQuestions.map((question) => {
                 const user = users?.find(
                   (user) => user.user_id === question.user_id
                 );

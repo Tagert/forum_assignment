@@ -18,6 +18,7 @@ const App = () => {
   const [questions, setQuestions] = useState<QuestionType[] | null>(null);
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchQuestions = async () => {
@@ -73,6 +74,16 @@ const App = () => {
     setSearchQuery(event.target.value);
   };
 
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(category)) {
+        return prevCategories.filter((c) => c !== category);
+      } else {
+        return [...prevCategories, category];
+      }
+    });
+  };
+
   const filteredQuestions = questions?.filter(
     (question) =>
       question.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -108,6 +119,7 @@ const App = () => {
         questionCount={questions ? questions.length : 0}
         answerCount={answers ? answers.length : 0}
         userCount={users ? users.length : 0}
+        onCategoryClick={handleCategoryClick}
       />
 
       <QuestionWrapper
@@ -116,6 +128,7 @@ const App = () => {
         users={users}
         fetchQuestions={fetchQuestions}
         isJwtActive={isJwtActive}
+        selectedCategories={selectedCategories}
       />
 
       <footer className={styles.footer}>
