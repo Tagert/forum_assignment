@@ -41,13 +41,18 @@
   color: #fdfdfe;
   background-color: #7091e6;
 }
-.container .answersContainer .counterBox .removeBox button {
+.container .answersContainer .counterBox .removeBox .modifyAnswer {
+  display: flex;
+  gap: 1rem;
+}
+.container .answersContainer .counterBox .removeBox .modifyAnswer button {
   all: unset;
   cursor: pointer;
 }
-.container .answersContainer .counterBox .removeBox button svg {
+.container .answersContainer .counterBox .removeBox .modifyAnswer button svg {
   width: 1.1rem;
   height: 1.5rem;
+  color: #8697c4;
 }
 .container .answersContainer .counterBox p {
   font-size: 0.85rem;

@@ -3,6 +3,7 @@ import auth from "../middlewares/authorization.js";
 import {
   GET_ALL_QUESTIONS,
   GET_QUESTION_BY_ID,
+  EDIT_QUESTION_BY_ID,
   INSERT_QUESTION,
   DELETE_QUESTION_BY_ID,
   UPVOTE_QUESTION,
@@ -14,6 +15,8 @@ const router = express.Router();
 router.get("/questions", GET_ALL_QUESTIONS);
 
 router.get("/question/:id", GET_QUESTION_BY_ID);
+
+router.put("/question/:id", auth, EDIT_QUESTION_BY_ID);
 
 router.post("/questions", auth, INSERT_QUESTION);
 

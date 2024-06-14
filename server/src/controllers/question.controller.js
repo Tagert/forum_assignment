@@ -68,6 +68,46 @@ const GET_QUESTION_BY_ID = async (req, res) => {
   }
 };
 
+const EDIT_QUESTION_BY_ID = async (req, res) => {
+  try {
+    const question = await QuestionModel.findOne({
+      question_id: req.params.id,
+    });
+
+    if (!question) {
+      return res.status(401).json({
+        message: `Question with this ID (${req.params.id}) does not exist`,
+      });
+    }
+
+    if (question.user_id !== req.body.user_id) {
+      return res.status(403).json({
+        message: "You are not authorized to take any actions on this data.",
+      });
+    }
+
+    const updateQuestion = await QuestionModel.findOneAndUpdate(
+      { question_id: req.params.id },
+      { ...req.body },
+      { new: true }
+    );
+
+    if (!updateQuestion) {
+      return res.status(404).json({
+        message: `Question with ID (${req.params.id}) was not found`,
+      });
+    }
+
+    return res.status(200).json({
+      message: `Question with ID (${req.params.id}) was successfully updated`,
+      updatedQuestion: updateQuestion,
+    });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 const DELETE_QUESTION_BY_ID = async (req, res) => {
   try {
     const question = await QuestionModel.findOne({
@@ -181,6 +221,7 @@ const DOWNVOTE_QUESTION = async (req, res) => {
 export {
   GET_ALL_QUESTIONS,
   GET_QUESTION_BY_ID,
+  EDIT_QUESTION_BY_ID,
   INSERT_QUESTION,
   DELETE_QUESTION_BY_ID,
   UPVOTE_QUESTION,
