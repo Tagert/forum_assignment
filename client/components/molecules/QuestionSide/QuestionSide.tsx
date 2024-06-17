@@ -1,21 +1,21 @@
-import styles from "./styles/QuestionSide.module.css";
-import { UserType } from "../../../types/user.type";
-import { calcTimeDifference } from "../../../utils/calc_time_difference";
-import { VoteButton } from "../../atoms/VoteButton/VoteButton";
+import styles from "./styles/QuestionSide.module.css"
+import { UserType } from "../../../types/user.type"
+import { calcTimeDifference } from "../../../utils/calc_time_difference"
+import { VoteButton } from "../../atoms/VoteButton/VoteButton"
 
 type QuestionSideProps = {
-  title: string;
-  text: string;
-  date: Date;
-  vote: number;
-  answersCount: number;
-  viewsCount: number;
-  userName: string;
-  user_id: string;
-  loggedUser: UserType | null;
-  questionDelete: () => {};
-  handleQuestionVote: (voteType: "upvote" | "downvote") => void;
-};
+  title: string
+  text: string
+  date: Date
+  vote: number
+  answersCount: number
+  viewsCount: number
+  userName: string
+  user_id: string
+  loggedUser: UserType | null
+  questionDelete: () => {}
+  handleQuestionVote: (voteType: "upvote" | "downvote") => void
+}
 
 const QuestionSide = ({
   title,
@@ -30,7 +30,7 @@ const QuestionSide = ({
   questionDelete,
   handleQuestionVote,
 }: QuestionSideProps) => {
-  const timeAgo = calcTimeDifference(date);
+  const timeAgo = calcTimeDifference(date)
 
   return (
     <div className={styles.container}>
@@ -43,7 +43,7 @@ const QuestionSide = ({
               <div className={styles.modifyQuestion}>
                 <button>
                   <svg
-                    enable-background="new 0 0 32 32"
+                    enableBackground="new 0 0 32 32"
                     height="32px"
                     id="svg2"
                     version="1.1"
@@ -121,7 +121,7 @@ const QuestionSide = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { QuestionSide };
+export { QuestionSide }

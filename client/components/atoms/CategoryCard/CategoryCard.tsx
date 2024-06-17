@@ -1,13 +1,13 @@
-import styles from "./styles/CategoryCard.module.css";
-import Image from "next/image";
-import { getTypeClass } from "../../../utils/get_type_class";
+import styles from "./styles/CategoryCard.module.css"
+import Image from "next/image"
+import { getTypeClass } from "../../../utils/get_type_class"
 
 type CategoryCardProps = {
-  type: "Ask the Community" | "MarketPlace" | "Off-Topic" | "Suggestion Box";
-  imgSrc: string;
-  onClick: (category: string) => void;
-  isSelected: boolean;
-};
+  type: "Ask the Community" | "MarketPlace" | "Off-Topic" | "Suggestion Box"
+  imgSrc: string
+  onClick: (category: string) => void
+  isSelected: boolean
+}
 
 const CategoryCard = ({
   type,
@@ -15,7 +15,7 @@ const CategoryCard = ({
   onClick,
   isSelected,
 }: CategoryCardProps) => {
-  const typeClass = getTypeClass(type);
+  const typeClass = getTypeClass(type)
 
   return (
     <div
@@ -43,7 +43,7 @@ const CategoryCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { CategoryCard };
+export { CategoryCard }

@@ -1,13 +1,17 @@
-import styles from "./styles/Statistics.module.css";
-import { useState } from "react";
-import { CategoryCard } from "../../atoms/CategoryCard/CategoryCard";
+import styles from "./styles/Statistics.module.css"
+import { useState } from "react"
+import askQuestionIcon from "../../../public/assets/ask-question_icon.svg"
+import smallBusinessIcon from "../../../public/assets/small-business_icon.svg"
+import checkedBoxOIcon from "../../../public/assets/checked-checkbox_icon.svg"
+import messageIcon from "../../../public/assets/message_icon.svg"
+import { CategoryCard } from "../../atoms/CategoryCard/CategoryCard"
 
 type StatisticsProps = {
-  questionCount: number;
-  answerCount: number;
-  userCount: number;
-  onCategoryClick: (category: string) => void;
-};
+  questionCount: number
+  answerCount: number
+  userCount: number
+  onCategoryClick: (category: string) => void
+}
 
 const Statistics = ({
   questionCount,
@@ -17,20 +21,20 @@ const Statistics = ({
 }: StatisticsProps) => {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
     new Set()
-  );
+  )
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategories((prev) => {
-      const newSet = new Set(prev);
+      const newSet = new Set(prev)
       if (newSet.has(category)) {
-        newSet.delete(category);
+        newSet.delete(category)
       } else {
-        newSet.add(category);
+        newSet.add(category)
       }
-      return newSet;
-    });
-    onCategoryClick(category);
-  };
+      return newSet
+    })
+    onCategoryClick(category)
+  }
 
   return (
     <>
@@ -61,35 +65,35 @@ const Statistics = ({
         <div className={styles.categoryWrapper}>
           <CategoryCard
             type={"Ask the Community"}
-            imgSrc={"https://cdn.coda.io/icons/svg/color/ask-question.svg"}
+            imgSrc={askQuestionIcon}
             onClick={handleCategoryClick}
             isSelected={selectedCategories.has("Ask the Community")}
           />
 
           <CategoryCard
             type={"MarketPlace"}
-            imgSrc={"https://cdn.coda.io/icons/svg/color/small-business.svg"}
+            imgSrc={smallBusinessIcon}
             onClick={handleCategoryClick}
             isSelected={selectedCategories.has("MarketPlace")}
           />
 
           <CategoryCard
-            type={"Suggestion Box"}
-            imgSrc={"https://cdn.coda.io/icons/svg/color/checked-checkbox.svg"}
+            type={"Off-Topic"}
+            imgSrc={"/assets/message_icon.svg"}
             onClick={handleCategoryClick}
-            isSelected={selectedCategories.has("Suggestion Box")}
+            isSelected={selectedCategories.has("Off-Topic")}
           />
 
           <CategoryCard
-            type={"Off-Topic"}
-            imgSrc={"https://cdn.coda.io/icons/svg/color/sms.svg"}
+            type={"Suggestion Box"}
+            imgSrc={checkedBoxOIcon}
             onClick={handleCategoryClick}
-            isSelected={selectedCategories.has("Off-Topic")}
+            isSelected={selectedCategories.has("Suggestion Box")}
           />
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export { Statistics };
+export { Statistics }

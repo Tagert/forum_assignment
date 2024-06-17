@@ -66,17 +66,17 @@
 }
 
 .ask {
-  border-left: 0.75rem solid #0088cc;
+  border-left: 0.75rem solid variables.$ask;
 }
 
 .marketplace {
-  border-left: 0.75rem solid #eb3d82;
+  border-left: 0.75rem solid variables.$market;
 }
 
 .off_topic {
-  border-left: 0.75rem solid #754c29;
+  border-left: 0.75rem solid variables.$message;
 }
 
 .suggestion {
-  border-left: 0.75rem solid #39b24a;
+  border-left: 0.75rem solid variables.$check;
 }

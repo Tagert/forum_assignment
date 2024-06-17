@@ -57,17 +57,17 @@
 }
 
 .ask {
-  border-left: 0.75rem solid #0088cc;
+  border-left: 0.75rem solid #2196f3;
 }
 
 .marketplace {
-  border-left: 0.75rem solid #eb3d82;
+  border-left: 0.75rem solid #ff5722;
 }
 
 .off_topic {
-  border-left: 0.75rem solid #754c29;
+  border-left: 0.75rem solid #009688;
 }
 
 .suggestion {
-  border-left: 0.75rem solid #39b24a;
+  border-left: 0.75rem solid #8bc34a;
 }/*# sourceMappingURL=CategoryCard.module.css.map */
