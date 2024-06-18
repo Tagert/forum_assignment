@@ -75,13 +75,13 @@ const EDIT_QUESTION_BY_ID = async (req, res) => {
     });
 
     if (!question) {
-      return res.status(401).json({
+      return res.status(404).json({
         message: `Question with this ID (${req.params.id}) does not exist`,
       });
     }
 
     if (question.user_id !== req.body.user_id) {
-      return res.status(403).json({
+      return res.status(401).json({
         message: "You are not authorized to take any actions on this data.",
       });
     }

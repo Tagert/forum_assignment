@@ -56,6 +56,21 @@
       h3 {
         font-size: 1.5rem;
       }
+
+      .inputContainer {
+        .titleInput {
+          width: 100%;
+          padding: 0.5rem;
+          font-family: "Open Sans", sans-serif;
+          font-size: 1.5rem;
+          font-weight: 700;
+          border: 0.1rem solid variables.$background-color;
+
+          &:focus {
+            outline: 0.1rem solid variables.$background-color;
+          }
+        }
+      }
     }
 
     .counterBox {
@@ -179,6 +194,24 @@
         font-weight: 300;
         line-height: 1.6;
         letter-spacing: 0.05rem;
+      }
+
+      .textArea {
+        width: 100%;
+        padding: 0.5rem;
+        font-family: "Open Sans", sans-serif;
+        font-size: 1rem;
+        text-align: justify;
+        font-weight: 300;
+        line-height: 1.6;
+        letter-spacing: 0.05rem;
+        border: 0.1rem solid variables.$background-color;
+        resize: none;
+        outline: none;
+
+        &:focus {
+          outline: 0.1rem solid variables.$background-color;
+        }
       }
     }
   }

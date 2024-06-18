@@ -1,30 +1,33 @@
-import styles from './styles/AnswerWrapper.module.css'
-import axios from 'axios'
-import cookies from 'js-cookie'
-import { useRouter } from 'next/router'
-import { UserType } from '../../../types/user.type'
-import { AnswerType } from '../../../types/answer.type'
-import { QuestionType } from '../../../types/question.type'
-import { getCardClassName } from '../../../utils/get_card_class_name'
-import { Spinner } from '../../atoms/Spinner/Spinner'
-import { QuestionSide } from '../../molecules/QuestionSide/QuestionSide'
-import { AnswerCard } from '../../molecules/AnswerCard/AnswerCard'
-import { ReplyCard } from '../../molecules/ReplyCard/ReplyCard'
+import styles from "./styles/AnswerWrapper.module.css";
+import axios from "axios";
+import cookies from "js-cookie";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { UserType } from "../../../types/user.type";
+import { AnswerType } from "../../../types/answer.type";
+import { QuestionType } from "../../../types/question.type";
+import { getCardClassName } from "../../../utils/get_card_class_name";
+import { Spinner } from "../../atoms/Spinner/Spinner";
+import { QuestionSide } from "../../molecules/QuestionSide/QuestionSide";
+import { AnswerCard } from "../../molecules/AnswerCard/AnswerCard";
+import { ReplyCard } from "../../molecules/ReplyCard/ReplyCard";
 
 type AnswersWrapperProps = {
-  loggedUser: UserType | null
-  question: QuestionType | null
-  answers: AnswerType[] | null
-  setAnswers: (answers: AnswerType[]) => void
-  answerText: string
-  setAnswerText: (text: string) => void
-  handleInsertAnswer: () => void
-  handleQuestionVote: (voteType: 'upvote' | 'downvote') => void
-  handleAnswerVote: (answerId: string, voteType: 'upvote' | 'downvote') => void
-}
+  loggedUser: UserType | null;
+  question: QuestionType | null;
+  setQuestion: (question: QuestionType) => void;
+  answers: AnswerType[] | null;
+  setAnswers: (answers: AnswerType[]) => void;
+  answerText: string;
+  setAnswerText: (text: string) => void;
+  handleInsertAnswer: () => void;
+  handleQuestionVote: (voteType: "upvote" | "downvote") => void;
+  handleAnswerVote: (answerId: string, voteType: "upvote" | "downvote") => void;
+};
 
 const AnswerWrapper = ({
   question,
+  setQuestion,
   loggedUser,
   answers,
   setAnswers,
@@ -34,61 +37,87 @@ const AnswerWrapper = ({
   handleQuestionVote,
   handleAnswerVote,
 }: AnswersWrapperProps) => {
-  const router = useRouter()
+  const router = useRouter();
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(question?.title || "");
+  const [editedText, setEditedText] = useState(question?.text || "");
 
   const questionDelete = async () => {
     try {
       const headers = {
-        authorization: cookies.get('jwt_token'),
-      }
+        authorization: cookies.get("jwt_token"),
+      };
 
       const res = await axios.delete(
         `${process.env.SERVER_URL}/question/${router.query.id}`,
         { headers }
-      )
+      );
 
       if (res.status === 200) {
-        router.push('/')
+        router.push("/");
       }
     } catch (err) {
-      console.error('Error deleting question:', err)
+      console.error("Error deleting question:", err);
       // @ts-expect-error
       if (err.response.status === 403) {
         // @ts-expect-error
-        alert(err.response.data.message)
+        alert(err.response.data.message);
       }
     }
-  }
+  };
+
+  const questionEdit = async () => {
+    try {
+      const headers = { authorization: cookies.get("jwt_token") };
+
+      const res = await axios.put(
+        `${process.env.SERVER_URL}/question/${router.query.id}`,
+        { text: editedText, title: editedTitle },
+        { headers }
+      );
+
+      if (res.status === 200) {
+        setQuestion(res.data.updatedQuestion);
+        setIsEditing(false);
+      }
+    } catch (err) {
+      console.error("Error updating question:", err);
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
 
   const answerDelete = async (answer_id: string) => {
     try {
       const headers = {
-        authorization: cookies.get('jwt_token'),
-      }
+        authorization: cookies.get("jwt_token"),
+      };
 
       const res = await axios.delete(
         `${process.env.SERVER_URL}/answer/${answer_id}`,
         { headers }
-      )
+      );
 
       if (res.status === 200) {
         if (answers) {
           const updatedAnswers = answers.filter(
             (answer) => answer.answer_id !== answer_id
-          )
+          );
 
-          setAnswers(updatedAnswers)
+          setAnswers(updatedAnswers);
         }
       }
     } catch (err) {
-      console.error('Error deleting question:', err)
+      console.error("Error deleting question:", err);
       // @ts-expect-error
       if (err.response.status === 403) {
         // @ts-expect-error
-        alert(err.response.data.message)
+        alert(err.response.data.message);
       }
     }
-  }
+  };
 
   return (
     <section className={styles.container}>
@@ -97,15 +126,22 @@ const AnswerWrapper = ({
           {question ? (
             <QuestionSide
               title={question.title}
+              editedTitle={editedTitle}
+              setEditedTitle={setEditedTitle}
               text={question.text}
+              editedText={editedText}
+              setEditedText={setEditedText}
               date={question.date}
               vote={question.votesCounter}
               answersCount={question.question_answers.length}
               viewsCount={question.question_views}
-              userName={question ? question.createdByUser : 'Unknown'}
+              userName={question ? question.createdByUser : "Unknown"}
               user_id={question.user_id}
               loggedUser={loggedUser}
               questionDelete={questionDelete}
+              questionEdit={questionEdit}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
               handleQuestionVote={handleQuestionVote}
             />
           ) : (
@@ -123,7 +159,7 @@ const AnswerWrapper = ({
 
           {answers ? (
             answers.map((answer, index) => {
-              const cardClassName = getCardClassName(index)
+              const cardClassName = getCardClassName(index);
 
               return (
                 <AnswerCard
@@ -132,14 +168,14 @@ const AnswerWrapper = ({
                   text={answer.text}
                   date={answer.date}
                   vote={answer.votesCounter}
-                  userName={answer ? answer.createdByUser : 'Unknown'}
+                  userName={answer ? answer.createdByUser : "Unknown"}
                   user_id={answer.user_id}
                   loggedUser={loggedUser}
                   answerDelete={answerDelete}
                   handleAnswerVote={handleAnswerVote}
                   className={cardClassName}
                 />
-              )
+              );
             })
           ) : (
             <Spinner />
@@ -158,7 +194,7 @@ const AnswerWrapper = ({
         </div>
       </section>
     </section>
-  )
-}
+  );
+};
 
-export { AnswerWrapper }
+export { AnswerWrapper };

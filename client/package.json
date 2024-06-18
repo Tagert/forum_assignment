@@ -33,6 +33,6 @@
   },
   "prettier": {
     "singleQuote": false,
-    "semi": false
+    "semi": true
   }
 }
