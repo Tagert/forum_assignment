@@ -39,7 +39,7 @@ const AnswerWrapper = ({
 }: AnswersWrapperProps) => {
   const router = useRouter();
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedTitle, setEditedTitle] = useState(question?.title || "");
   const [editedText, setEditedText] = useState(question?.text || "");
 

@@ -23,7 +23,11 @@
   justify-content: space-between;
   height: 1.5rem;
 }
-.container .questionTitle .title .type h2 {
+.container .questionTitle .title .type .questionBox {
+  display: flex;
+  gap: 0.6rem;
+}
+.container .questionTitle .title .type .questionBox h2 {
   justify-self: center;
   max-width: 4.2rem;
   font-size: 0.8rem;
@@ -33,15 +37,61 @@
   color: #fdfdfe;
   background-color: #8697c4;
 }
-.container .questionTitle .title .type .modifyQuestion {
+.container .questionTitle .title .type .questionBox .modifyQuestion {
   display: flex;
   gap: 1rem;
 }
-.container .questionTitle .title .type .modifyQuestion button {
+.container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer {
+  position: relative;
+  display: inline-block;
+}
+.container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer .tooltip {
+  visibility: hidden;
+  width: 50px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -25px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+.container .questionTitle .title .type .questionBox .modifyQuestion button {
   all: unset;
   cursor: pointer;
 }
-.container .questionTitle .title .type .modifyQuestion button svg {
+.container .questionTitle .title .type .questionBox .modifyQuestion button svg {
+  width: 1.1rem;
+  height: 1.5rem;
+  color: #8697c4;
+}
+.container .questionTitle .title .type .questionBox .modifyQuestion .actionBox {
+  display: flex;
+}
+.container .questionTitle .title .type .deleteQuestion button {
+  all: unset;
+  cursor: pointer;
+}
+.container .questionTitle .title .type .deleteQuestion button svg {
   width: 1.1rem;
   height: 1.5rem;
   color: #8697c4;
@@ -49,16 +99,24 @@
 .container .questionTitle .title h3 {
   font-size: 1.5rem;
 }
+.container .questionTitle .title .inputContainer {
+  display: flex;
+  align-items: center;
+}
 .container .questionTitle .title .inputContainer .titleInput {
   width: 100%;
-  padding: 0.5rem;
   font-family: "Open Sans", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
-  border: 0.1rem solid #ede8f5;
+  border: none;
+  resize: none;
+  outline: 0.1rem solid #ede8f5;
 }
 .container .questionTitle .title .inputContainer .titleInput:focus {
   outline: 0.1rem solid #ede8f5;
+}
+.container .questionTitle .title .inputContainer .titleInput::-webkit-scrollbar {
+  display: none;
 }
 .container .questionTitle .counterBox {
   position: relative;
@@ -160,17 +218,19 @@
 }
 .container .questionText .textBox .textArea {
   width: 100%;
-  padding: 0.5rem;
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
   text-align: justify;
   font-weight: 300;
   line-height: 1.6;
   letter-spacing: 0.05rem;
-  border: 0.1rem solid #ede8f5;
+  border: none;
   resize: none;
-  outline: none;
+  outline: 0.1rem solid #ede8f5;
 }
 .container .questionText .textBox .textArea:focus {
   outline: 0.1rem solid #ede8f5;
+}
+.container .questionText .textBox .textArea::-webkit-scrollbar {
+  display: none;
 }/*# sourceMappingURL=QuestionSide.module.css.map */
