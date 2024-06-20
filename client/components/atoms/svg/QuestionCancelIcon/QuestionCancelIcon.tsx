@@ -1,6 +1,9 @@
+import styles from "./styles/QuestionCancelIcon.module.css";
+
 const QuestionCancelIcon = () => {
   return (
     <svg
+      className={styles.container}
       enableBackground="new 0 0 32 32"
       height="32px"
       id="svg2"

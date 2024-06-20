@@ -1,20 +1,21 @@
-import styles from "./styles/AnswerCard.module.css"
-import { calcTimeDifference } from "../../../utils/calc_time_difference"
-import { UserType } from "../../../types/user.type"
-import { VoteButton } from "../../atoms/VoteButton/VoteButton"
+import styles from "./styles/AnswerCard.module.css";
+import { calcTimeDifference } from "../../../utils/calc_time_difference";
+import { UserType } from "../../../types/user.type";
+import { VoteButton } from "../../atoms/VoteButton/VoteButton";
+import { AnswerDeleteIcon } from "../../atoms/svg/AnswerDeleteIcon/AnswerDeleteIcon";
 
 type AnswerCardProps = {
-  answer_id: string
-  text: string
-  date: Date
-  vote: number
-  userName: string
-  user_id: string
-  loggedUser: UserType | null
-  answerDelete: (answer_id: string) => void
-  handleAnswerVote: (answerId: string, voteType: "upvote" | "downvote") => void
-  className?: string
-}
+  answer_id: string;
+  text: string;
+  date: Date;
+  vote: number;
+  userName: string;
+  user_id: string;
+  loggedUser: UserType | null;
+  answerDelete: (answer_id: string) => void;
+  handleAnswerVote: (answerId: string, voteType: "upvote" | "downvote") => void;
+  className?: string;
+};
 
 const AnswerCard = ({
   answer_id,
@@ -28,7 +29,7 @@ const AnswerCard = ({
   handleAnswerVote,
   className,
 }: AnswerCardProps) => {
-  const timeAgo = calcTimeDifference(date)
+  const timeAgo = calcTimeDifference(date);
 
   return (
     <div className={`${styles.container} ${className}`}>
@@ -40,7 +41,8 @@ const AnswerCard = ({
             {loggedUser && loggedUser.user_id === user_id && (
               <div className={styles.modifyAnswer}>
                 <button onClick={() => answerDelete(answer_id)}>
-                  <svg
+                  <AnswerDeleteIcon />
+                  {/* <svg
                     enableBackground="new 0 0 32 32"
                     height="32px"
                     id="svg2"
@@ -61,7 +63,7 @@ const AnswerCard = ({
                         <rect height="2" width="10" x="18" y="22" />
                       </g>
                     </g>
-                  </svg>
+                  </svg> */}
                 </button>
 
                 <button>
@@ -119,7 +121,7 @@ const AnswerCard = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export { AnswerCard }
+export { AnswerCard };

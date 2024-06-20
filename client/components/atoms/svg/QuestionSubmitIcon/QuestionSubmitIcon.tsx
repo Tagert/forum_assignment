@@ -1,7 +1,10 @@
+import styles from "./styles/QuestionSubmitIcon.module.css";
+
 const QuestionSubmitIcon = () => {
   return (
     <svg
-      enable-background="new 0 0 32 32"
+      className={styles.container}
+      enableBackground="new 0 0 32 32"
       height="32px"
       id="svg2"
       version="1.1"

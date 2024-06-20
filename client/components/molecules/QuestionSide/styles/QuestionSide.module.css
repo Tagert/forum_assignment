@@ -20,26 +20,33 @@
 }
 .container .questionTitle .title .type {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  height: 1.5rem;
+  height: 2rem;
 }
 .container .questionTitle .title .type .questionBox {
   display: flex;
+  align-items: center;
   gap: 0.6rem;
 }
-.container .questionTitle .title .type .questionBox h2 {
-  justify-self: center;
-  max-width: 4.2rem;
-  font-size: 0.8rem;
-  font-weight: 400;
+.container .questionTitle .title .type .questionBox .nameBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0.1rem 0.4rem;
   border-radius: 0.4rem;
-  color: #fdfdfe;
   background-color: #8697c4;
+}
+.container .questionTitle .title .type .questionBox .nameBox h2 {
+  margin-bottom: 0.05rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #fdfdfe;
 }
 .container .questionTitle .title .type .questionBox .modifyQuestion {
   display: flex;
   gap: 1rem;
+  height: 2rem;
 }
 .container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer {
   position: relative;
@@ -50,28 +57,28 @@
   opacity: 1;
 }
 .container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer .tooltip {
-  visibility: hidden;
-  width: 50px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
   position: absolute;
-  z-index: 1;
-  bottom: 125%;
   left: 50%;
-  margin-left: -25px;
-  opacity: 0;
+  margin-left: -1.5rem;
+  padding: 0.15rem 0.6rem;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 0.3rem;
+  bottom: 110%;
+  color: #fff;
+  background-color: #555;
   transition: opacity 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
 }
 .container .questionTitle .title .type .questionBox .modifyQuestion .editBtnContainer .tooltip::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -0.3rem;
+  border-width: 0.3rem;
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }
@@ -80,21 +87,62 @@
   cursor: pointer;
 }
 .container .questionTitle .title .type .questionBox .modifyQuestion button svg {
-  width: 1.1rem;
-  height: 1.5rem;
+  width: 1.2rem;
   color: #8697c4;
+  fill: #3d52a0;
+}
+.container .questionTitle .title .type .questionBox .modifyQuestion .editBtn {
+  margin-left: 0.8rem;
 }
 .container .questionTitle .title .type .questionBox .modifyQuestion .actionBox {
   display: flex;
+  gap: 0.8rem;
+}
+.container .questionTitle .title .type .deleteQuestion {
+  height: 2rem;
+}
+.container .questionTitle .title .type .deleteQuestion .deleteBtnContainer {
+  position: relative;
+  display: inline-block;
+}
+.container .questionTitle .title .type .deleteQuestion .deleteBtnContainer:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.container .questionTitle .title .type .deleteQuestion .deleteBtnContainer .tooltip {
+  position: absolute;
+  left: 50%;
+  margin-left: -2rem;
+  padding: 0.15rem 0.6rem;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 0.3rem;
+  bottom: 110%;
+  color: #fff;
+  background-color: #555;
+  transition: opacity 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+}
+.container .questionTitle .title .type .deleteQuestion .deleteBtnContainer .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -0.3rem;
+  border-width: 0.3rem;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
 }
 .container .questionTitle .title .type .deleteQuestion button {
   all: unset;
   cursor: pointer;
 }
 .container .questionTitle .title .type .deleteQuestion button svg {
-  width: 1.1rem;
-  height: 1.5rem;
-  color: #8697c4;
+  width: 1.2rem;
+  color: #adbbda;
+  fill: #3d52a0;
 }
 .container .questionTitle .title h3 {
   font-size: 1.5rem;
@@ -113,7 +161,7 @@
   outline: 0.1rem solid #ede8f5;
 }
 .container .questionTitle .title .inputContainer .titleInput:focus {
-  outline: 0.1rem solid #ede8f5;
+  outline: 0.15rem solid #ede8f5;
 }
 .container .questionTitle .title .inputContainer .titleInput::-webkit-scrollbar {
   display: none;
@@ -229,7 +277,7 @@
   outline: 0.1rem solid #ede8f5;
 }
 .container .questionText .textBox .textArea:focus {
-  outline: 0.1rem solid #ede8f5;
+  outline: 0.15rem solid #ede8f5;
 }
 .container .questionText .textBox .textArea::-webkit-scrollbar {
   display: none;

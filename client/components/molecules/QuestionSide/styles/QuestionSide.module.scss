@@ -22,27 +22,35 @@
 
       .type {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        height: 1.5rem;
+        height: 2rem;
 
         .questionBox {
           display: flex;
+          align-items: center;
           gap: 0.6rem;
 
-          h2 {
-            justify-self: center;
-            max-width: 4.2rem;
-            font-size: 0.8rem;
-            font-weight: 400;
+          .nameBox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 0.1rem 0.4rem;
             border-radius: 0.4rem;
-            color: variables.$color-white;
             background-color: variables.$accent-color;
+
+            h2 {
+              margin-bottom: 0.05rem;
+              font-size: 0.8rem;
+              font-weight: 400;
+              color: variables.$color-white;
+            }
           }
 
           .modifyQuestion {
             display: flex;
             gap: 1rem;
+            height: 2rem;
 
             .editBtnContainer {
               position: relative;
@@ -54,28 +62,28 @@
               }
 
               .tooltip {
-                visibility: hidden;
-                width: 50px;
-                background-color: #555;
-                color: #fff;
-                text-align: center;
-                border-radius: 5px;
-                padding: 5px;
                 position: absolute;
-                z-index: 1;
-                bottom: 125%;
                 left: 50%;
-                margin-left: -25px;
-                opacity: 0;
+                margin-left: -1.5rem;
+                padding: 0.15rem 0.6rem;
+                text-align: center;
+                font-size: 0.8rem;
+                border-radius: 0.3rem;
+                bottom: 110%;
+                color: #fff;
+                background-color: #555;
                 transition: opacity 0.3s;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 1;
 
                 &::after {
                   content: "";
                   position: absolute;
                   top: 100%;
                   left: 50%;
-                  margin-left: -5px;
-                  border-width: 5px;
+                  margin-left: -0.3rem;
+                  border-width: 0.3rem;
                   border-style: solid;
                   border-color: #555 transparent transparent transparent;
                 }
@@ -87,27 +95,72 @@
               cursor: pointer;
 
               svg {
-                width: 1.1rem;
-                height: 1.5rem;
+                width: 1.2rem;
                 color: variables.$accent-color;
+                fill: variables.$primary-color;
               }
+            }
+
+            .editBtn {
+              margin-left: 0.8rem;
             }
 
             .actionBox {
               display: flex;
+              gap: 0.8rem;
             }
           }
         }
 
         .deleteQuestion {
+          height: 2rem;
+
+          .deleteBtnContainer {
+            position: relative;
+            display: inline-block;
+
+            &:hover .tooltip {
+              visibility: visible;
+              opacity: 1;
+            }
+
+            .tooltip {
+              position: absolute;
+              left: 50%;
+              margin-left: -2rem;
+              padding: 0.15rem 0.6rem;
+              text-align: center;
+              font-size: 0.8rem;
+              border-radius: 0.3rem;
+              bottom: 110%;
+              color: #fff;
+              background-color: #555;
+              transition: opacity 0.3s;
+              opacity: 0;
+              visibility: hidden;
+              z-index: 1;
+
+              &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -0.3rem;
+                border-width: 0.3rem;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+              }
+            }
+          }
+
           button {
             all: unset;
             cursor: pointer;
 
             svg {
-              width: 1.1rem;
-              height: 1.5rem;
-              color: variables.$accent-color;
+              width: 1.2rem;
+              color: variables.$additional-color;
+              fill: variables.$primary-color;
             }
           }
         }
@@ -132,7 +185,7 @@
           outline: 0.1rem solid variables.$background-color;
 
           &:focus {
-            outline: 0.1rem solid variables.$background-color;
+            outline: 0.15rem solid variables.$background-color;
           }
 
           &::-webkit-scrollbar {
@@ -280,7 +333,7 @@
         outline: 0.1rem solid variables.$background-color;
 
         &:focus {
-          outline: 0.1rem solid variables.$background-color;
+          outline: 0.15rem solid variables.$background-color;
         }
 
         &::-webkit-scrollbar {

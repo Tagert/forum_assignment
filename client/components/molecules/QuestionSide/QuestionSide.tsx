@@ -56,11 +56,18 @@ const QuestionSide = ({
     undefined
   );
 
+  const [originalTitle, setOriginalTitle] = useState(title);
+  const [originalText, setOriginalText] = useState(text);
+
   const titleInputRef = useRef<HTMLTextAreaElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const editBtnRef = useRef<HTMLButtonElement>(null);
+  const cancelBtnRef = useRef<HTMLButtonElement>(null);
+  const submitBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    setOriginalTitle(title);
+    setOriginalText(text);
     setEditedTitle(title);
     setEditedText(text);
   }, [title, text]);
@@ -82,10 +89,14 @@ const QuestionSide = ({
         titleInputRef.current &&
         !titleInputRef.current.contains(e.target as Node) &&
         textAreaRef.current &&
-        !textAreaRef.current.contains(e.target as Node)
+        !textAreaRef.current.contains(e.target as Node) &&
+        cancelBtnRef.current &&
+        !cancelBtnRef.current.contains(e.target as Node) &&
+        submitBtnRef.current &&
+        !submitBtnRef.current.contains(e.target as Node)
       ) {
         handleEdit();
-        console.log("test");
+        // setIsEditing(false);
       }
     };
 
@@ -103,12 +114,17 @@ const QuestionSide = ({
   const handleEdit = () => {
     setIsEditing(false);
     questionEdit();
+  };
 
-    console.log("Title:", editedTitle, "Text:", editedText);
+  const handleCancel = () => {
+    setEditedTitle(originalTitle);
+    setEditedText(originalText);
+    setIsEditing(false);
   };
 
   const resizeInput = (input: HTMLTextAreaElement) => {
     const newHeight = `${input.scrollHeight}px`;
+
     setTitleHeight(input.scrollHeight);
     input.style.height = newHeight;
   };
@@ -136,7 +152,9 @@ const QuestionSide = ({
         <div className={styles.title}>
           <div className={styles.type}>
             <div className={styles.questionBox}>
-              <h2>Question</h2>
+              <div className={styles.nameBox}>
+                <h2>Question</h2>
+              </div>
 
               {loggedUser && loggedUser.user_id === user_id && (
                 <div className={styles.modifyQuestion}>
@@ -155,17 +173,17 @@ const QuestionSide = ({
                   ) : (
                     <div className={styles.actionBox}>
                       <button
-                        // ref={editBtnRef}
+                        ref={submitBtnRef}
                         className={styles.submitBtn}
-                        onClick={() => setIsEditing(true)}
+                        onClick={handleEdit}
                       >
                         <QuestionSubmitIcon />
                       </button>
 
                       <button
-                        // ref={editBtnRef}
+                        ref={cancelBtnRef}
                         className={styles.cancelBtn}
-                        onClick={() => setIsEditing(true)}
+                        onClick={handleCancel}
                       >
                         <QuestionCancelIcon />
                       </button>
@@ -175,11 +193,17 @@ const QuestionSide = ({
               )}
             </div>
 
-            <div className={styles.deleteQuestion}>
-              <button onClick={questionDelete}>
-                <QuestionDeleteIcon />
-              </button>
-            </div>
+            {loggedUser && loggedUser.user_id === user_id && (
+              <div className={styles.deleteQuestion}>
+                <div className={styles.deleteBtnContainer}>
+                  <button onClick={questionDelete}>
+                    <QuestionDeleteIcon />
+                  </button>
+
+                  <span className={styles.tooltip}>Delete</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {!isEditing ? (
@@ -199,7 +223,6 @@ const QuestionSide = ({
                   resizeInput(e.target);
                 }}
                 onKeyDown={handleKeyDown}
-                // autoFocus
               />
             </div>
           )}
