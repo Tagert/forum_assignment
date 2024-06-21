@@ -1,0 +1,7 @@
+@use "../../../../../styles/scss/variables";
+
+.container {
+  polygon {
+    fill: variables.$message;
+  }
+}

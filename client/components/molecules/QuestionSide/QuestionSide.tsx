@@ -51,6 +51,12 @@ const QuestionSide = ({
 }: QuestionSideProps) => {
   const timeAgo = calcTimeDifference(date);
 
+  const titleInputRef = useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const editBtnRef = useRef<HTMLButtonElement>(null);
+  const cancelBtnRef = useRef<HTMLButtonElement>(null);
+  const submitBtnRef = useRef<HTMLButtonElement>(null);
+
   const [titleHeight, setTitleHeight] = useState<number | undefined>(undefined);
   const [textAreaHeight, setTextAreaHeight] = useState<number | undefined>(
     undefined
@@ -58,12 +64,6 @@ const QuestionSide = ({
 
   const [originalTitle, setOriginalTitle] = useState(title);
   const [originalText, setOriginalText] = useState(text);
-
-  const titleInputRef = useRef<HTMLTextAreaElement>(null);
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const editBtnRef = useRef<HTMLButtonElement>(null);
-  const cancelBtnRef = useRef<HTMLButtonElement>(null);
-  const submitBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setOriginalTitle(title);
@@ -124,7 +124,6 @@ const QuestionSide = ({
 
   const resizeInput = (input: HTMLTextAreaElement) => {
     const newHeight = `${input.scrollHeight}px`;
-
     setTitleHeight(input.scrollHeight);
     input.style.height = newHeight;
   };
@@ -173,19 +172,19 @@ const QuestionSide = ({
                   ) : (
                     <div className={styles.actionBox}>
                       <button
-                        ref={submitBtnRef}
-                        className={styles.submitBtn}
-                        onClick={handleEdit}
-                      >
-                        <QuestionSubmitIcon />
-                      </button>
-
-                      <button
                         ref={cancelBtnRef}
                         className={styles.cancelBtn}
                         onClick={handleCancel}
                       >
                         <QuestionCancelIcon />
+                      </button>
+
+                      <button
+                        ref={submitBtnRef}
+                        className={styles.submitBtn}
+                        onClick={handleEdit}
+                      >
+                        <QuestionSubmitIcon />
                       </button>
                     </div>
                   )}
@@ -215,6 +214,7 @@ const QuestionSide = ({
             >
               <textarea
                 name="title"
+                rows={1}
                 ref={titleInputRef}
                 className={styles.titleInput}
                 value={editedTitle}
@@ -249,13 +249,14 @@ const QuestionSide = ({
             <p>{text}</p>
           ) : (
             <div
-              className={styles.inputContainer}
+              className={styles.textAreaContainer}
               style={{
                 height: textAreaHeight ? `${textAreaHeight}px` : "auto",
               }}
             >
               <textarea
                 name="text"
+                rows={1}
                 ref={textAreaRef}
                 className={styles.textArea}
                 value={editedText}

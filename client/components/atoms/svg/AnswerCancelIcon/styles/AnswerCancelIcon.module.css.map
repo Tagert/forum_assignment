@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"AnswerCancelIcon.module.css"}
+{"version":3,"sources":["AnswerCancelIcon.module.scss","../../../../../styles/scss/_variables.scss","AnswerCancelIcon.module.css"],"names":[],"mappings":"AAGE;EACE,aCOK;ACTT","file":"AnswerCancelIcon.module.css"}

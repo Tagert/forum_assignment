@@ -170,7 +170,7 @@ const UPVOTE_QUESTION = async (req, res) => {
     await question.save();
 
     return res.json({
-      message: `Question with ID (${questionId}) suscefullly UP voted`,
+      message: `Question with ID (${questionId}) suscefully UP voted`,
       question,
     });
   } catch (err) {
@@ -209,7 +209,7 @@ const DOWNVOTE_QUESTION = async (req, res) => {
     await question.save();
 
     return res.json({
-      message: `Question with ID (${questionId}) suscefullly DOWN voted`,
+      message: `Question with ID (${questionId}) suscefully DOWN voted`,
       question,
     });
   } catch (err) {

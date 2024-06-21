@@ -43,6 +43,9 @@ const AnswerWrapper = ({
   const [editedTitle, setEditedTitle] = useState(question?.title || "");
   const [editedText, setEditedText] = useState(question?.text || "");
 
+  const [editingAnswerId, setEditingAnswerId] = useState<string | null>(null);
+  const [answerEditedText, setAnswerEditedText] = useState<string>("");
+
   const questionDelete = async () => {
     try {
       const headers = {
@@ -100,14 +103,12 @@ const AnswerWrapper = ({
         { headers }
       );
 
-      if (res.status === 200) {
-        if (answers) {
-          const updatedAnswers = answers.filter(
-            (answer) => answer.answer_id !== answer_id
-          );
+      if (res.status === 200 && answers) {
+        const updatedAnswers = answers.filter(
+          (answer) => answer.answer_id !== answer_id
+        );
 
-          setAnswers(updatedAnswers);
-        }
+        setAnswers(updatedAnswers);
       }
     } catch (err) {
       console.error("Error deleting question:", err);
@@ -117,6 +118,43 @@ const AnswerWrapper = ({
         alert(err.response.data.message);
       }
     }
+  };
+
+  const answerEdit = async (answer_id: string) => {
+    try {
+      const headers = { authorization: cookies.get("jwt_token") };
+
+      const res = await axios.put(
+        `${process.env.SERVER_URL}/answer/${answer_id}`,
+        { text: answerEditedText },
+        { headers }
+      );
+
+      if (res.status === 200 && answers) {
+        const updatedAnswers = answers.map((answer) =>
+          answer.answer_id === answer_id ? res.data.updatedAnswer : answer
+        );
+
+        setAnswers(updatedAnswers);
+        setEditingAnswerId(null);
+        setAnswerEditedText("");
+      }
+    } catch (err) {
+      console.error("Error updating question:", err);
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        router.push("/login");
+      }
+    }
+  };
+
+  const startEditingAnswer = (answer_id: string, text: string) => {
+    setEditingAnswerId(answer_id);
+    setAnswerEditedText(text);
+  };
+
+  const cancelEditingAnswer = () => {
+    setEditingAnswerId(null);
+    setAnswerEditedText("");
   };
 
   return (
@@ -174,6 +212,13 @@ const AnswerWrapper = ({
                   answerDelete={answerDelete}
                   handleAnswerVote={handleAnswerVote}
                   className={cardClassName}
+                  editedText={answerEditedText}
+                  setEditedText={setAnswerEditedText}
+                  startEditing={() =>
+                    startEditingAnswer(answer.answer_id, answer.text)
+                  }
+                  cancelEditing={cancelEditingAnswer}
+                  submitEdit={() => answerEdit(answer.answer_id)}
                 />
               );
             })

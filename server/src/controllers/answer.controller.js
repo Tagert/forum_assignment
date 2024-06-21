@@ -142,6 +142,48 @@ const DELETE_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
   }
 };
 
+const EDIT_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
+  try {
+    const answerId = req.params.id;
+
+    const answer = await AnswerModel.findOne({
+      answer_id: answerId,
+    });
+
+    if (!answer) {
+      return res.status(404).json({
+        message: `Answer with this ID (${answerId}) does not exist`,
+      });
+    }
+
+    if (answer.user_id !== req.body.user_id) {
+      return res.status(403).json({
+        message: "You are not authorized to take any actions on this data.",
+      });
+    }
+
+    const updateAnswer = await AnswerModel.findOneAndUpdate(
+      { answer_id: answerId },
+      { text: req.body.text },
+      { new: true }
+    );
+
+    if (!updateAnswer) {
+      return res.status(404).json({
+        message: `Answer with such ID (${answerId}) not found`,
+      });
+    }
+
+    return res.json({
+      message: `The answer with this ID (${answerId}) was successfully updated`,
+      updatedAnswer: updateAnswer,
+    });
+  } catch (err) {
+    console.log("HANDLED ERROR:", err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 const GET_ALL_ANSWERS = async (req, res) => {
   try {
     const answers = await AnswerModel.find();
@@ -241,6 +283,7 @@ export {
   INSERT_ANSWER_TO_QUESTION,
   GET_QUESTION_ALL_ANSWERS,
   DELETE_ANSWER_FROM_QUESTION_BY_ID,
+  EDIT_ANSWER_FROM_QUESTION_BY_ID,
   GET_ALL_ANSWERS,
   UPVOTE_ANSWER,
   DOWNVOTE_ANSWER,
