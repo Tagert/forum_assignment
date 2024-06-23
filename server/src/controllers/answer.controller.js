@@ -1,3 +1,4 @@
+import { io } from "../../index.js";
 import { descendingOrder } from "../utils/helpers/votes_desc_sorting.js";
 import { QuestionModel } from "../models/question.model.js";
 import { AnswerModel } from "../models/answer.model.js";
@@ -38,6 +39,8 @@ const INSERT_ANSWER_TO_QUESTION = async (req, res) => {
       { new: true }
     );
 
+    io.emit("new_answer", response);
+
     return res.status(201).json({
       status: `Answer with ID (${answer.answer_id}) was created`,
       response: response,
@@ -66,18 +69,18 @@ const GET_QUESTION_ALL_ANSWERS = async (req, res) => {
       },
     ]).exec();
 
-    // if (!questionAnswers.length) {
-    //   return res
-    //     .status(204)
-    //     .json({ message: "No answers found for this question" });
-    // }
+    if (!questionAnswers.length) {
+      return res
+        .status(204)
+        .json({ message: "No answers found for this question" });
+    }
 
     const sortedAnswers = descendingOrder(
       questionAnswers[0].answers,
       "votesCounter"
     );
 
-    return res.json({ answers: sortedAnswers });
+    return res.status(200).json({ answers: sortedAnswers });
   } catch (err) {
     console.log("HANDLED ERROR:", err);
     return res.status(500).json({ error: "Something went wrong" });
@@ -132,7 +135,9 @@ const DELETE_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
       });
     }
 
-    return res.json({
+    io.emit("delete_answer", answerId);
+
+    return res.status(200).json({
       message: `The answer with this ID (${answerId}) was successfully deleted`,
       updatedQuestionAnswers,
     });
@@ -174,7 +179,9 @@ const EDIT_ANSWER_FROM_QUESTION_BY_ID = async (req, res) => {
       });
     }
 
-    return res.json({
+    io.emit("update_answer", updateAnswer);
+
+    return res.status(200).json({
       message: `The answer with this ID (${answerId}) was successfully updated`,
       updatedAnswer: updateAnswer,
     });
@@ -230,7 +237,9 @@ const UPVOTE_ANSWER = async (req, res) => {
 
     await answer.save();
 
-    return res.json({
+    io.emit("vote_answer", answer);
+
+    return res.status(200).json({
       message: `Answer with ID (${answerId}) successfully UP voted`,
       answer,
     });
@@ -269,8 +278,10 @@ const DOWNVOTE_ANSWER = async (req, res) => {
 
     await answer.save();
 
-    return res.json({
-      message: `Answer with ID (${answerId}) suscefully DOWN voted`,
+    io.emit("vote_answer", answer);
+
+    return res.status(200).json({
+      message: `Answer with ID (${answerId}) successfully DOWN voted`,
       answer,
     });
   } catch (err) {

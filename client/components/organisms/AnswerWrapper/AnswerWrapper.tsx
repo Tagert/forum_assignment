@@ -198,7 +198,7 @@ const AnswerWrapper = ({
           {answers ? (
             answers.map((answer, index) => {
               const cardClassName = getCardClassName(index);
-
+              //TODO: try {...answer} spread answer vice answer.answer_id, answer.text and so on
               return (
                 <AnswerCard
                   key={`${answer.answer_id}-${index}`}

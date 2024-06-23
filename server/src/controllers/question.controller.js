@@ -1,3 +1,4 @@
+import { io } from "../../index.js";
 import { descendingOrder } from "../utils/helpers/votes_desc_sorting.js";
 import { QuestionModel } from "../models/question.model.js";
 
@@ -34,6 +35,8 @@ const INSERT_QUESTION = async (req, res) => {
     question.question_id = question._id.toString();
 
     const response = await question.save();
+
+    io.emit("new_question", response);
 
     return res.status(201).json({
       response: response,
@@ -98,6 +101,8 @@ const EDIT_QUESTION_BY_ID = async (req, res) => {
       });
     }
 
+    io.emit("update_question", updateQuestion);
+
     return res.status(200).json({
       message: `Question with ID (${req.params.id}) was successfully updated`,
       updatedQuestion: updateQuestion,
@@ -129,6 +134,8 @@ const DELETE_QUESTION_BY_ID = async (req, res) => {
     const response = await QuestionModel.deleteOne({
       question_id: req.params.id,
     });
+
+    io.emit("delete_question", req.params.id);
 
     return res.status(200).json({
       message: `Question with ID (${req.params.id}) was deleted`,
@@ -169,8 +176,10 @@ const UPVOTE_QUESTION = async (req, res) => {
 
     await question.save();
 
-    return res.json({
-      message: `Question with ID (${questionId}) suscefully UP voted`,
+    io.emit("vote_question", question);
+
+    return res.status(200).json({
+      message: `Question with ID (${questionId}) successfully UP voted`,
       question,
     });
   } catch (err) {
@@ -208,8 +217,10 @@ const DOWNVOTE_QUESTION = async (req, res) => {
 
     await question.save();
 
-    return res.json({
-      message: `Question with ID (${questionId}) suscefully DOWN voted`,
+    io.emit("vote_question", question);
+
+    return res.status(200).json({
+      message: `Question with ID (${questionId}) successfully DOWN voted`,
       question,
     });
   } catch (err) {

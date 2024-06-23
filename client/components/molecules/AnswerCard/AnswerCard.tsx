@@ -192,7 +192,15 @@ const AnswerCard = ({
         <div className={styles.answerText}>
           <div className={styles.textBox}>
             {!isEditing ? (
-              <p>{text}</p>
+              <p
+                onDoubleClick={
+                  loggedUser && loggedUser.user_id === user_id
+                    ? handleStartEditing
+                    : undefined
+                }
+              >
+                {text}
+              </p>
             ) : (
               <textarea
                 name="text"

@@ -1,6 +1,8 @@
 import styles from "./styles/QuestionPage.module.css";
 import axios from "axios";
 import cookies from "js-cookie";
+import { v4 as uuidv4 } from "uuid";
+import { io } from "socket.io-client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
@@ -10,6 +12,8 @@ import { QuestionType } from "../../types/question.type";
 import { Spinner } from "../../components/atoms/Spinner/Spinner";
 import { AnswerWrapper } from "../../components/organisms/AnswerWrapper/AnswerWrapper";
 import { Navbar } from "../../components/organisms/Navbar/Navbar";
+
+const socket = io(`${process.env.SERVER_URL}`);
 
 const QuestionPage = () => {
   const router = useRouter();
@@ -24,6 +28,10 @@ const QuestionPage = () => {
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isShowError, setShowError] = useState(false);
+
+  const [lastAddedAnswerId, setLastAddedAnswerId] = useState<string | null>(
+    null
+  );
 
   const fetchQuestionById = async () => {
     console.log("fetchQuestionById");
@@ -70,6 +78,8 @@ const QuestionPage = () => {
         authorization: cookies.get("jwt_token"),
       };
 
+      const newAnswerId = uuidv4();
+
       const res = await axios.post(
         `${process.env.SERVER_URL}/question/${router.query.id}/answers`,
         { text: answerText },
@@ -79,13 +89,20 @@ const QuestionPage = () => {
       );
 
       if (res.status === 201) {
+        setLastAddedAnswerId(newAnswerId);
+
         setAnswers((prevAnswers) =>
           prevAnswers
             ? [...prevAnswers, res.data.response]
             : [res.data.response]
         );
 
+        socket.emit("new_answer", res.data.response);
+
+        console.log(res.data.response);
+
         fetchQuestionById();
+        fetchAnswers();
       }
     } catch (err) {
       console.error("Error fetching answers:", err);
@@ -164,10 +181,33 @@ const QuestionPage = () => {
 
   useEffect(() => {
     if (router.query.id) {
+      console.log(socket);
       fetchQuestionById();
       fetchAnswers();
     }
   }, [router.query.id]);
+
+  useEffect(() => {
+    socket.on("new_answer", (answer) => {
+      if (answer.question_id === router.query.id) {
+        setAnswers((prevAnswers) => {
+          // if (lastAddedAnswerId && lastAddedAnswerId === answer.answer_id) {
+          //   return prevAnswers;
+          // }
+
+          if (prevAnswers?.some((a) => a.answer_id === answer.answer_id)) {
+            return prevAnswers;
+          }
+
+          return prevAnswers ? [...prevAnswers, answer] : [answer];
+        });
+      }
+    });
+
+    return () => {
+      socket.off("new_answer");
+    };
+  }, [router.query.id, lastAddedAnswerId]);
 
   useEffect(() => {
     if (question && answers) {
