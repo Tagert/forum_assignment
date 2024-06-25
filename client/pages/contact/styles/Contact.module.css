@@ -1,1 +1,25 @@
-/*# sourceMappingURL=Contact.module.css.map */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 70rem;
+  margin-top: 10rem;
+}
+.container .description h1 {
+  text-align: center;
+  font-size: 4.5rem;
+  font-weight: 400;
+}
+.container .description p {
+  width: 40rem;
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  word-spacing: 0.2rem;
+}/*# sourceMappingURL=Contact.module.css.map */

@@ -48,6 +48,10 @@ const QuestionPage = () => {
       if (axios.isAxiosError(err) && err.response?.status === 401) {
         router.push("/login");
       }
+
+      if (axios.isAxiosError(err) && err.response?.status === 400) {
+        router.push("/");
+      }
     }
   };
 
@@ -179,9 +183,12 @@ const QuestionPage = () => {
     }
   };
 
+  const sortAnswersByVotes = (answersList: AnswerType[]) => {
+    return answersList.slice().sort((a, b) => b.votesCounter - a.votesCounter);
+  };
+
   useEffect(() => {
     if (router.query.id) {
-      console.log(socket);
       fetchQuestionById();
       fetchAnswers();
     }
@@ -191,12 +198,13 @@ const QuestionPage = () => {
     socket.on("new_answer", (answer) => {
       if (answer.question_id === router.query.id) {
         setAnswers((prevAnswers) => {
-          // if (lastAddedAnswerId && lastAddedAnswerId === answer.answer_id) {
-          //   return prevAnswers;
-          // }
+          // Skip adding the answer if it's the same as the last added by the user
+          if (lastAddedAnswerId && lastAddedAnswerId === answer.answer_id) {
+            return prevAnswers;
+          }
 
           if (prevAnswers?.some((a) => a.answer_id === answer.answer_id)) {
-            return prevAnswers;
+            return prevAnswers; // Avoid duplication
           }
 
           return prevAnswers ? [...prevAnswers, answer] : [answer];
@@ -204,8 +212,62 @@ const QuestionPage = () => {
       }
     });
 
+    socket.on("delete_answer", (answer_id) => {
+      setAnswers(
+        (prevAnswers) =>
+          prevAnswers?.filter((answer) => answer.answer_id !== answer_id) || []
+      );
+    });
+
+    socket.on("delete_question", (questionId) => {
+      if (questionId === router.query.id) {
+        router.push("/");
+      }
+    });
+
+    socket.on("update_question", (updatedQuestion) => {
+      if (updatedQuestion.question_id === router.query.id) {
+        setQuestion(updatedQuestion);
+      }
+    });
+
+    socket.on("update_answer", (updatedAnswer) => {
+      setAnswers(
+        (prevAnswers) =>
+          prevAnswers?.map((answer) =>
+            answer.answer_id === updatedAnswer.answer_id
+              ? updatedAnswer
+              : answer
+          ) || []
+      );
+    });
+
+    socket.on("vote_question", (updatedQuestion) => {
+      if (updatedQuestion.question_id === router.query.id) {
+        setQuestion(updatedQuestion);
+      }
+    });
+
+    socket.on("vote_answer", (updatedAnswer) => {
+      setAnswers((prevAnswers) => {
+        const updatedAnswers =
+          prevAnswers?.map((answer) =>
+            answer.answer_id === updatedAnswer.answer_id
+              ? updatedAnswer
+              : answer
+          ) || [];
+        return sortAnswersByVotes(updatedAnswers);
+      });
+    });
+
     return () => {
       socket.off("new_answer");
+      socket.off("delete_question");
+      socket.off("delete_answer");
+      socket.off("update_question");
+      socket.off("update_answer");
+      socket.off("vote_question");
+      socket.off("vote_answer");
     };
   }, [router.query.id, lastAddedAnswerId]);
 

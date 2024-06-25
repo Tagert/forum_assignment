@@ -115,13 +115,15 @@ const EDIT_QUESTION_BY_ID = async (req, res) => {
 
 const DELETE_QUESTION_BY_ID = async (req, res) => {
   try {
+    const questionId = req.params.id;
+
     const question = await QuestionModel.findOne({
-      question_id: req.params.id,
+      question_id: questionId,
     });
 
     if (!question) {
       return res.status(401).json({
-        message: `Question with this ID (${req.params.id}) does not exist`,
+        message: `Question with this ID (${questionId}) does not exist`,
       });
     }
 
@@ -132,13 +134,13 @@ const DELETE_QUESTION_BY_ID = async (req, res) => {
     }
 
     const response = await QuestionModel.deleteOne({
-      question_id: req.params.id,
+      question_id: questionId,
     });
 
-    io.emit("delete_question", req.params.id);
+    io.emit("delete_question", questionId);
 
     return res.status(200).json({
-      message: `Question with ID (${req.params.id}) was deleted`,
+      message: `Question with ID (${questionId}) was deleted`,
       response: response,
     });
   } catch (err) {

@@ -1,6 +1,7 @@
 import styles from "./styles/AnswerWrapper.module.css";
 import axios from "axios";
 import cookies from "js-cookie";
+import { io } from "socket.io-client";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { UserType } from "../../../types/user.type";
@@ -11,6 +12,8 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 import { QuestionSide } from "../../molecules/QuestionSide/QuestionSide";
 import { AnswerCard } from "../../molecules/AnswerCard/AnswerCard";
 import { ReplyCard } from "../../molecules/ReplyCard/ReplyCard";
+
+const socket = io(`${process.env.SERVER_URL}`);
 
 type AnswersWrapperProps = {
   loggedUser: UserType | null;
@@ -59,6 +62,8 @@ const AnswerWrapper = ({
 
       if (res.status === 200) {
         router.push("/");
+
+        socket.emit("delete_question", router.query.id);
       }
     } catch (err) {
       console.error("Error deleting question:", err);
@@ -83,6 +88,8 @@ const AnswerWrapper = ({
       if (res.status === 200) {
         setQuestion(res.data.updatedQuestion);
         setIsEditing(false);
+
+        socket.emit("update_question", res.data.updatedQuestion);
       }
     } catch (err) {
       console.error("Error updating question:", err);
@@ -109,6 +116,8 @@ const AnswerWrapper = ({
         );
 
         setAnswers(updatedAnswers);
+
+        socket.emit("delete_answer", answer_id);
       }
     } catch (err) {
       console.error("Error deleting question:", err);
@@ -138,6 +147,8 @@ const AnswerWrapper = ({
         setAnswers(updatedAnswers);
         setEditingAnswerId(null);
         setAnswerEditedText("");
+
+        socket.emit("update_answer", res.data.updatedAnswer);
       }
     } catch (err) {
       console.error("Error updating question:", err);

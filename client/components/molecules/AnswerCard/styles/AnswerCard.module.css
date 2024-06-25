@@ -177,6 +177,7 @@
   flex-direction: column;
   gap: 0.84rem;
   flex: 1;
+  width: calc(100% - 3.5rem);
 }
 .container .answersContainer .answerText .textBox h5 {
   text-align: right;
@@ -194,6 +195,7 @@
   font-weight: 300;
   line-height: 1.6;
   letter-spacing: 0.05rem;
+  overflow-wrap: break-word;
 }
 .container .answersContainer .answerText .textBox .textArea {
   width: 100%;

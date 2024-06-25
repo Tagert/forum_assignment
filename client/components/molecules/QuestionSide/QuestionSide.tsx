@@ -206,7 +206,17 @@ const QuestionSide = ({
           </div>
 
           {!isEditing ? (
-            <h3>{title}</h3>
+            <h3
+              onDoubleClick={
+                loggedUser && loggedUser.user_id === user_id
+                  ? () => {
+                      setIsEditing(true);
+                    }
+                  : undefined
+              }
+            >
+              {title}
+            </h3>
           ) : (
             <div
               className={styles.inputContainer}
@@ -246,7 +256,17 @@ const QuestionSide = ({
           </h5>
 
           {!isEditing ? (
-            <p>{text}</p>
+            <p
+              onDoubleClick={
+                loggedUser && loggedUser.user_id === user_id
+                  ? () => {
+                      setIsEditing(true);
+                    }
+                  : undefined
+              }
+            >
+              {text}
+            </p>
           ) : (
             <div
               className={styles.textAreaContainer}
